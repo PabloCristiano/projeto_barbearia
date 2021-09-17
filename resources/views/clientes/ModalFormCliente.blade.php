@@ -1,50 +1,52 @@
-<div class="modal fade modalcliente" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade overflow-auto modalcliente" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="card">
-            <div class="card-header">
-                <div class="modal-header align-items-center py-2 bg-dark">
-                    <div class="d-flex align-items-center">
-                        <i class="fa fa-list text-white"></i>
-                        <h4 class="ml-3 mb-0 text-white">Cadastrar Cliente</h4>
+        <div class="modal-content">
+            <div class="card">
+                <div class="card-header">
+                    <div class="modal-header align-items-center py-2 bg-dark">
+                        <div class="d-flex align-items-center">
+                            <h5 class="modal-titleCliente" class="ml-3 mb-0 text-white" style="color: white">Cadastrar
+                                Cliente</h5>
+                        </div>
+                        <button type="button" class="close text-white align-right" data-dismiss="modal">&times;</button>
                     </div>
-                    <button type="button" class="close text-white align-right" data-dismiss="modal">&times;</button>            
+                </div>
+                <div class="card-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+                    <form id="FormCliente" class="needs-validation" novalidate action="/cliente" method="POST">
+                        @csrf
+                        @include('clientes.fields')
+                        <div class="form-row">
+                            <div class="form-group col-xl-4">
+                                <small>Cadastrado em:</small>
+                                <input type="text" class="form-control form-control-sm" name="data_create"
+                                    id="alterardata_create" readonly>
+                            </div>
+                            <div class="form-group col-xl-4">
+                                <small>Alterado em:</small>
+                                <input type="text" class="form-control form-control-sm" name="data_alt"
+                                    id="alterardata_alt" readonly>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 text-right">
+                                <button type="submit" class="btn btn-dark btn-sm btncliente" value="" id="btnCliente"
+                                    name="btnCliente">SALVAR</button>
+                                <button class="btn btn-sm btn-dark" data-dismiss="modal">VOLTAR</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-          <div class="card-body">
-              <form class="needs-validation" novalidate action="#" method="POST">
-                  @csrf
-                  @include('clientes.fields')
-                  <div class="row">
-                    <div class="col-12 text-right">
-                        <button type="submit" class="btn btn-dark btn-sm">SALVAR</button>
-                        <button class="btn btn-sm btn-dark" data-dismiss="modal">VOLTAR</button>
-                    </div>
-                    <div class="d-flex flex-column justify-content-center text-secondary">
-                        <small><b>Cadastrado em: </small>
-                        <small><b>Alterado em: </small>
-                      </div>
-                </div>
-              </form>   
-          </div>
-      </div>
+        </div>
     </div>
-  </div>
 </div>
-<script>
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-  </script>

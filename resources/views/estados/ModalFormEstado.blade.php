@@ -11,7 +11,7 @@
                 </div>
             </div>
           <div class="card-body">
-              <form name="createestado" id="ModalFormEstado" class="needs-validation" novalidate action=" " method="post">
+              <form name="createestado" id="ModalFormEstado" class="needs-validation" novalidate action=" " method="POST">
                   @csrf
                   @include('estados.fields')
                   <div class="form-row" >

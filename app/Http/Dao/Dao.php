@@ -12,7 +12,7 @@ interface Dao {
 
     public function store($obj);
 
-    public function update(Request $request, $obj);
+    public function update(Request $request);
 
     public function delete($id);
 

@@ -14,17 +14,14 @@
             </div>
 
             <div class="float-right">
-              <!--  <a href="" class="btn btn-dark">
-                    <i class="fa fa-plus"></i> Adicionar
-                </a> -->
-                <button type="button" class="btn btn-dark" data-toggle="modal" data-target=".modalcategoria"><i class="fa fa-plus"></i> Adicionar</button>
+                <button type="button" class="btn btn-dark btn-addcategoria" data-toggle="modal" data-target=".modalcategoria"><i class="fa fa-plus"></i> Adicionar</button>
             </div>
-        </div>
-        @include('categorias.search')       
+        </div>      
 </div>
 <div class="card-body">
      @include('categorias.table')
      @include('categorias.ModalFormCategoria')
+     @include('categorias.scriptCategoria')
 </div>
 
 @endsection

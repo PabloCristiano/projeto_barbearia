@@ -38,8 +38,12 @@
 
 <script type="text/javascript">
     //função ajax modal pais
-    $(function(){
-            $('form[name="createpais"]').submit(function(){
+    
+$(function(){
+    $("#formpais").validate();
+    $("#ModalFormEstado").validate();
+   
+            $('form[name="createpais"]').submit(function(event){                
                 event.preventDefault();
                 var id = $(this).find('input#id').val();
                 var pais = $(this).find('input#pais').val();
@@ -47,64 +51,50 @@
                 var ddi = $(this).find('input#ddi').val();                
                 $.ajax({
                     url:"{{ route('registro.registro') }}",
-                    type: 'get',
+                    type: 'POST',
                     data: { _token: '{!! csrf_token() !!}',
                         id,
                         pais,
                         sigla,
                         ddi
                     },
-                    dataType: 'JSON',
-                    success:function(data) {
+                dataType: 'JSON',
+                success:function(data) {
                         tablebuscapais.ajax.reload(null, false);
+                        $('#modalformPais').modal('toggle');
                         swal("Pais Cadastrado com Sucesso!");
-                       // alert(data);
                 },
                 error:function( ){
                     swal("Pais não Cadastrado!");
-                    //alert("Pais não Cadastrado");
                     
-                    },            
-                });
-                
-            $('#modalformPais').modal('toggle');           
+                },            
+                });           
             });
         });
-       
-        $('#msg').fadeOut(2500, function(){
-
-        });
-
-        
-            $('form[name="createestado"]').submit(function(){
+                
+            $('form[name="createestado"]').submit(function(event){
                 event.preventDefault();
-                var id = $(this).find('input#alterar_id').val();
-                var estado = $(this).find('input#alterar_estado').val();
-                var uf = $(this).find('input#alterar_uf').val();
-                var id_pais = $(this).find('input#alterar_idpais').val();                
+                $( "#msgestado" ).remove();                 
                 $.ajax({
                     url:"{{ route('registroestado.registroestado') }}",
-                    type: 'get',
-                    data: { _token: '{!! csrf_token() !!}',
-                        id,
-                        estado,
-                        uf,
-                        id_pais
-                    },
-                    dataType: 'JSON',
-                    success:function(data) {
-                        tablebuscaestado.ajax.reload(null, false);
-                        alert(data);
+                    type: 'POST',
+                    data: $(this).serialize(),
+                dataType: 'JSON',
+                success:function(data){                         
+                        console.log(data);
+                        if(data.success === false){                            
+                             $('#estado').append('<p id="msgestado" class="text-danger">'+data.message+'</p>');
+                             swal("Estado não Cadastrado!",'Por favor verificar os Campos');
+                        }else{
+                            tablebuscaestado.ajax.reload(null, false);
+                            $('#modalestado').modal('toggle');
+                            swal("Estado Cadastrado !"); 
+                        }
                 },
-                error:function( ){
-                    
-                    alert("Estado não Cadastrado");
-                    
-                    },            
-                });
-
-                $('#modalestado').modal('toggle');
-                      
+                error:function(){
+                    swal("Estado não Cadastrado !");
+                },            
+              });
             });
             
 

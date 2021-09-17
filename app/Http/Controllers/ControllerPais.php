@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Requests\RequestFormPais;
 use App\Http\DAO\DaoPais;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Mail\Message;
 
 class ControllerPais extends Controller{
@@ -32,7 +33,7 @@ class ControllerPais extends Controller{
     }
 
     
-    public function store(Request $request){
+    public function store(Request $request){       
        $pais = $this->daopais->create($request->all());
        $store = $this->daopais->store($pais);
 
@@ -51,8 +52,7 @@ class ControllerPais extends Controller{
 
     
     public function edit(Request $request){
-      $id = $request->id;
-      $update = $this->daopais->update($request, $id);
+      $update = $this->daopais->update($request);
        if ($update)
         return redirect('/pais') ->with('info', ' ');
         
@@ -66,17 +66,17 @@ class ControllerPais extends Controller{
     }
 
     public function destroy($id){
-        $delete = $this->daopais->delete($id);        
+        $delete = $this->daopais->delete($id);      
         if ($delete){                        
             return redirect('/pais')->with('warning',' ');
-        }
-      
+        }      
         return redirect()->back()->with('alert',' ');
     }
 
     //lapidar função jquery no index.estado 
 
     public function Registro( Request $request){
+       
         $pais = $this->daopais->create($request->all());
         $store = $this->daopais->store($pais);
         if($store){  
@@ -85,12 +85,9 @@ class ControllerPais extends Controller{
     }
 
     public function showpais(){
-        $itens = DB::table('paises')->get();
-        $paises = array();
-        foreach ($itens as $item) {
-            array_push($paises, $item);
-        }
-        return $paises;
+       $paises = $this->daopais->showpais();
+       return $paises;
+        
     }
 
 

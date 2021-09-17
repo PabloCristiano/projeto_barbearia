@@ -12,19 +12,22 @@
                 <i class="fa fa-list"></i>
                 <h4 class="ml-3 mb-0">Profissionais</h4>
             </div>
-
             <div class="float-right">
-              <!--  <a href="" class="btn btn-dark">
-                    <i class="fa fa-plus"></i> Adicionar
-                </a> -->
-                <button type="button" class="btn btn-dark" data-toggle="modal" data-target=".modalprofissional"><i class="fa fa-plus"></i> Adicionar</button>
+                <button type="button" class="btn btn-dark btn-addprofissonal" data-toggle="modal" data-target=".modalprofissional"><i class="fa fa-plus"></i> Adicionar</button>
             </div>
         </div>
-        @include('profissionais.search')
 </div>
 <div class="card-body">
     @include('profissionais.table')
+    @include('profissionais.scriptprofissional')
     @include('profissionais.ModalFormProfissional')
+
+    @include('cidades.showcidade')
+      
+    
+    
+    @include('servicos.showservico')
+    @include('servicos.ModalFormServico')
 </div>
 
 @endsection

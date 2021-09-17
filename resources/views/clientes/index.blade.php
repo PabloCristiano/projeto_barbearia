@@ -17,14 +17,18 @@
               <!--  <a href="" class="btn btn-dark">
                     <i class="fa fa-plus"></i> Adicionar
                 </a> -->
-                <button type="button" class="btn btn-dark" data-toggle="modal" data-target=".modalcliente"><i class="fa fa-plus"></i> Adicionar</button>
+                <button type="button" class="btn btn-dark btnaddcliente" data-toggle="modal" data-target=".modalcliente"><i class="fa fa-plus"></i> Adicionar</button>
             </div>
         </div>
-        @include('clientes.search')
 </div>
 <div class="card-body">
+    
     @include('clientes.table')
     @include('clientes.ModalFormCliente')
+    @include('clientes.ScriptCliente')
+    @include('cidades.showcidade')
+    
+
 </div>
 
 @endsection

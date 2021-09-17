@@ -29,7 +29,6 @@ class ControllerServico extends Controller
            }
         
     }
-
     
     public function show($id)
     {
@@ -64,5 +63,33 @@ class ControllerServico extends Controller
         }
 
         return redirect('/servico')->with('error', 'Este registro não pode ser removido.');
+    }
+
+
+    public function showservico(){
+
+        $servico = $this->daoServico->showservico();
+        return $servico;
+    }
+
+    public function RegistroServico( Request $request){
+        
+        $servico = $this->daoServico->create($request->all());
+        $store = $this->daoServico->store($servico);
+        if($store){  
+           return response()->json('Serviço adicionado com Sucessoo!!');
+        } 
+        
+
+    }
+
+    public function findById(Request $request){
+        $search = $this->daoServico->findById($request->search,false);
+        if($search){
+            return response()->json($search);
+        }        
+        return response()->json('error');
+
+
     }
 }

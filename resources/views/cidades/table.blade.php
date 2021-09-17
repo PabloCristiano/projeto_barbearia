@@ -10,6 +10,7 @@
             </tr>
         </thead>
         <tbody>
+            
             @if (@isset($cidades))
             @foreach ($cidades as $cidade)
             <tr>
@@ -41,7 +42,7 @@
             </tr>
             @endforeach
            @endif
-
+        </tbody>
         <tfoot>
             <tr>
                 <th></th>

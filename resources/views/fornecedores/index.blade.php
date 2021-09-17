@@ -14,17 +14,14 @@
             </div>
 
             <div class="float-right">
-              <!--  <a href="" class="btn btn-dark">
-                    <i class="fa fa-plus"></i> Adicionar
-                </a> -->
-                <button type="button" class="btn btn-dark" data-toggle="modal" data-target=".modalfornecedor"><i class="fa fa-plus"></i> Adicionar</button>
+                <button type="button" class="btn btn-dark btn-addfornecedor" data-toggle="modal" data-target=".modalfornecedor"><i class="fa fa-plus"></i> Adicionar</button>
             </div>
         </div>
-        @include('fornecedores.search')
 </div>
 <div class="card-body">
     @include('fornecedores.table')
     @include('fornecedores.ModalFormFornecedor')
+    @include('fornecedores.scriptFornecedores')
 
 </div>
 

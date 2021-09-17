@@ -2,12 +2,12 @@
     <label>Pessoa</label>
     <div class="form-row mx-0">
         <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="juridica" name="tipo_pessoa" class="custom-control-input" value="Jurídica" required checked>
+            <input type="radio" id="juridica" name="tipo_pessoa" class="custom-control-input" value="juridica" required checked>
             <label class="custom-control-label" for="juridica">Jurídica</label>
         </div>
 
         <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="fisica" name="tipo_pessoa" class="custom-control-input" value="Física" required>
+            <input type="radio" id="fisica" name="tipo_pessoa" class="custom-control-input" value="fisica" required>
             <label class="custom-control-label" for="fisica">Física</label>
         </div>
     </div>
@@ -21,7 +21,7 @@
             type="number"
             id="id"
             name="id"
-            class="form-control @error('id') is-invalid @enderror"
+            class="form-control "
             value=""
             readonly
         >
@@ -31,12 +31,14 @@
         <label>Razão Social *</label>
         <input
             type="text"
-            id="fornecedor"
-            name="fornecedor"
-            class="form-control @error('fornecedor') is-invalid @enderror"
+            id="razaoSocial"
+            name="razaoSocial"
+            class="form-control"
             value=""
+            minlength="3"
             maxlength="50"
             required
+            style="text-transform:uppercase;"
         >
     </div>
 
@@ -44,11 +46,12 @@
         <label>Nome Fantasia</label>
         <input
             type="text"
-            id="nome_fantasia"
-            name="nome_fantasia"
+            id="nomefantasia"
+            name="nomefantasia"
             class="form-control"
             value=""
             maxlength="50"
+            style="text-transform:uppercase;"
         >
     </div>
 </div>
@@ -58,12 +61,13 @@
         <label>Logradouro *</label>
         <input
             type="text"
-            id="endereco"
-            name="endereco"
+            id="logradouro"
+            name="logradouro"
             class="form-control "
             value=""
             maxlength="50"
             required
+            style="text-transform:uppercase;"
         >
     </div>
 
@@ -79,6 +83,7 @@
             step="1"
             oninput="validity.valid || (value = '');"
             required
+            style="text-transform:uppercase;"
         >
     </div>
 
@@ -90,6 +95,7 @@
             name="complemento"
             class="form-control"
             value=""
+            style="text-transform:uppercase;"
         >
     </div>
 
@@ -102,6 +108,7 @@
             class="form-control"
             value=""
             required
+            style="text-transform:uppercase;"
         >
     </div>
 </div>
@@ -117,6 +124,7 @@
             value=""
             placeholder="_____-___"
             required
+            style="text-transform:uppercase;"
         >
     </div>
 
@@ -125,9 +133,9 @@
 
         <input
             type="number"
-            class="form-control @error('cidade_id') is-invalid @enderror"
-            name="cidade_id"
-            id="cidade_id"
+            class="form-control "
+            name="id_cidade"
+            id="id_cidade"
             data-input="#cidade"
             data-route="cidades"
             value=""
@@ -135,6 +143,7 @@
             step="1"
             oninput="validity.valid || (value = '');"
             required
+            style="text-transform:uppercase;"
         >
     </div>
 
@@ -147,7 +156,7 @@
                 id="cidade"
                 value=""
                 readonly
-                required
+                style="text-transform:uppercase;"
             >
 
             <div class="input-group-append">
@@ -157,28 +166,13 @@
                     data-input="#cidade_id"
                     data-route="cidades"
                     data-toggle="modal"
-                    data-target="#modal-cidades"
+                    data-target=".modalbuscacidade"
                 >
                     <i class="fa fa-search"></i>
                 </button>
             </div>
         </div>
     </div>
-
-    <div id="modal-cidades" class="modal fade" data-field="cidade" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header align-items-center py-2 bg-dark">
-                    <h3 class="modal-title">Buscar Cidade</h3>
-                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                   
-                </div>
-            </div>
-        </div>
-    </div>
-
 </div>
 
 <div class="form-row mt-4">
@@ -191,13 +185,14 @@
             class="form-control "
             value=""
             placeholder="(__) _____-____"
+            style="text-transform:uppercase;"
         >
 
         
     </div>
 
     <div class="form-group col-xl-3">
-        <label>Telefone</label>
+        <label>Telefone *</label>
         <input
             type="text"
             id="telefone"
@@ -205,6 +200,8 @@
             class="form-control "
             value=""
             placeholder="(__) ____-____"
+            required
+            style="text-transform:uppercase;"
         >
 
     </div>
@@ -217,6 +214,7 @@
             name="email"
             class="form-control "
             value=""
+            style="text-transform:uppercase;"
         >
     </div>
 </div>
@@ -226,22 +224,25 @@
     <div class="form-group col-xl-6">
         <label>Site</label>
         <input
-            type="url"
-            id="website"
-            name="website"
+            type="text"
+            id="pagSite"
+            name="pagSite"
             class="form-control "
             value=""
+            style="text-transform:uppercase;"
         >
     </div>
 
     <div class="form-group col-xl-6">
-        <label>Contato</label>
+        <label>Contato *</label>
         <input
             type="text"
             id="contato"
             name="contato"
             class="form-control"
             value=""
+            required
+            style="text-transform:uppercase;"
         >
     </div>
 </div>
@@ -251,11 +252,13 @@
         <input
             type="text"
             id="cpf_cnpj"
-            name="cpf_cnpj"
+            name="cnpj"
             class="form-control "
             value=""
+            maxlength="18"
             placeholder="__.___.___/____-__"
             required
+            style="text-transform:uppercase;"
         >
     </div>
 
@@ -264,9 +267,10 @@
         <input
             type="text"
             id="rg_inscricao_estadual"
-            name="rg_inscricao_estadual"
+            name="ie"
             class="form-control"
             value=""
+            style="text-transform:uppercase;"
         >
     </div>
 </div>
@@ -277,15 +281,10 @@
         <input
             type="number"
             class="form-control "
-            name="condicao_pagamento_id"
-            id="condicao_pagamento_id"
-            data-input="#condicao_pagamento"
-            data-route="condicoes-pagamento"
-            value=""
-            min="1"
-            step="1"
-            oninput="validity.valid || (value = '');"
+            name="id_condicaopg"
+            id="id_condicaopg"
             required
+            style="text-transform:uppercase;"
         >
     </div>
 
@@ -296,11 +295,12 @@
             <input
                 type="text"
                 class="form-control"
-                name="condicao_pagamento"
-                id="condicao_pagamento"
+                name="condicaopg"
+                id="condicaopg"
                 value=""
                 readonly
-                required
+                style="text-transform:uppercase;"
+               
             >
 
             <div class="input-group-append">
@@ -342,8 +342,8 @@
 
             <input
                 type="number"
-                id="valor_credito"
-                name="valor_credito"
+                id="limiteCredito"
+                name="limiteCredito"
                 class="form-control"
                 value=""
                 placeholder="0,00"
@@ -355,45 +355,65 @@
 <div class="form-group col-xl-12 px-0">
     <label for="observacoes">Observações</label>
     <textarea
-    name="observacoes"
-    id="observacoes"
+    name="obs"
+    id="obs"
     class="form-control "
     rows="3"
+    style="text-transform:uppercase;"
      >
     </textarea>
 </div>
-
 <script>
-$(document).ready(function() {    
-    $(".custom-control-input").click(function() {
-        let id = $(this).attr("id");
+ $(function(){
+         $(".custom-control-input").click(function() {
+            let id = $(this).attr("id");
+    
+            if (id === "fisica") {
+                $("#nomefantasia").prev().text("Apelido");
+    
+                $("#cpf_cnpj").prev().text("CPF *");
+                $("#cpf_cnpj").addClass("cpf");
+                $("#cpf_cnpj").removeClass("cnpj");
+    
+                $("#cpf_cnpj").attr("placeholder", "___.___.___-__");
+                $("#cpf_cnpj").attr("name", "cpf");
+                $("#rg_inscricao_estadual").attr("name", "rg");
+                $("#rg_inscricao_estadual").prev().text("RG");    
+                $("#rg_inscricao_estadual").val('');
+                $("#cpf_cnpj").val('');
+                $('input[name="cpf"]').mask("000.000.000-00");
+                $('input[name="rg"]').mask("0000.000-0");
 
-        if (id === "fisica") {
-            $("#nome_fantasia").prev().text("Apelido");
+            } else if (id === "juridica") {
+                $("#nomefantasia").prev().text("Nome Fantasia");    
+                $("#cpf_cnpj").prev().text("CNPJ *");
+                $("#cpf_cnpj").addClass("cnpj");
+                $("#cpf_cnpj").removeClass("cpf");    
+                $("#cpf_cnpj").attr("placeholder", "__.___.___/____-__");
+                $("#cpf_cnpj").attr("name", "cnpj");
+                $("#rg_inscricao_estadual").attr("name", "ie");               
+                $("#rg_inscricao_estadual").prev().text("Inscrição Estadual");    
+                $("#cpf_cnpj, #rg_inscricao_estadual").val('');
+                $("#rg_inscricao_estadual").val('');
+                $("#cpf_cnpj").val('');
+                $('input[name="cnpj"]').mask("00.000.000/0000-00");
+                $('input[name="ie"]').mask("0000.000-00");
+            }
+           
+         });   
+           
+           
+        $("#telefone,#whatsapp").mask("(00) 00000-0000");
+        $("#cep").mask("00000-000");
+        $('input[name="cnpj"]').mask("00.000.000/0000-00");
+        $('input[name="ie"]').mask("0000.000-00");
+        $('input[name="cpf"]').mask("000.000.000-00");
+        $('input[name="rg"]').mask("0000.000-0");
 
-            $("#cpf_cnpj").prev().text("CPF *");
-            $("#cpf_cnpj").addClass("cpf");
-            $("#cpf_cnpj").removeClass("cnpj");
 
-            $("#cpf_cnpj").attr("placeholder", "___.___.___-__");
 
-            $("#rg_inscricao_estadual").prev().text("RG");
 
-            $("#cpf_cnpj, #rg_inscricao_estadual").val('');
-        } else if (id === "juridica") {
-            $("#nome_fantasia").prev().text("Nome Fantasia");
-
-            $("#cpf_cnpj").prev().text("CNPJ *");
-            $("#cpf_cnpj").addClass("cnpj");
-            $("#cpf_cnpj").removeClass("cpf");
-
-            $("#cpf_cnpj").attr("placeholder", "__.___.___/____-__");
-
-            $("#rg_inscricao_estadual").prev().text("Inscrição Estadual");
-
-            $("#cpf_cnpj, #rg_inscricao_estadual").val('');
-        }
-    });
 
 });
 </script>
+

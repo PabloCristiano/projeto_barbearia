@@ -52,7 +52,7 @@
                 var ddi = $(this).find('input#ddi').val();                
                 $.ajax({
                     url:"{{ route('registro.registro') }}",
-                    type: 'get',
+                    type: 'POST',
                     data: { _token: '{!! csrf_token() !!}',
                         id,
                         pais,
@@ -72,6 +72,10 @@
                 });
                 
             $('#modalformPais').modal('toggle');           
+            });
+
+            $('#ModalFormEstado').validate({
+                
             });
         });
        

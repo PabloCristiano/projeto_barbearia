@@ -1,84 +1,96 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Dao\DaoFornecedor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
-class ControllerFornecedor extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-       return view('fornecedores.index');
+class ControllerFornecedor extends Controller{
+
+    private $daoFornecedor;
+
+    public function __construct(){
+
+        $this->daoFornecedor = new DaoFornecedor;
+        
+    }
+    
+    public function index(){
+        $fonecedores = $this->daoFornecedor->all(true);
+       return view('fornecedores.index', compact('fonecedores'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    
+    public function create(){
+        
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+   
+    public function store(Request $request){
+        //dd($request);
+        $fonecedores = $this->daoFornecedor->create($request->all());
+        $store = $this->daoFornecedor->store($fonecedores);
+       //dd($store);
+       if($store){
+        return redirect('/fornecedor')->with('success', ' ');  
+       }
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function show($id)
     {
-        //
+       
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function edit($id)
     {
-        //
+        
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
+    
+    public function update(Request $request){
+       // dd($request);
+        $update = $this->daoFornecedor->update($request);
+        //dd($update);
+        if($update){            
+           return redirect('/fornecedor') ->with('success',' ');
+        }
+        
+        return redirect('/fornecedor')->with('error',' ');
+        
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+    
+    public function destroy($id){
+       // dd($id);
+        $delete = $this->daoFornecedor->delete($id);
+        //dd($delete);
+        if ($delete){
+            return redirect('/fornecedor')->with('success', 'Registro removido com sucesso!');
+        }
+
+        return redirect('/fornecedor')->with('error', 'Este registro não pode ser removido.');
+      
     }
+   
+    public function showFornecedor(){
+
+        $fornecedor = $this->daoFornecedor->showFornecedor();   
+        return $fornecedor ;
+    }
+
+    public function RegistroFornecedor( Request $request){ 
+        //$dados = $request->all();       
+       
+       $store = $this->daoFornecedor->registroFornecedor($request);
+        if($store){  
+            return response::json(array('success'=> true,'data'=>$store));
+        } 
+        
+
+    }
+
+
 }

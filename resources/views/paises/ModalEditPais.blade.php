@@ -11,7 +11,7 @@
               </div>
           </div>
           <div class="card-body">
-              <form  name="EditarPais" action="/pais/editar" method="POST">
+              <form  id="EditarPais" name="EditarPais" action="/pais/editar" method="POST">
                 @csrf 
                   <div class="form-row">
                       <div class="form-group col-xl-2">
@@ -20,15 +20,15 @@
                       </div>
                       <div class="form-group col-xl-6">
                           <label>Pais</label>
-                          <input type="text" required class="form-control" name="pais" id="alterar_pais" value="">
+                          <input type="text" required class="form-control" name="pais" id="alterar_pais" value="" maxlength="50" minlength="03" required style="text-transform:uppercase;">
                       </div>
                       <div class="form-group col-xl-2">
                           <label>Sigla</label>
-                          <input type="text" required class="form-control" name="sigla" id='alterar_sigla' value="">
+                          <input type="text" required class="form-control" name="sigla" id='alterar_sigla' value="" style="text-transform:uppercase;" pattern="[a-zA-Z\s]+$" required>
                       </div>
                       <div class="form-group col-xl-2">
                           <label>DDI</label>
-                          <input type="number" required class="form-control" name="ddi" id='alterar_ddi' value="">
+                          <input type="text" required class="form-control" name="ddi" id='alterar_ddi' value=""  pattern="[0-9-+]+$" style="text-transform:uppercase;" required>
                       </div>
                   </div>
                   <div class="form-row" >
@@ -57,7 +57,14 @@
     </div>
   </div>
   
-  <script>
+<script>
+ $(function(){
+
+    //Validação formulario
+    $('#EditarPais').validate({
+
+    });
+
     $('.alterar').on('click', function(){
       var nome = $(this).data('nome'); // vamos buscar o valor do atributo data-name que temos no botão que foi clicado
       var id = $(this).data('id'); // vamos buscar o valor do atributo data-id
@@ -75,7 +82,7 @@
       $('#Alterar_pais').modal('show'); // modal aparece
   });
    
-   
-    
 
-  </script>
+
+});
+</script>

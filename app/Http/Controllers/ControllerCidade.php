@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Response;
 use App\Http\Dao\DaoCidade;
 use App\Http\Dao\DaoEstado;
 use App\Http\Dao\DaoPais;
@@ -12,10 +13,10 @@ class ControllerCidade extends Controller{
     private $daoCidade;
     private $daoEstado;
     private $daoPais;
-
+ 
     public function __construct(){
 
-        $this->daoEstado = new DaoEstado;
+       $this->daoEstado = new DaoEstado;
         $this->daoCidade = new DaoCidade;
         $this->daoPais = new DaoPais;
         
@@ -26,7 +27,6 @@ class ControllerCidade extends Controller{
         $cidades = $this->daoCidade->all(true);
         $estados = $this->daoEstado->all(true);
         $paises = $this->daoPais->all(true);
-
          return view('cidades.index', compact('estados','cidades','paises'));
     }
    
@@ -49,16 +49,16 @@ class ControllerCidade extends Controller{
     }
 
     
-    public function edit($id)
+    public function edit(Response $response)
     {
-        //
+        $cidades = $this->daoCidade->showcidade();   
+        // return $cidades ;
+        return response::json(array('success'=> true,'data'=>$cidades));
     }
-
     
     public function update(Request $request)
     {
-        $id = $request->id;
-        $update = $this->daoCidade->update($request, $id);
+        $update = $this->daoCidade->update($request);
         if($update){
             
         return redirect('/cidade') ->with('success',' ');
@@ -78,4 +78,23 @@ class ControllerCidade extends Controller{
 
         return redirect('/cidade')->with('error', 'Este registro não pode ser removido.');
     }
+
+    public function showcidade(){
+
+            $cidades = $this->daoCidade->showcidade();   
+            return $cidades ;
+         
+    }
+
+    public function RegistroCidade( Request $request){
+        
+        $cidade = $this->daoCidade->create($request->all());
+        $store = $this->daoCidade->store($cidade);
+        if($store){  
+           return response()->json('Cidade adicionado com Sucessoo!!');
+        } 
+        
+
+    }
+
 }

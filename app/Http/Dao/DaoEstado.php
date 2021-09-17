@@ -25,8 +25,7 @@ class DaoEstado implements Dao{
             foreach($itens as $item){
                 $estado = $this->create(get_object_vars($item));
                 array_push($estados, $estado);
-            }
-    
+            }    
             return $estados;
     }
 
@@ -42,11 +41,20 @@ class DaoEstado implements Dao{
         $estado->setUF($dados["uf"]);
         $pais = $this->daoPais->findById($dados["id_pais"],true);
         $estado->setPais($pais);
-       // $estado->data_create = null ;
-       // $estado->data_alt = null ;
         return $estado;
         
         
+    }
+    public function edit(Request $request){
+        $estado = new Estado();
+        $estado->setId($request->id);
+        $estado->setEstado($request->estado);
+        $estado->setUF($request->uf);
+        $pais = $this->daoPais->findById($request->id_pais,true);
+        $estado->setPais($pais);
+        $estado->setDataAlteracao();
+        return $estado;
+
     }
 
     public function store($estado){
@@ -64,32 +72,21 @@ class DaoEstado implements Dao{
        
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request){
 
         DB::beginTransaction();
             try {
-                //$estado = $this->create($request->all());
-
-                $dados = array(
-                    'id'=>$request->id,
-                    'estado'=>$request->estado,
-                    'uf'=>$request->uf,
-                    'id_pais'=>$request->id_pais,
-                    'data_alt'=> null,
-                    'data_create' => Carbon::now(),
-                );
-
-                DB::table('estados')->where('id', $id)->update($dados);
-
+                $estado = $this->edit($request);
+                $dados =$this->getData($estado);
+                DB::table('estados')->where('id', $dados['id'])->update($dados);
                 DB::commit();
-
                 return true;
             } catch (\Throwable $th) {
                 DB::rollBack();
                 dd($th->getMessage());
                 return false;
-            }
-        
+            } 
+       return $estado;
     }
 
     public function delete($id){
@@ -122,6 +119,9 @@ class DaoEstado implements Dao{
     }
 
     public function getData(Estado $estado) {
+        $data = $estado->getDataAlteracao();
+        //dd($data);
+
         $dados = [
             'id'      => $estado->getId(),
             'estado'  => $estado->getEstado(),
@@ -130,5 +130,28 @@ class DaoEstado implements Dao{
             
         ];
         return $dados;
+    }
+
+    public function showestado(){
+        $itens = DB:: select(
+            'select   e.id, e.estado, e.uf,e.id_pais, 
+             p.pais, e.data_create, e.data_alt 
+            from estados as e join  paises as p
+            on e.id_pais = p.id');        
+            $estados = array();
+            foreach($itens as $item){               
+                array_push($estados, $item);
+            }    
+            return $estados;
+
+    }
+
+    public function pesquisar($name){       
+        $itens = DB:: select('select * from estados where estado = ?',[$name]);
+        $estados = array();
+        foreach($itens as $item){                           
+            array_push($estados, $item);
+        }    
+        return $estados;       
     }
 }

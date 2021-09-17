@@ -14,12 +14,12 @@ class TObject {
     /**
      * @var string
      */
-    protected $dataCadastro;
+    protected $data_create;
 
     /**
      * @var string
      */
-    protected $dataAlteracao;
+    protected $data_alt;
 
     public function __construct()
     {

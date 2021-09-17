@@ -27,7 +27,7 @@
                                 data-idpais="{{$estado->getpais()->getid()}}"
                                 data-data_create="{{$estado->getdatacadastro()}}"
                                 data-data_alt="{{$estado->getdataalteracao()}}"
-                           class="btn btn-dark alterar"><i class="fa fa-edit"></i></button>
+                           class="btn btn-dark alterar" title="ALTERAR"><i class="fa fa-edit"></i></button>
                            
                            <button data-cod="{{$estado->getId()}}"
                                     data-estado="{{$estado->getEstado()}}"
@@ -36,7 +36,7 @@
                                     data-idpais="{{$estado->getpais()->getid()}}"
                                     data-data_create ="{{$estado->getdatacadastro()}}"
                                     data-data_alt="{{$estado->getdataalteracao()}}"
-                                    class="btn btn-dark excluir"><i class="fa fa-trash-alt"></i></button>
+                                    class="btn btn-dark excluir" title="EXCLUIR"><i class="fa fa-trash-alt"></i></button>
                         
 
                        

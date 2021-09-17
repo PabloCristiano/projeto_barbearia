@@ -10,8 +10,15 @@ use Carbon\Carbon;
 Class DaoServico implements Dao{
 
     public function all(bool $model = false){
-        $itens = DB:: select(' select
-            id, servico, tempo, valor, comissao,observacoes, data_create, data_alt  from servicos'
+        $itens = DB:: select(' select id, 
+                                     servico, 
+                                     tempo, 
+                                     valor, 
+                                     comissao,
+                                     observacoes, 
+                                     data_create, 
+                                     data_alt  
+                                     from servicos'
         );
         $servicos = array();
         foreach($itens as $item){
@@ -58,20 +65,14 @@ Class DaoServico implements Dao{
 
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request){
         try {
+            
+            $servico = $this->create($request->all());
 
-            $dados = array(
-                'servico'=>$request->servico,
-                'tempo'=>$request->tempo,
-                'valor'=>$request->valor,
-                'comissao'=>$request->comissao,
-                'observacoes'=>$request->observacoes,
-                'data_alt'=> null,
-                'data_create' => Carbon::now(),
-            );
+            $dados = $this->getData($servico);
 
-            DB::table('servicos')->where('id', $id)->update($dados);
+            DB::table('servicos')->where('id', $dados['id'])->update($dados);
 
             DB::commit();
 
@@ -101,6 +102,20 @@ Class DaoServico implements Dao{
 
     public function findById(int $id, bool $model = false){
 
+        if (!$model) {
+            return DB::select('select id, 
+               servico, tempo, valor, comissao,observacoes, 
+               data_create, data_alt  from servicos where id =?',[$id]);
+        }
+
+         $dados = DB::table('servicos')->where('id', $id)->first();
+
+        if ($dados)
+            return $this->create(get_object_vars($dados));
+
+        return $dados;
+
+
     }
 
     public function getData(Servico $servico) {
@@ -115,6 +130,28 @@ Class DaoServico implements Dao{
         ];
 
         return $dados;
+    }
+
+    public function showservico(){
+
+        $itens = DB:: select(' select id, 
+                                     servico, 
+                                     tempo, 
+                                     valor, 
+                                     comissao,
+                                     observacoes, 
+                                     data_create, 
+                                     data_alt  
+                                     from servicos'
+        );
+        $servicos = array();
+        foreach($itens as $item){
+            $servico = $this->create(get_object_vars($item));
+            array_push($servicos, $item);
+        }
+
+        return $servicos;
+
     }
 
 

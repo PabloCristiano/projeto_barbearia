@@ -20,15 +20,15 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="pais">País *</label>
-                                        <input type="text" class="form-control" name="pais"id="pais" placeholder="Digite um País" required>               
+                                        <input type="text" class="form-control" name="pais" id="pais" placeholder="Digite um País" maxlength="50" minlength="03"  required style="text-transform:uppercase;" >               
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="sigla">Sigla  *</label>
-                                        <input type="text" class="form-control" name="sigla" id="sigla" placeholder="Sigla" required> 
+                                        <input type="text" class="form-control" name="sigla" id="sigla" placeholder="Sigla" style="text-transform:uppercase;" pattern="[a-zA-Z\s]+$" required> 
                                     </div>
                                     <div class="form-group col-md-2">
                                         <label for="ddi">DDI *</label>
-                                        <input type="number" class="form-control" name="ddi" id="ddi" placeholder="DDI" required> 
+                                        <input type="text" class="form-control" name="ddi" id="ddi" placeholder="DDI" pattern="[0-9-+]+$" style="text-transform:uppercase;" required> 
                                     </div>
                                 </div>
                                 <div class="form-row" >
@@ -54,24 +54,8 @@
 </div>
 
 <script>
-    //Validação formulario
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
-            });
-        }, false);
-    })();
-    
-    //Limpar Fomulario
+$(function(){
+//Limpar Fomulario
     $(document).ready(function() {
         $('#modalformPais').on('hidden.bs.modal', function() {
           console.log('fechar modal')
@@ -80,4 +64,8 @@
         });
 
       });
+      $('#formpais').validate({});
+
+
+});     
   </script>

@@ -46,8 +46,11 @@ $(function(){
     
         });
 
+        var validator = $("#formservico").validate();
+
         //BOTÃO EXCLUIR SERVICO
         $('.deleteservico').on('click', function(){
+            validator.destroy();
             var id = $(this).data('id'); // vamos buscar o valor do atributo data-name que temos no botão que foi clicado
             var servico = $(this).data('servico'); // vamos buscar o valor do atributo data-id
             var servico_tempo = $(this).data('tempo');
@@ -78,6 +81,8 @@ $(function(){
 
         //BOTÃO ALTERAR SERVIÇO
         $('.alterarservico').on('click', function(){
+            validator.destroy();
+            $('#formservico').validate({});
             var id = $(this).data('id'); // vamos buscar o valor do atributo data-name que temos no botão que foi clicado
             var servico = $(this).data('servico'); // vamos buscar o valor do atributo data-id
             var servico_tempo = $(this).data('tempo');
@@ -105,16 +110,8 @@ $(function(){
             $('.modalservico').modal('show'); // modal aparece
         });
 
-
-
-
-
-
-
-
-
-
         $(".btn-addservico").click(function(){
+            $('#formservico').validate({});
             $('#formservico').attr('method', 'post');
             $('#formservico').attr('action', '/servico');
             $(".modal-titleservico").text(" Cadastrar Serviço ");
@@ -124,6 +121,10 @@ $(function(){
             $("#formservico").trigger("reset");    
         });
         
+
+
+
+
 
 
 

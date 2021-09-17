@@ -20,6 +20,8 @@
             class="form-control"
             value=""
             maxlength="50"
+            minlength="03"
+            style="text-transform:uppercase;"
             required
         >
     </div>

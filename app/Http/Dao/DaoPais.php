@@ -6,6 +6,7 @@ use App\Http\Dao\Dao;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use App\Http\Models\Pais;
 use Carbon\Carbon;
 
@@ -58,7 +59,7 @@ class DaoPais implements Dao {
         }
     }
 
-    public function update(Request $request, $id){       
+    public function update(Request $request){       
     
         DB::beginTransaction();
         try {
@@ -66,7 +67,7 @@ class DaoPais implements Dao {
 
             $dados = $this->getData($pais);
 
-            DB::table('paises')->where('id', $id)->update($dados);
+            DB::table('paises')->where('id', $dados['id'])->update($dados);
 
             DB::commit();
 
@@ -114,6 +115,16 @@ class DaoPais implements Dao {
         ];
 
         return $dados;
+
+    }
+
+    public function showpais(){
+        $itens = DB::table('paises')->get();
+        $paises = array();
+        foreach ($itens as $item) {
+            array_push($paises, $item);
+        }
+        return $paises;
 
     }
 }

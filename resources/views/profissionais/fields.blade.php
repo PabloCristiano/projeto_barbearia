@@ -1,4 +1,4 @@
-<div class="form-row">
+<div class="form-row"  >
     <div class="form-group col-xl-2">
         <label>Código</label>
         <input 
@@ -10,7 +10,7 @@
         >
     </div>
 
-    <div class="form-group required col-xl-6">
+    <div class="form-group required col-xl-6 ">
         <label>Profissional *</label>
         <input
             type="text"
@@ -18,6 +18,7 @@
             name="profissional"
             class="form-control"
             maxlength="50"
+            style="text-transform:uppercase;"
             required
         >
     </div>
@@ -29,6 +30,7 @@
             id="apelido"
             name="apelido"
             class="form-control"
+            style="text-transform:uppercase;"
             maxlength="20"
             
         >
@@ -40,10 +42,11 @@
         <label>Logradouro *</label>
         <input
             type="text"
-            id="endereco"
-            name="endereco"
+            id="logradouro"
+            name="logradouro"
             class="form-control"
             maxlength="50"
+            style="text-transform:uppercase;"
             required
         >
     </div>
@@ -71,6 +74,7 @@
             name="complemento"
             maxlength="50"
             class="form-control"
+            style="text-transform:uppercase;"
         >
     </div>
 
@@ -82,9 +86,10 @@
             name="bairro"
             maxlength="50"
             class="form-control"
+            style="text-transform:uppercase;"
             required
         >
-</div>
+    </div>
 </div>
 
 <div class="form-row mt-4">
@@ -102,21 +107,22 @@
         <label>Código *</label>
         <input 
             type="number"
-            id="idcidade"
-            name="idcidade"
+            id="id_cidade"
+            name="id_cidade"
             class="form-control "
+            required
         >
     </div>
-    <div class="form-group required col-xl-6" id="ipt-cidade">
+    <div class="form-group  col-xl-6" id="ipt-cidade" required>
         <label>Cidade *</label>
         <div class="input-group">
             <input
                 class="form-control"
                 name="cidade"
                 id="cidade"
-                readonly
-                required
                 data-error="#ipt-cidade"
+                style="text-transform:uppercase;"
+                readonly 
             >
 
             <div class="input-group-append">
@@ -126,31 +132,17 @@
                     data-input="#cidade_id"
                     data-route="cidades"
                     data-toggle="modal"
-                    data-target="#modal-cidades"
+                    data-target=".modalbuscacidade"
                 >
                     <i class="fa fa-search"></i>
                 </button>
             </div>
         </div>
     </div>
-
-    <div id="modal-cidades" class="modal fade" data-field="cidade" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header align-items-center py-2 bg-dark">
-                    <h3 class="modal-title">Buscar Cidade</h3>
-                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                   
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
-<div class="form-row mt-4">
-    <div class="form-group required col-xl-6">
+<div class="form-row justify-content-auto">
+    <div class="form-group  col-xl-4">
         <label>WhatsApp</label>
         <input
             type="text"
@@ -158,21 +150,24 @@
             name="whatsapp"
             class="form-control"
             placeholder="(__) _____-____"
-            required
         >
     </div>
 
-    <div class="form-group col-xl-6">
+    <div class="form-group col-xl-4">
         <label>Telefone *</label>
         <input
             type="text"
             id="telefone"
             name="telefone"
             class="form-control "
+            required
             placeholder="(__) ____-____"
         >
     </div>
+   
+
 </div>
+
 <div class="form-row">
     <div class="form-group col-xl-4">
         <label>E-mail *</label>
@@ -182,8 +177,11 @@
             name="email"
             maxlength="50"
             class="form-control"
+            style="text-transform:uppercase;"
+            required
         >
     </div>
+    
     <div class="form-group col-xl-4">
         <label>Senha *</label>
         <input
@@ -193,17 +191,19 @@
             maxlength="50"
             class="form-control"
             placeholder="Digite sua senha !"
+            required
         >
     </div>
     <div class="form-group col-xl-4">
         <label>Confirme a Senha *</label>
         <input
             type="password"
-            id="cfsenha"
-            name="cfsenha"
+            id="confSenha"
+            name="confSenha"
             maxlength="50"
             class="form-control"
             placeholder="Confirma a sua senha !"
+            required
         >
     </div>
 </div>
@@ -228,6 +228,7 @@
             id="rg"
             name="rg"
             class="form-control "
+            placeholder="__.___.___-_"
             
         >
     </div>
@@ -236,47 +237,78 @@
         <label>Data de Nascimento </label>
         <input
             type="date"
-            id="data_nascimento"
-            name="data_nascimento"
+            id="dataNasc"
+            name="dataNasc"
             class="form-control"
             required
         >
     </div>
 </div>
-
-<div class="form-row">
-    <div class="form-group col-xl-4">
-        <label>Tipo Profissional *</label>
-        <select class="form-control" id="tipoprofissional" name="tipoprofissinal" >
-            <option></option>
-            <option>Gestor</option>
-            <option>Colaborador</option>
-        </select>  
+<div class="form-row" required>
+    <div class="form-group col-xl-2">
+        <label>Código *</label>
+        <input 
+            type="number"
+            id="id_servico"
+            name="id_servico"
+            class="form-control "
+            required
+        >
     </div>
-    <div class="form-group col-xl-4">
+    <div class="form-group  col-xl-6" id="ipt-cidade">
         <label>Serviço *</label>
-        <select class="form-control" id="tipoprofissional" name="tipoprofissinal" >
-            <option></option>
-            <option>Cabelo</option>
-            <option>Barba</option>
-            <option>Cabelo/Barba</option>
-        </select>  
+        <div class="input-group">
+            <input
+                class="form-control"
+                name="servico"
+                id="servico"
+                readonly
+                data-error="#ipt-cidade"
+                style="text-transform:uppercase;"
+            >
+
+            <div class="input-group-append">
+                <button
+                    class="btn btn-dark btn-search"
+                    type="button"
+                    data-input="#"
+                    data-route="#"
+                    data-toggle="modal"
+                    data-target=".modalbuscaservico"
+                >
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
     </div>
-    <div class="col-auto">
-        <label>Comissão *</label>
+    <div class="form-group col-xl-4">
+        <label>Comissão</label>
         <label class="sr-only" for="inlineFormInputGroup">Username</label>
         <div class="input-group mb-2">
           <div class="input-group-prepend">
             <div class="input-group-text">%</div>
           </div>
-          <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="">
+          <input type="text" class="form-control" name="comissao" id="comissao" placeholder="">
         </div>
       </div>
+
+</div>
+<!--
+<div class="form-row">
+    <div class="form-group col-xl-4">
+        <label>Tipo Profissional *</label>
+        <select class="form-control" id="tipoProf" name="tipoProf"  value="tipoPro">
+            <option ></option>
+            <option>Gestor</option>
+            <option>Colaborador</option>
+        </select>  
+    </div>    
        
        
 </div>
+-->
 
 <div class="form-group col-xl-12 px-0">
     <label for="observacoes">Observações</label>
-    <textarea name="observacoes" id="observacoes" class="form-control" rows="3"></textarea>
+    <textarea name="observacoes" id="observacoes" class="form-control" rows="3"  style="text-transform:uppercase;"></textarea>
 </div>

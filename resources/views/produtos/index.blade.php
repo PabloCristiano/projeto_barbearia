@@ -12,16 +12,21 @@
                 <i class="fa fa-list"></i>
                 <h4 class="ml-3 mb-0">Produtos</h4>
             </div>
-
             <div class="float-right">
-                <button type="button" class="btn btn-dark" data-toggle="modal" data-target=".modalproduto"><i class="fa fa-plus"></i> Adicionar</button>
+                <button id="btnaddproduto" type="button" class="btn btn-dark " data-toggle="modal" data-target=".modalproduto"><i class="fa fa-plus"></i> Adicionar</button>
             </div>
         </div>
-       @include('produtos.search')
 </div>
 <div class="card-body">
     @include('produtos.table')
     @include('produtos.ModalFormProduto')
+    @include('produtos.scriptProdutos')
+
+    @include('categorias.ShowCategoria')
+    @include('categorias.ModalFormCategoria')
+
+    @include('fornecedores.ShowFornecedores')
+    @include('fornecedores.ModalFormFornecedor')
     
 </div>
 

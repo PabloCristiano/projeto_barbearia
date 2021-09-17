@@ -22,6 +22,8 @@
             class="form-control "
             value=""
             maxlength="50"
+            minlength="4"
+            style="text-transform:uppercase;"
             required
         >
 
@@ -38,6 +40,7 @@
             value=""
             placeholder="UN"
             maxlength="10"
+            style="text-transform:uppercase;"
             required
         >
 
@@ -51,14 +54,10 @@
         <input
             type="number"
             class="form-control "
-            name="categoria_id"
-            id="categoria_id"
-            data-input="#categoria"
-            data-route="categorias"
+            name="id_categoria"
+            id="id_categoria"
             value=""
-            min="1"
-            step="1"
-            oninput="validity.valid || (value = '');"
+            style="text-transform:uppercase;"
             required
         >
 
@@ -74,7 +73,7 @@
                 id="categoria"
                 value=""
                 readonly
-                required
+                style="text-transform:uppercase;"
             >
 
             <div class="input-group-append">
@@ -84,24 +83,11 @@
                     data-input="#categoria_id"
                     data-route="categorias"
                     data-toggle="modal"
-                    data-target="#modal-categorias"
+                    data-target=".modalbuscacategoria"
+                    
                 >
                     <i class="fa fa-search"></i>
                 </button>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-categorias" class="modal fade" data-field="categoria" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header align-items-center py-2 bg-dark">
-                    <h3 class="modal-title">Buscar Categoria</h3>
-                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    
-                </div>
             </div>
         </div>
     </div>
@@ -113,15 +99,10 @@
         <input
             type="number"
             class="form-control "
-            name="categoria_id"
-            id="categoria_id"
-            data-input="#categoria"
-            data-route="categorias"
+            name="id_fornecedor"
+            id="id_fornecedor"
             value=""
-            min="1"
-            step="1"
-            oninput="validity.valid || (value = '');"
-            required
+            required            
         >
 
         
@@ -136,7 +117,7 @@
                 id="fornecedor"
                 value=""
                 readonly
-                required
+                style="text-transform:uppercase;"
             >
 
             <div class="input-group-append">
@@ -146,24 +127,10 @@
                     data-input="#fornecedor_id"
                     data-route="fornecedor"
                     data-toggle="modal"
-                    data-target="#modal-fornecedores"
+                    data-target=".modalbuscafornecedores"
                 >
                     <i class="fa fa-search"></i>
                 </button>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-fornecedores" class="modal fade" data-field="fornecedor" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header align-items-center py-2 bg-dark">
-                    <h3 class="modal-title">Buscar Fornecedores</h3>
-                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    
-                </div>
             </div>
         </div>
     </div>
@@ -174,8 +141,8 @@
         <label>Estoque</label>
         <input
             type="number"
-            id="estoque"
-            name="estoque"
+            id="qtdEstoque"
+            name="qtdEstoque"
             class="form-control "
             value=""
             readonly
@@ -185,7 +152,7 @@
     </div>
 
     <div class="form-group col-xl-3">
-        <label>Preço de Custo</label>
+        <label>Preço de Custo *</label>
 
         <div class="input-group">
             <div class="input-group-prepend">
@@ -194,12 +161,13 @@
 
             <input
                 type="number"
-                id="preco_custo"
-                name="preco_custo"
+                id="precoCusto"
+                name="precoCusto"
                 class="form-control"
                 value=""
                 placeholder="0,00"
-                readonly
+                required
+                
             >
 
            
@@ -216,13 +184,11 @@
 
             <input
                 type="number"
-                id="preco_venda"
-                name="preco_venda"
+                id="precoVenda"
+                name="precoVenda"
                 class="form-control"
                 value=""
                 placeholder="0,00"
-                step=".01"
-                oninput="validity.valid || (value = '');"
                 required
             >
 
@@ -240,12 +206,13 @@
 
             <input
                 type="number"
-                id="custo_ultima_compra"
-                name="custo_ultima_compra"
+                id="custoUltCompra"
+                name="custoUltCompra"
                 class="form-control"
                 value=""
                 placeholder="0,00"
                 readonly
+                
             >
 
             
@@ -258,8 +225,8 @@
         <label>Data Últ. Compra</label>
         <input
             type="date"
-            id="data_ultima_compra"
-            name="data_ultima_compra"
+            id="dataUltCompra"
+            name="dataUltCompra"
             class="form-control "
             value=""
             readonly
@@ -272,8 +239,8 @@
         <label>Data Últ. Venda</label>
         <input
             type="date"
-            id="data_ultima_venda"
-            name="data_ultima_venda"
+            id="dataUltVenda"
+            name="dataUltVenda"
             class="form-control "
             value=""
             readonly

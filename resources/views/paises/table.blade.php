@@ -26,7 +26,7 @@
                                 data-codigo ="{{$pais->getid() }}" 
                                 data-data_create="{{$pais->getDataCadastro()}}" 
                                 data-data_alt="{{$pais->getDataAlteracao()}}" 
-                                class="alterar btn btn-dark"><i class="fa fa-edit"></i></button>
+                                class="alterar btn btn-dark" title="EDITAR"><i class="fa fa-edit"></i></button>
 
                         <button data-nome="{{ $pais->getpais() }}" 
                                 data-id="{{ $pais->getid() }}" 
@@ -35,7 +35,7 @@
                                 data-codigo ="{{$pais->getid() }}"
                                 data-data_create="{{$pais->getDataCadastro()}}" 
                                 data-data_alt="{{$pais->getDataAlteracao()}}" 
-                                class="delete btn btn-dark"><i class="fa fa-trash-alt"></i></button>
+                                class="delete btn btn-dark" title="EXCLUIR"><i class="fa fa-trash-alt"></i></button>
                     </div>
                 </td>
             </tr>

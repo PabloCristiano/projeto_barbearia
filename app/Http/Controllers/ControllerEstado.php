@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\DAO\DaoEstado;
@@ -32,6 +33,12 @@ class ControllerEstado extends Controller{
     
     public function store(Request $request){
         $estado = $this->daoEstado->create($request->all());
+        //$nomeEstado = $this->daoEstado->findById($request->id);
+        //dd($estado->getid());
+        $estadoteste = $this->daoEstado->pesquisar($request->estado);
+        
+        dd($estadoteste[0]->getUf());
+
         $store  = $this->daoEstado->store($estado);
         if($store){
             return redirect('/estado')->with('success', 'Estado adicionado com sucesso!');
@@ -51,8 +58,8 @@ class ControllerEstado extends Controller{
     
     public function update(Request $request){        
        // dd($request->id, $request->estado, $request->uf, $request->id_pais, $request->data_create, $request->data_alt);
-        $id = $request->id;
-        $update = $this->daoEstado->update($request, $id);
+      // dd($request);
+        $update = $this->daoEstado->update($request);
         if($update){
             
         return redirect('/estado') ->with('success',' ');
@@ -74,27 +81,26 @@ class ControllerEstado extends Controller{
     }
 
     public function showestado(){
-        $itens = DB:: select(
-            'select   e.id, e.estado, e.uf,e.id_pais, 
-             p.pais, e.data_create, e.data_alt 
-            from estados as e join  paises as p
-            on e.id_pais = p.id');        
-            $estados = array();
-            foreach($itens as $item){
-               
-                array_push($estados, $item);
-            }    
-            return $estados;
+       $estados = $this->daoEstado->showestado();   
+       return $estados;
     }
 
     public function RegistroEstado( Request $request){
         $estado = $this->daoEstado->create($request->all());
-        $store = $this->daoEstado->store($estado);
-        if($store){  
-           return response()->json('Estado adicionado com Sucessoo!!');
-        } 
-        
+        $nomeEstado = $this->daoEstado->pesquisar($request->estado);
 
+        if(!empty($nomeEstado) === true){ 
+            
+            $msgEstado['success'] =false;
+            $msgEstado['message'] ='Estado já cadastrado !!!';
+            echo json_encode($msgEstado);          
+        
+        }else{
+            
+            $store = $this->daoEstado->store($estado);
+            $msgEstado['success'] =true;
+            echo json_encode($msgEstado);
+        }
     }
 
 

@@ -43,11 +43,8 @@ Class DaoCidade implements Dao {
 
         $cidade->setCidade($dados["cidade"]);
         $cidade->setDDD($dados["ddd"]);
-
         $estado = $this->daoEstado->findById($dados["id_estado"], true);
-
         $cidade->setEstado($estado);
-
         return $cidade;
 
     }
@@ -68,7 +65,7 @@ Class DaoCidade implements Dao {
 
     }
 
-    public function update(Request $request, $id){
+    public function update(Request $request){
 
         DB::beginTransaction();
         try {
@@ -78,11 +75,10 @@ Class DaoCidade implements Dao {
                 'cidade'=>$request->cidade,
                 'ddd'=>$request->ddd,
                 'id_estado'=>$request->id_estado,
-                'data_alt'=> null,
-                'data_create' => Carbon::now(),
+                'data_alt'=> Carbon::now(),
             );
 
-            DB::table('cidades')->where('id', $id)->update($dados);
+            DB::table('cidades')->where('id', $dados['id'])->update($dados);
 
             DB::commit();
 
@@ -97,7 +93,6 @@ Class DaoCidade implements Dao {
 
     public function delete($id){
         DB::beginTransaction();
-
         try {
             DB::table('cidades')->delete($id);
             DB::commit();
@@ -110,6 +105,19 @@ Class DaoCidade implements Dao {
     }
 
     public function findById(int $id, bool $model = false){
+        if (!$model) {
+            return DB::select('select c.id, c.cidade, c.ddd, c.id_estado, e.estado, c.data_create, c.data_alt 
+            from cidades as c join estados as e
+            on c.id_estado = e.id where c.id = ?',[$id]);
+        }
+
+         $dados = DB::table('cidades')->where('id', $id)->first();
+
+        if ($dados)
+            return $this->create(get_object_vars($dados));
+
+        return $dados;
+
 
     }
 
@@ -123,6 +131,20 @@ Class DaoCidade implements Dao {
         ];
 
         return $dados;
+    }
+
+    public function showcidade(){
+        $itens = DB:: select(
+            'select c.id, c.cidade, c.ddd, c.id_estado, e.estado, c.data_create, c.data_alt 
+            from cidades as c join estados as e
+            on c.id_estado = e.id');        
+            $cidades = array();
+            foreach($itens as $item){
+                $cidade = $this->create(get_object_vars($item));                
+                array_push($cidades, $item);                
+            }
+            return $cidades;
+            
     }
 
 }

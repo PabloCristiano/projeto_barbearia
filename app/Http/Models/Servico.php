@@ -23,7 +23,7 @@ class Servico extends TObject{
     // SETTERS
 
     public function setServico($servico){
-        $this->servico = $servico;
+        $this->servico = strtoupper($servico);
 
     }
     
@@ -38,7 +38,7 @@ class Servico extends TObject{
     }
     
     public function setObservacoes($observacoes){
-        $this->observacoes = $observacoes;
+        $this->observacoes = strtoupper($observacoes);
 
     }
     

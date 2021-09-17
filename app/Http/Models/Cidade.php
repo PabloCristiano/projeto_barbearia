@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Models;
-
 use App\Http\Models\Estado;
 
 class Cidade extends TObject{
@@ -19,11 +18,11 @@ class Cidade extends TObject{
 
     // SETTERS
     public function setCidade($cidade) {
-        $this->cidade = $cidade;
+        $this->cidade = strtoupper($cidade);
     }
 
     public function setDDD($ddd) {
-        $this->ddd = $ddd;
+        $this->ddd = strtoupper($ddd);
     }
 
     public function setEstado(Estado $estado) {

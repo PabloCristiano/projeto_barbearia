@@ -19,11 +19,11 @@ class Estado extends TObject
 
     // SETTERS
     public function setEstado($estado) {
-        $this->estado = $estado;
+        $this->estado = strtoupper($estado);
     }
 
     public function setUF($uf) {
-        $this->uf = $uf;
+        $this->uf = strtoupper($uf);
     }
 
     public function setPais(Pais $pais) {

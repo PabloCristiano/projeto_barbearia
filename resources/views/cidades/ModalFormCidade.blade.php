@@ -1,4 +1,4 @@
-<div id="modalcidade" class="modal fade modalcidade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div id="modalcidade" class="modal fade  overflow-auto modalcidade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="card">

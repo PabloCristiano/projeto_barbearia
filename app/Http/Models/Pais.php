@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Models;
+use Illuminate\Support\Facades\Crypt;
 
 class Pais extends TObject {
 
@@ -14,13 +15,13 @@ class Pais extends TObject {
     
     public function getPais()
     {
-        return $this->pais;
+        return  $this-> pais ;
     }
 
     
     public function setPais(string $pais)
     {
-        $this->pais = $pais;
+        $this->pais = strtoupper($pais);
     }
 
     
@@ -32,7 +33,7 @@ class Pais extends TObject {
     
     public function setSigla(string $sigla)
     {
-        $this->sigla = $sigla;
+        $this->sigla = strtoupper($sigla);
     }
 
     
@@ -44,7 +45,7 @@ class Pais extends TObject {
     
     public function setDDI(string $ddi)
     {
-        $this->ddi = $ddi;
+        $this->ddi = strtoupper($ddi);
     }
 
 }
