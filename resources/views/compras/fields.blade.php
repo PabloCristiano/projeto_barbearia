@@ -122,10 +122,8 @@
                     }
 
                 </style> --}}
-                <div class="form-group">
-                    <button type="submit" class="btn btn-dark"
-                        style="margin: -20px -20px;position:relative;top:50%;left:20%;width: 0 auto">Adicionar
-                        Produto</button>
+                <div class="form-group col-xl-2 d-flex align-items-end">
+                    <button type="submit" class="btn btn-dark">Adicionar</button>
                 </div>
             </div>
             <br>
@@ -250,13 +248,11 @@
         <div class="form-row">
             <div class="form-group col-xl-2">
                 <small>Cadastrado em:</small>
-                <input type="text" class="form-control form-control-sm" name="data_create"
-                    id="data_create" readonly>
+                <input type="text" class="form-control form-control-sm" name="data_create" id="data_create" readonly>
             </div>
             <div class="form-group col-xl-2">
                 <small>Alterado em:</small>
-                <input type="text" class="form-control form-control-sm" name="data_alt" id="data_alt"
-                    readonly>
+                <input type="text" class="form-control form-control-sm" name="data_alt" id="data_alt" readonly>
             </div>
         </div>
         <div class="text-right">
