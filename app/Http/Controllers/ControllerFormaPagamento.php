@@ -81,4 +81,17 @@ class ControllerFormaPagamento extends Controller
 
         return redirect('/formapagamento')->with('error', 'Este registro não pode ser removido.');
     }
+
+    public function findById(Request $request){
+        $search = $this->daoformapagamento->findById($request->search,false);
+        if($search){
+            return response()->json($search);
+        }        
+        return response()->json('error');
+    }
+
+    public function ShowFormaPagamento(){
+        $formapg = $this->daoformapagamento->showformapagamento();
+        return $formapg;
+    }
 }
