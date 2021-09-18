@@ -109,6 +109,6 @@
     id="total_parcelas"
     name="total_parcelas"
     value=""
-    readonly
+    hidden
 />
 

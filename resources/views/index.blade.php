@@ -100,7 +100,7 @@
                                 <a class="nav-link" href="{{ '/pais' }}">PAÍS</a>
                             </nav>
                         </div>
-                        <!--  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
+                        {{--  <!--  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                         <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                         AGENDAMENTO
                         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -156,7 +156,7 @@
                                 </nav>
                             </div>
                         </nav>
-                    </div> -->
+                    </div> -->  --}}
                         <a class="nav-link collapsed" href="#" data-toggle="collapse"
                             data-target="#collapseLayoutsgestao" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-shopping-cart"></i></i></div>

@@ -79,6 +79,7 @@ Route::get('/showClientes', 'ControllerCliente@showClientes')->name('showCliente
 Route::POST('/searchProfissional', 'ControllerProfissional@searchProfissional')->name('searchProfissional');
 Route::POST('/searchServico', 'ControllerServico@findById')->name('searchServico');
 Route::POST('/searchCliente', 'ControllerCliente@findById')->name('searchCliente');
+Route::POST('/searchFormaPagamento', 'ControllerFormaPagamento@findById')->name('searchFormaPagamento');
 
 
 //Rotas para Editar
@@ -101,6 +102,8 @@ Route::POST('registroservico', ['as' => 'registroservico.registroservico', 'uses
 Route::POST('registrocategoria', ['as' => 'registrocategoria.registrocategoria', 'uses' => 'ControllerCategoria@RegistroCategoria']);
 Route::POST('registrofornecedor', ['as' => 'registrofornecedor.registrofornecedor', 'uses' => 'ControllerFornecedor@RegistroFornecedor']);
 Route::POST('cadparcela', ['as' => 'cadparcela.cadparcela', 'uses' => 'ControllerCondicaoPagamento@store']);
+
+Route::get('/showFormaPagamento', 'ControllerFormaPagamento@ShowFormaPagamento')->name('showFormaPagamento');
 
 Route::get('showpais', ['as' => 'showpais.showpais', 'uses' => 'ControllerPais@showpais']);
 Route::get('showestados', ['as' => 'showestados.showestados', 'uses' => 'ControllerEstado@showestado']);
