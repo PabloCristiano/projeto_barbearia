@@ -173,6 +173,17 @@ class DaoCondicaoPagamento implements Dao {
 
     }
 
+    public function listCondicaoPagamento(){
+
+        $itens = DB:: select('select * from condicao_pg');
+        $listcondicao = array();
+        foreach($itens as $item){                           
+            array_push($listcondicao, $item);
+        }    
+        
+        return $listcondicao;
+    }
+
 
 
 }

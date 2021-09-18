@@ -75,11 +75,15 @@ Route::get('/agendamento/buscar', 'ControllerAgendamento@show')->name('/agendame
 Route::get('/agendamento/addhora', 'ControllerAgendamento@addhora')->name('/agendamento/addhora');
 Route::get('/showProfissionais', 'ControllerProfissional@showProfissional')->name('showProfissionais');
 Route::get('/showClientes', 'ControllerCliente@showClientes')->name('showClientes');
+Route::get('/listCondicaoPagamento', 'ControllerCondicaoPagamento@listCondicaoPagamento')->name('listCondicaoPagamento');
 //pesquisar profissional
 Route::POST('/searchProfissional', 'ControllerProfissional@searchProfissional')->name('searchProfissional');
 Route::POST('/searchServico', 'ControllerServico@findById')->name('searchServico');
 Route::POST('/searchCliente', 'ControllerCliente@findById')->name('searchCliente');
 Route::POST('/searchFormaPagamento', 'ControllerFormaPagamento@findById')->name('searchFormaPagamento');
+
+Route::POST('cadastroCodicaoPagamento','ControllerCondicaoPagamento@store')->name('cadastroCodicaoPagamento');
+
 
 
 //Rotas para Editar
@@ -101,7 +105,7 @@ Route::POST('registrocidade', ['as' => 'registrocidade.registrocidade', 'uses' =
 Route::POST('registroservico', ['as' => 'registroservico.registroservico', 'uses' => 'ControllerServico@RegistroServico']);
 Route::POST('registrocategoria', ['as' => 'registrocategoria.registrocategoria', 'uses' => 'ControllerCategoria@RegistroCategoria']);
 Route::POST('registrofornecedor', ['as' => 'registrofornecedor.registrofornecedor', 'uses' => 'ControllerFornecedor@RegistroFornecedor']);
-Route::POST('cadparcela', ['as' => 'cadparcela.cadparcela', 'uses' => 'ControllerCondicaoPagamento@store']);
+// Route::POST('cadparcela', ['as' => 'cadparcela.cadparcela', 'uses' => 'ControllerCondicaoPagamento@store']);
 
 Route::get('/showFormaPagamento', 'ControllerFormaPagamento@ShowFormaPagamento')->name('showFormaPagamento');
 

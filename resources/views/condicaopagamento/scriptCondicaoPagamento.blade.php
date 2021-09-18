@@ -1,7 +1,7 @@
 <script type="text/javascript">
     $(function() {
         $(document).ready(function() {
-            $('#tablecondicaopagamento').DataTable({
+            tablecondicaopagamento = $('#tablecondicaopagamento').DataTable({
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
                     "sInfo": "Mostrando de _START_ até _END_ de _TOTAL_ registros",
@@ -38,7 +38,20 @@
                             "_": "%d linhas copiadas com sucesso"
                         }
                     }
-                }
+                },
+                "ajax":{            
+                    "url": "{{ route('listCondicaoPagamento') }}", 
+                    "method": 'get', //usamos el metodo POST
+                    "dataSrc":""
+                },
+                "columns":[
+                    {"data": "id"},
+                    {"data": "condicao_pagamento"},
+                    {"data": "juros"},
+                    {"data": "multa"},
+                    {"data": "desconto"},
+                    {{--  {"defaultContent": ""}  --}}
+                ]
             });
         });
         $('#modalFormCondicaopg').validate({
@@ -142,63 +155,8 @@
                 </div>
             </td>
         </tr>`;
-        
-        $("#modalFormCondicaopg").submit(function(event) {
-            event.preventDefault();
-            if (parcelas > 0 && getPercentualAtual() !== 100) {
-                swal("O percentual das parcelas devem somar 100%");
-                e.preventDefault();
-                return false;
-            }
-            
-            console.log('chamouu')
-            var validacao = $("#modalFormCondicaopg").valid();
-            var parcelas = setparcela();
-            console.log(parcelas);
-            var id = $("#id").val();
-            var condicao_pagamento = $("#condicao_pagamento").val();
-            var juros = $("#juros").val();
-            var multa = $("#multa").val();
-            var desconto = $("#desconto").val();
-            var data_create = $("#data_create").val();
-            var data_alt = $("#data_alt").val();
-            const tr = document.querySelectorAll('.trparcela');
-            var total_parcelas = tr.length;
-            var porcentagem = $("#porcentagem").val();
-            console.log(total_parcelas);
-            if (validacao === true) {
-                if (porcentagem === 100) {
-                    $.ajax({
-                        url: "{{ route('cadparcela.cadparcela') }}",
-                        type: 'POST',
-                        data: {
-                            _token: '{!! csrf_token() !!}',
-                            id,
-                            condicao_pagamento,
-                            juros,
-                            multa,
-                            desconto,
-                            data_create,
-                            data_alt,
-                            total_parcelas,
-                            parcelas
-                        },
-                        dataType: 'JSON',
-                        success: function(data) {
-                            // console.log('sucess', data.data)
-                            swal("Condição Cadastrado com Sucesso!");
-                            $('#modalcondicaopg').modal('hide');
-                        },
-                        error: function(data) {
-                            swal("ERROR");
-                        },
-                    });
-                } else {
-                    swal('Condição de pagamento deve Conter minímo uma Parcela');
-                    // swal(totalporcentagem);
-                }
-            }
-        });
+
+
         var parcelas = Number($("#total_parcelas").val());
         $('#parcelas-table').DataTable({
             dom: '<"row d-none"<"col-md-4"f>l>rtip',
@@ -216,6 +174,8 @@
                 return false;
             }
             $(this).attr("disabled", "disabled");
+            $('.btnformapg').attr("disabled", "disabled");
+
             parcelas++;
             if (parcelas === 1)
                 $("#parcelas-table .dataTables_empty").parent().remove();
@@ -229,21 +189,20 @@
             newRow.find(".forma-pagamento-id").attr("id", `id_forma_pagamento_${index}`);
             newRow.find(".forma-pagamento").attr("id", `forma_pagamento_${index}`);
             prevRow.find(".btn-search").attr("disabled", "disabled");
-            
+
         });
 
         $(document).on("click", "#tableShowFormapg tbody tr", function() {
-           
             fila = $(this).closest("tr");
             id = parseInt(fila.find('td:eq(0)').text()); //capturo el ID		            
             formapg = fila.find('td:eq(1)').text();
 
             $(`#id_forma_pagamento_${index}`).val(id);
-            $(`#forma_pagamento_${index}`).val(formapg);                
+            $(`#forma_pagamento_${index}`).val(formapg);
             $('.modalShowFormapg').modal('toggle');
-           
+
         });
-        
+
         // Add row on add button click
         $(document).on("click", ".add", function(e) {
             let empty = false;
@@ -268,9 +227,12 @@
                 });
                 $(this).hide();
                 $(".add-new").removeAttr("disabled");
+                $(".btnformapg").removeAttr("disabled");
+
                 $(this).parents("tr").find(".edit, .delete").show();
             }
         });
+
         function getPercentualAtual() {
             let percentual = 0;
             $(".porcentagem").map(function(index, item) {
@@ -290,6 +252,7 @@
                 });
             $(this).parents("tr").find(".add, .edit").toggle();
             $(".add-new").prop("disabled", "disabled");
+            $(".btnformapg").prop("disabled", "disabled");
         });
 
         // Delete row on delete button click
@@ -302,7 +265,9 @@
                 $(this).find('.numero-parcela').val($(this).index() + 1);
             })
             $(".add-new").removeAttr("disabled");
+            $(".btnformapg").removeAttr("disabled");
         });
+
         $("form").keypress(function(e) {
             if (e.keyCode == 13) {
                 e.preventDefault();
@@ -310,7 +275,7 @@
             }
         });
 
-       
+
         function setparcela() {
             const tr = document.querySelectorAll('.trparcela');
             const qtdparcela = tr.length;
@@ -331,7 +296,62 @@
             return arr;
         }
 
-        
+        $("#modalFormCondicaopg").submit(function(event) {
+            event.preventDefault();
+
+            var validacao = $("#modalFormCondicaopg").valid();
+            var parcelas = setparcela();
+            var id = $("#id").val();
+            var condicao_pagamento = $("#condicao_pagamento").val();
+            var juros = $("#juros").val();
+            var multa = $("#multa").val();
+            var desconto = $("#desconto").val();
+            var data_create = $("#data_create").val();
+            var data_alt = $("#data_alt").val();
+            const tr = document.querySelectorAll('.trparcela');
+            var total_parcelas = tr.length;
+                if(validacao){
+                    if (total_parcelas <= 0) {
+                        swal('Condição de Pagamento deve conter Minímo 1 Parcela');
+                        return false
+                    } else if (getPercentualAtual() !== 100) {
+                        swal('O percentual das parcelas devem somar 100%.');
+                        return false;
+                    } else {
+                        $.ajax({
+                            url: "{{ route('cadastroCodicaoPagamento') }}",
+                            type: 'POST',
+                            data: {
+                                _token: '{!! csrf_token() !!}',
+                                id,
+                                condicao_pagamento,
+                                juros,
+                                multa,
+                                desconto,
+                                data_create,
+                                data_alt,
+                                total_parcelas,
+                                parcelas
+                            },
+                            dataType: 'JSON',
+                            success: function(data) {
+                                swal("Condição Cadastrado com Sucesso!");
+                                $("#modalFormCondicaopg").trigger("reset");
+                                tablecondicaopagamento.ajax.reload(null, false);
+                                $('#modalcondicaopg').modal('hide');
+                            },
+                            error: function(data){        
+                                return false;
+                                swal("ERROR");
+                            },
+                        });
+                    }
+
+                }
+
+            
+        });
+
 
 
 
