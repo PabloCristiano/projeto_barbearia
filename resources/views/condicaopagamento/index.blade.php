@@ -19,7 +19,6 @@
         </div>
     </div>
    <div class="card-body"><!-- inicio card-body-->
-    
     @include('condicaopagamento.ModalFormCondicaoPagamento')
     @include('condicaopagamento.table')
     @include('condicaopagamento.scriptCondicaoPagamento')

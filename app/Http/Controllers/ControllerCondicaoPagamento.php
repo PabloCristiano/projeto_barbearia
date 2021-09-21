@@ -25,7 +25,8 @@ class ControllerCondicaoPagamento extends Controller
 
     public function index()
     {
-        return view('condicaopagamento.index');
+        $listacondicao = $this->daoCondicaoPagamento->all(false);
+        return view('condicaopagamento.index',compact('listacondicao'));
     }
 
 
@@ -36,8 +37,7 @@ class ControllerCondicaoPagamento extends Controller
 
 
 
-    public function store(Request $request)
-    {
+    public function store(Request $request){
 
         $dados = [
             'id' => $request->id,

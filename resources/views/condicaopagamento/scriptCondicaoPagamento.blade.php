@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(function() {
-        $(document).ready(function() {
+        {{--  $(document).ready(function() {
             tablecondicaopagamento = $('#tablecondicaopagamento').DataTable({
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
@@ -39,21 +39,33 @@
                         }
                     }
                 },
-                "ajax":{            
-                    "url": "{{ route('listCondicaoPagamento') }}", 
+                "ajax": {
+                    "url": "{{ route('listCondicaoPagamento') }}",
                     "method": 'get', //usamos el metodo POST
-                    "dataSrc":""
+                    "dataSrc": ""
                 },
-                "columns":[
-                    {"data": "id"},
-                    {"data": "condicao_pagamento"},
-                    {"data": "juros"},
-                    {"data": "multa"},
-                    {"data": "desconto"},
-                    {{--  {"defaultContent": ""}  --}}
+                "columns": [{
+                        "data": "id"
+                    },
+                    {
+                        "data": "condicao_pagamento"
+                    },
+                    {
+                        "data": "juros"
+                    },
+                    {
+                        "data": "multa"
+                    },
+                    {
+                        "data": "desconto"
+                    },
+                    {
+                        "defaultContent": "<div class='text-center'><div class='btn-group'><button class='btn btn-dark btn-sm btnEditar'><i class='fa fa-edit'></i></button><button class='btn btn-dark btn-sm btnExcluir'><i class='fa fa-trash-alt'></i></button></div></div>"
+                    }
                 ]
             });
-        });
+            
+        });  --}}
         $('#modalFormCondicaopg').validate({
             rules: {
                 condicao_pagamento: {
@@ -167,6 +179,8 @@
         });
         $("#parcelas-table_wrapper .dataTables_paginate").remove();
         $("#parcelas-table_wrapper #parcelas-table_info").remove();
+
+        
         // Append table with add row form on add new button click
         $(".add-new").click(function() {
             if (getPercentualAtual() === 100) {
@@ -310,46 +324,58 @@
             var data_alt = $("#data_alt").val();
             const tr = document.querySelectorAll('.trparcela');
             var total_parcelas = tr.length;
-                if(validacao){
-                    if (total_parcelas <= 0) {
-                        swal('Condição de Pagamento deve conter Minímo 1 Parcela');
-                        return false
-                    } else if (getPercentualAtual() !== 100) {
-                        swal('O percentual das parcelas devem somar 100%.');
-                        return false;
-                    } else {
-                        $.ajax({
-                            url: "{{ route('cadastroCodicaoPagamento') }}",
-                            type: 'POST',
-                            data: {
-                                _token: '{!! csrf_token() !!}',
-                                id,
-                                condicao_pagamento,
-                                juros,
-                                multa,
-                                desconto,
-                                data_create,
-                                data_alt,
-                                total_parcelas,
-                                parcelas
-                            },
-                            dataType: 'JSON',
-                            success: function(data) {
-                                swal("Condição Cadastrado com Sucesso!");
-                                $("#modalFormCondicaopg").trigger("reset");
-                                tablecondicaopagamento.ajax.reload(null, false);
-                                $('#modalcondicaopg').modal('hide');
-                            },
-                            error: function(data){        
-                                return false;
-                                swal("ERROR");
-                            },
-                        });
-                    }
-
+            console.log(parcelas);
+            if (validacao) {
+                if (total_parcelas <= 0) {
+                    swal('Condição de Pagamento deve conter Minímo 1 Parcela');
+                    return false
+                } else if (getPercentualAtual() !== 100) {
+                    swal('O percentual das parcelas devem somar 100%.');
+                    return false;
+                } else {
+                    $.ajax({
+                        url: "{{ route('cadastroCodicaoPagamento') }}",
+                        type: 'POST',
+                        data: {
+                            _token: '{!! csrf_token() !!}',
+                            id,
+                            condicao_pagamento,
+                            juros,
+                            multa,
+                            desconto,
+                            data_create,
+                            data_alt,
+                            total_parcelas,
+                            parcelas
+                        },
+                        dataType: 'JSON',
+                        success: function(data) {
+                            swal("Condição Cadastrado com Sucesso!");
+                            $("#modalFormCondicaopg").trigger("reset");
+                            setTimeout(function() {
+                                window.location.reload(true);
+                            });
+                            $('#modalcondicaopg').modal('hide');
+                        },
+                        error: function(data) {
+                            return false;
+                            swal("ERROR");
+                        },
+                    });
                 }
 
-            
+            }
+
+
+        });
+
+        //Editar        
+        $(document).on("click", ".btnEditar", function() {
+           
+            fila = $(this).closest("tr");
+            user_id = parseInt(fila.find('td:eq(0)').text());
+            alert(user_id);
+            $('#modalcondicaopg').modal('show');
         });
 
 
