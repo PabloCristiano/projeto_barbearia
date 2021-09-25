@@ -11,26 +11,27 @@
                 </tr>
             </thead>
             <tbody>
-               
-                @if (@isset($parcelas))
-                    
+            {{--  {{dd($condicaopagamento)}}  --}}
+                @if (@isset($condicaopagamento) && $condicaopagamento->getParcelas() > 0 )
+                @foreach ($condicaopagamento->getParcelas() as $i => $getParcela)
+                {{--  {{dd($getParcela)}}  --}}
                         <tr class="trparcela">
                             <td class="col-1">
-                                <input type="number" class="form-control numero-parcela" name="parcela" value="1" id="parcela" readonly>
+                                <input type="number" class="form-control numero-parcela" name="parcela" value="{{$getParcela->getParcela()}}" id="parcela" readonly>
                             </td>
                             <td class="col-2">
-                                <input type="number" class="form-control prazo" name="prazo" min="1" step="1" id="prazo" placeholder="Prazo">
+                                <input type="number" class="form-control prazo" name="prazo" min="1" step="1" id="prazo" placeholder="Prazo" value="{{$getParcela->getPrazo()}}">
                             </td>
                             <td class="col-1">
-                                <input type="number" class="form-control porcentagem" name="porcentagem" value="" min="1" max="100" step=".01" id="porcentagem" placeholder="%">
+                                <input type="number" class="form-control porcentagem" name="porcentagem" value="{{$getParcela->getPorcentagem()}}" min="1" max="100" step=".01" id="porcentagem" placeholder="%">
                             </td>
                             <td class="col-6">
                                 <div class="form-row">
                                     <div class="form-group col-3">
-                                        <input type="number" class="form-control forma-pagamento-id" name="idformapg" id="idformapg" placeholder="Codigo">
+                                        <input type="number" class="form-control forma-pagamento-id" name="idformapg" id="idformapg" placeholder="Codigo" value="{{$getParcela->getFormaPagamento()->getid()}}">
                                     </div <div class="form-group">
                                     <div class="input-group col-9">
-                                        <input type="text" class="form-control forma-pagamento" name="formapg" id="formapg" placeholder="Forma de pagamento" readonly>
+                                        <input type="text" class="form-control forma-pagamento" name="formapg" id="formapg" placeholder="Forma de pagamento" value="{{$getParcela->getFormaPagamento()->getFormapg()}}" readonly>
                                         <div class="input-group-append">
                                             <button class="btn btn-dark btn-search" type="button" data-input="" data-route="" data-toggle="modal" data-target=".modalShowFormapg">
                                                 <i class="fa fa-search"></i>
@@ -54,7 +55,8 @@
                                 </div>
                             </td>
                         </tr>
-                    
+                @endforeach
+                @else 
                 @endif
             </tbody>
             </table>

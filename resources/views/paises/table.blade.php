@@ -1,3 +1,5 @@
+
+{{dd($paises)}}
 <div class="table-responsive">
     <table id="tablepais" class="table table-hover table-striped shadow-xs rounded" style="width:100%">
         <thead>

@@ -1,5 +1,6 @@
 <?php
 namespace App\Http\Models;
+use App\Http\Models\Parcela;
 
 
 class CondicaoPagamento extends TObject {
@@ -40,7 +41,7 @@ class CondicaoPagamento extends TObject {
         $this->juros             = 0;
         $this->multa             = 0;
         $this->desconto          = 0;
-       // $this->parcelas          = array();
+        $this->parcelas          = array();
         $this->totalParcelas     = 0;
     }
 

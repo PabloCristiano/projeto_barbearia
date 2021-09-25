@@ -6,26 +6,12 @@ use App\Http\Models\FormaPagamento;
 use App\Http\Models\CondicaoPagamento;
 
 class Parcela extends TObject{
-
-     /**
-     * @var int
-     */
-    protected $numero;
-
-    /**
-     * @var int
-     */
+    protected $parcela;
     protected $prazo;
-
-    /**
-     * @var float
-     */
     protected $porcentagem;
-
-    /**
-     * @var FormaPagamento
-     */
     protected $formaPagamento;
+
+    
 
     public function __construct()
     {

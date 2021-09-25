@@ -14,18 +14,15 @@
             @if (@isset($listacondicao))
             @foreach ($listacondicao as $condicaopg)           
                 <tr>
-                    <td>{{$condicaopg->id}}</td>
-                    <td>{{$condicaopg->condicao_pagamento}}</td>
-                    <td>{{$condicaopg->juros}}</td>
-                    <td>{{$condicaopg->multa}}</td>
-                    <td>{{$condicaopg->desconto}}</td>
+                    <td>{{$condicaopg->getid()}}</td>
+                    <td>{{$condicaopg->getCondicaoPagamento()}}</td>
+                    <td>{{$condicaopg->getJuros()}}</td>
+                    <td>{{$condicaopg->getMulta()}}</td>
+                    <td>{{$condicaopg->getDesconto()}}</td>
                     <td class="text-center">
                         <div class="btn-group-xs">
-                            <button  
-                                    class="alterar btn btn-dark" title="EDITAR"><i class="fa fa-edit"></i></button>
-    
-                            <button  
-                                    class="delete btn btn-dark" title="EXCLUIR"><i class="fa fa-trash-alt"></i></button>
+                            <a title="EDITAR" href="/editarCondicaoPagamento/{{$condicaopg->getid()}}" class="btn btn-dark"><i class="fa fa-edit" ></i></a>
+                            <a title="EXCLUIR" href="/editarCondicaoPagamento/{{$condicaopg->getid()}}" class="btn btn-dark"><i class="fa fa-trash-alt"></i></a>
                         </div>
                     </td>
                 </tr>
@@ -44,6 +41,7 @@
         </tfoot>
     </table>
 </div>
+
 <script type="text/javascript">
     $(function() {
 

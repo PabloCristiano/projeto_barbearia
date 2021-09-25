@@ -32,7 +32,7 @@ Route::get('/formapagamento', 'controllerFormaPagamento@index');
 Route::get('/Condicaopagamento', 'controllerCondicaoPagamento@index');
 Route::get('/agendamento', 'ControllerAgendamento@index');
 Route::get('/compras', 'ControllerCompra@index');
-Route::get('/teste', 'controllerCondicaoPagamento@teste');
+Route::get('/editarCondicaoPagamento/{id}', 'ControllerCondicaoPagamento@edit');
 
 
 //Rotas formularios
@@ -75,7 +75,7 @@ Route::get('/agendamento/buscar', 'ControllerAgendamento@show')->name('/agendame
 Route::get('/agendamento/addhora', 'ControllerAgendamento@addhora')->name('/agendamento/addhora');
 Route::get('/showProfissionais', 'ControllerProfissional@showProfissional')->name('showProfissionais');
 Route::get('/showClientes', 'ControllerCliente@showClientes')->name('showClientes');
-Route::get('/listCondicaoPagamento', 'ControllerCondicaoPagamento@listCondicaoPagamento')->name('listCondicaoPagamento');
+Route::POST('/listCondicaoPagamento', 'ControllerCondicaoPagamento@listCondicaoPagamento')->name('listCondicaoPagamento');
 //pesquisar profissional
 Route::POST('/searchProfissional', 'ControllerProfissional@searchProfissional')->name('searchProfissional');
 Route::POST('/searchServico', 'ControllerServico@findById')->name('searchServico');

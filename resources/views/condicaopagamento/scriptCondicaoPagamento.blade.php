@@ -1,6 +1,6 @@
 <script type="text/javascript">
     $(function() {
-        {{--  $(document).ready(function() {
+        {{-- $(document).ready(function() {
             tablecondicaopagamento = $('#tablecondicaopagamento').DataTable({
                 "language": {
                     "sEmptyTable": "Nenhum registro encontrado",
@@ -65,7 +65,7 @@
                 ]
             });
             
-        });  --}}
+        }); --}}
         $('#modalFormCondicaopg').validate({
             rules: {
                 condicao_pagamento: {
@@ -180,7 +180,7 @@
         $("#parcelas-table_wrapper .dataTables_paginate").remove();
         $("#parcelas-table_wrapper #parcelas-table_info").remove();
 
-        
+
         // Append table with add row form on add new button click
         $(".add-new").click(function() {
             if (getPercentualAtual() === 100) {
@@ -371,11 +371,54 @@
 
         //Editar        
         $(document).on("click", ".btnEditar", function() {
-           
+
             fila = $(this).closest("tr");
             user_id = parseInt(fila.find('td:eq(0)').text());
             alert(user_id);
             $('#modalcondicaopg').modal('show');
+        });
+
+
+        $('.cond').on('click', function() {
+            let id = $(this).data('id');
+            console.log(id);
+            $.ajax({
+                url: "{{ route('listCondicaoPagamento') }}",
+                type: 'POST',
+                data: {
+                    _token: '{!! csrf_token() !!}',
+                    id
+                },
+                dataType: 'JSON',
+                success: function(data) {
+                    console.log(data);
+                    console.log(data.data.condicao[0].id);
+                    $("#id").val(data.data.condicao[0].id);
+                    $("#condicao_pagamento").val(data.data.condicao[0].condicao_pagamento);
+                    $("#juros").val(data.data.condicao[0].juros);
+                    $("#multa").val(data.data.condicao[0].multa);
+                    $("#desconto").val(data.data.condicao[0].desconto);
+                    $("#total_parcelas").val(data.data.condicao[0].qtd_parcela);
+                    console.log(data.data.parcelas[0].parcela)
+                    $("#parcela").val(data.data.parcelas[0].parcela);
+                    $("#prazo").val(data.data.parcelas[0].prazo);
+                    $("#porcentagem").val(data.data.parcelas[0].porcentagem);
+                    $("#idformapg").val(data.data.parcelas[0].idformapg);
+                    $("#formapg").val(data.data.parcelas[0].forma_pg);
+                },
+                error: function(data) {
+
+                },
+            });
+
+
+            $(".modal-header").css("background-color", "#343a40");
+            $(".modal-header").css("color", "white");
+            $(".btn.btn-dark.btnformapg").text("ALTERAR");
+            $(".modal-titlecondicaopg").text("Editar Condição de Pagamento");
+            $('#FormCliente').attr('method', '#');
+            $('#FormCliente').attr('action', '#');
+            $('.modalcondicaopg').modal('show'); // modal aparece
         });
 
 

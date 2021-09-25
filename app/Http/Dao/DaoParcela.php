@@ -29,6 +29,8 @@ class DaoParcela implements Dao {
 
         if (isset($dados["id"]))
             $parcela->setId($dados["id"]);
+            $parcela->setDataCadastro($dados["data_create"]?? null);
+            $parcela->setDataAlteracao($dados["data_alt"]?? null);
 
         $parcela->setParcela($dados["parcela"]);
         $parcela->setPrazo($dados["prazo"]);
@@ -75,6 +77,8 @@ class DaoParcela implements Dao {
             'prazo'              =>  $parcela->getPrazo(),
             'porcentagem'        =>  $parcela->getPorcentagem(),
             'idformapg'          =>  $parcela->getFormaPagamento()->getId(),
+            'data_create'        =>  $parcela->getDataCadastro(),
+            'data_alt'           =>  $parcela->getDataAlteracao(),
         ];
 
         return $dados;
@@ -91,16 +95,12 @@ class DaoParcela implements Dao {
                 "parcela"            => $parcelas[$i]["parcela"],
                 "prazo"              => $parcelas[$i]["prazo"],
                 "porcentagem"        => $parcelas[$i]["porcentagem"],
-                "id_formapg"          => $parcelas[$i]["idformapg"],
-            ];
-
-           
-
+                "id_formapg"         => $parcelas[$i]["idformapg"],
+                "data_create"        => $parcelas[$i]["data_create"],
+                "data_alt"           => $parcelas[$i]["data_alt"],
+            ];          
             array_push($par, $dadosParcela);
-        
-        } 
-
-        
+        }         
         return $par;
     }
 
