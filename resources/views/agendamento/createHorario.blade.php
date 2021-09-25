@@ -30,7 +30,7 @@
             <div class="form-row">
                 <div class="form-group col-xl-2">
                     <label>Código *</label>
-                    <input type="number" id="id_servico" name="id_cidade" class="form-control " required>
+                    <input type="number" id="id_servico" name="id_cidade" class="form-control "required>
                 </div>
                 <div class="form-group  col-xl-10">
                     <label>Serviço *</label>

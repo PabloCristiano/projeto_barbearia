@@ -23,10 +23,9 @@ class ControllerCondicaoPagamento extends Controller
         $this->daoparcela = new  DaoParcela();
     }
 
-    public function index()
-    {
-        $listacondicao = $this->daoCondicaoPagamento->all(false);
-        return view('condicaopagamento.index',compact('listacondicao'));
+    public function index(){
+        $listacondicao = $this->daoCondicaoPagamento->all(true);
+        return view('condicaopagamento.index', compact('listacondicao'));
     }
 
 
@@ -37,7 +36,8 @@ class ControllerCondicaoPagamento extends Controller
 
 
 
-    public function store(Request $request){
+    public function store(Request $request)
+    {
 
         $dados = [
             'id' => $request->id,
@@ -47,34 +47,35 @@ class ControllerCondicaoPagamento extends Controller
             'desconto' => $request->desconto,
             'data_create' => $request->data_create,
             'data_alt' => $request->data_alt,
-            'total_parcelas' => $request->total_parcelas,
+            'qtd_parcela' => $request->total_parcelas,
             'parcelas' => $request->parcelas,
         ];
 
 
         $condicao = $this->daoCondicaoPagamento->create($dados);
-
-        $store = $this->daoCondicaoPagamento->store($condicao);
-        //$parcelas = $request->parcelas;
-        //$teste = $parcela[0]['prazo'];
-        //$teste2 = $parcela[0]['idformapg'];   
-        // $storeparcelas = $this->daoparcela->store($parcelas);  
+        $store = $this->daoCondicaoPagamento->store($condicao); 
         return response::json(array('success' => true, 'data' => $store));
     }
 
 
-    public function listCondicaoPagamento()
-    {
-        $listCondicao = $this->daoCondicaoPagamento->listCondicaoPagamento();
-        if ($listCondicao) {
-            return $listCondicao;
-        }
-        return 'error';
-    }
+    // public function listCondicaoPagamento(Request $request){
+    //     $listCondicao = $this->daoCondicaoPagamento->listCondicaoPagamento($request->id);
+    //     $parcelas = $this->daoCondicaoPagamento->listaParcela($request->id);
+    //     if ($request->id) {
+    //         $data = array();
+    //         $data =[
+    //            "condicao" => $listCondicao,
+    //            "parcelas"  => $parcelas
+    //         ];
+    //         return response::json(array('success' => true, 'data' => $data));
+    //     }
+    //     return response::json('error');      
+    // }
 
 
-    public function edit($id)
-    {
+    public function edit($id){
+        $listacondicao = $this->daoCondicaoPagamento->listCondicaoPagamento($id);        
+        return view('condicaopagamento.editarCondicao',compact('listacondicao'));
     }
 
 
