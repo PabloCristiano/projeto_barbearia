@@ -53,6 +53,7 @@ Route::POST('/profissional','ControllerProfissional@store');
 Route::POST('/fornecedor','ControllerFornecedor@store');
 Route::POST('/produto','ControllerProduto@store');
 Route::POST('/cliente','ControllerCliente@store');
+Route::POST('/condicaoPagamentoEdit','ControllerCondicaoPagamento@update')->name("condicaoPagamentoEdit");
 
 
 

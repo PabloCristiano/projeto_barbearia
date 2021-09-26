@@ -195,6 +195,7 @@
                 $("#parcelas-table .dataTables_empty").parent().remove();
             let newRow = $(row).clone();
             newRow.find(".numero-parcela").val(parcelas);
+            $("#total_parcelas").val(parcelas);
             $("#parcelas-table tbody").append(newRow);
             newRow.find(".add").show();
             newRow.find(".edit").hide();

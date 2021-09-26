@@ -168,9 +168,9 @@ class DaoCondicaoPagamento implements Dao
             "desconto"           =>  $condicaoPagamento->getDesconto(),
             'qtd_parcela'        =>  $condicaoPagamento->getTotalParcelas(),
             'data_create'        =>  $condicaoPagamento->getDataAlteracao(),
-            'data_alt'           =>  $condicaoPagamento->getDataCadastro(),
+            'data_alt'           => Carbon::now(),
         ];
-
+        
         return $dados;
     }
 
