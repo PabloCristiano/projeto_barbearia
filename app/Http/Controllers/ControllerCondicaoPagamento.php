@@ -94,9 +94,8 @@ class ControllerCondicaoPagamento extends Controller
           'qtd_parcela' => $request->total_parcelas,
           'parcelas' => $par,
       ];
-     // dd($dados);    
-      $dadosCompletos = $this->daoCondicaoPagamento->listarCondição($dados);
-       dd($dadosCompletos);
+      dd($dados);    
+     
     }
 
 
