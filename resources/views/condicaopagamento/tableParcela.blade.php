@@ -57,7 +57,7 @@
                 @else 
                 @endif
             </tbody>
-            </table>
+            </table>            
         </div>
      </div>
 <br>

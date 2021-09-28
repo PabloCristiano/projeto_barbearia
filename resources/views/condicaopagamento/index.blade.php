@@ -23,8 +23,6 @@
     @include('condicaopagamento.table')
     @include('condicaopagamento.scriptCondicaoPagamento')
     @include('condicaopagamento.ModalFormParcela')
-    
-
    </div><!--FIM Card-Boddy-->
 </div>
 @endsection

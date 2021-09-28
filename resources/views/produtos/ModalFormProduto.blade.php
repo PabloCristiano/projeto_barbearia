@@ -18,11 +18,11 @@
                   <div class="form-row" >
                     <div class="form-group col-xl-4">
                         <small>Cadastrado em:</small>
-                        <input type="text" class="form-control form-control-sm" name="data_create" id="alterardata_create"  readonly>
+                        <input type="text" class="form-control form-control-sm" name="data_create" id="data_create" value="" readonly>
                     </div>
                     <div class="form-group col-xl-4">
                         <small>Alterado em:</small>
-                        <input type="text" class="form-control form-control-sm" name="data_alt" id="alterardata_alt"  readonly>
+                        <input type="text" class="form-control form-control-sm" name="data_alt" id="data_alt" value="" readonly>
                     </div>
                   </div>
                   <div class="row">

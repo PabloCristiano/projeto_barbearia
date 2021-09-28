@@ -49,8 +49,7 @@ class ControllerCategoria extends Controller{
     }
 
     
-    public function update(Request $request)
-    {
+    public function update(Request $request){
         $update = $this->daocategoria->update($request);
         if($update){            
             return redirect('/categoria') ->with('success',' ');

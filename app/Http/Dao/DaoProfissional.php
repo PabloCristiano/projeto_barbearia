@@ -62,8 +62,8 @@ class DaoProfissional implements Dao {
 
         if(isset($dados["id"])){
             $profissional->setId($dados["id"]);
-            //$profissional->setDataCadastro($dados["data_create"] ?? null );
-            //$profissional->setDataAlteracao($dados["data_alt"] ?? null);
+            $profissional->setDataCadastro($dados["data_create"] ?? null );
+            $profissional->setDataAlteracao($dados["data_alt"] ?? null);
         }
         $profissional->setNome((string)$dados["profissional"]);
         $profissional->setApelido((string)$dados["apelido"]);
@@ -108,16 +108,12 @@ class DaoProfissional implements Dao {
 
 
     }
-
-    public function update(Request $request){ 
+    public function updateProfissional(array $dados){
         try {
-            $profissional = $this->create($request->all());
+            $profissional = $this->create($dados);
             $dados = $this->getData($profissional);
-
             DB::table('profissionais')->where('id', $dados['id'])->update($dados);
-
             DB::commit();
-
             return true;
         } catch (\Throwable $th) {
             DB::rollBack();
@@ -125,7 +121,19 @@ class DaoProfissional implements Dao {
             return false;
         }
 
-
+    }
+    public function update(Request $request){ 
+        try {
+            $profissional = $this->create($request->all());
+            $dados = $this->getData($profissional);
+            DB::table('profissionais')->where('id', $dados['id'])->update($dados);
+            DB::commit();
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th->getMessage());
+            return false;
+        }
     }
 
     public function delete($id){
@@ -168,7 +176,7 @@ class DaoProfissional implements Dao {
           'confSenha'=>    $profissional->getConfSenha(),
           'tipoProf'=>     $profissional->getTipoProf(),
           'comissao'=>     $profissional->getComissao(),
-           
+          'data_alt'=>     Carbon::now(),           
         ];
 
         return $dados;

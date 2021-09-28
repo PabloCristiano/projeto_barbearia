@@ -58,8 +58,29 @@ class ControllerProfissional extends Controller
 
     
     public function update(Request $request){
-        
-        $update = $this->daoProfissional->update($request);
+        $dados = [
+            'id'               =>$request->id,
+            'profissional'     =>$request->profissional,
+            'apelido'          =>$request->apelido,  
+            'cpf'              =>$request->cpf,
+            'rg'               =>$request->rg,
+            'dataNasc'         =>$request->dataNasc,
+            'logradouro'       =>$request->logradouro,
+            'numero'           =>$request->numero,
+            'complemento'      =>$request->complemento,
+            'bairro'           =>$request->bairro,
+            'cep'              =>$request->cep,
+            'id_cidade'        =>$request->id_cidade,
+            'id_servico'       =>$request->id_servico,
+            'whatsapp'         =>$request->whatsapp,
+            'telefone'         =>$request->telefone,
+            'email'            =>$request->email,
+            'senha'            =>$request->senha,
+            'confSenha'        =>$request->confSenha,
+            'tipoProf'         =>$request->tipoProf,
+            'comissao'         =>$request->comissao,             
+          ];        
+        $update = $this->daoProfissional->updateProfissional($dados);
         
         if($update){            
            return redirect('/profissional') ->with('success',' ');

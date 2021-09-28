@@ -119,14 +119,13 @@ class DaoEstado implements Dao{
     }
 
     public function getData(Estado $estado) {
-        $data = $estado->getDataAlteracao();
-        //dd($data);
-
+       
         $dados = [
-            'id'      => $estado->getId(),
-            'estado'  => $estado->getEstado(),
-            'uf'      => $estado->getUF(),
-            'id_pais' => $estado->getPais()->getID(),
+            'id'       => $estado->getId(),
+            'estado'   => $estado->getEstado(),
+            'uf'       => $estado->getUF(),
+            'id_pais'  => $estado->getPais()->getID(),
+            'data_alt' => Carbon::now(),
             
         ];
         return $dados;

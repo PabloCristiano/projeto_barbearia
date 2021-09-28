@@ -19,7 +19,7 @@ class DaoCategoria implements Dao {
                 $categoria = $this->create(get_object_vars($item));
                 array_push($categorias, $categoria);
             }
-    
+            
             return $categorias;
     }
 
@@ -27,11 +27,11 @@ class DaoCategoria implements Dao {
         $categoria = new Categoria();
         if(isset($dados["id"])){
             $categoria->setId($dados["id"]);
-            $categoria->setDataCadastro($dados["data_cadastro"] ?? null);
-            $categoria->setDataAlteracao($dados["data_alteracao"]??null);
+            $categoria->setDataCadastro($dados["data_create"] ?? null);
+            $categoria->setDataAlteracao($dados["data_alt"]??null);
         }
         $categoria->setCategoria($dados["categoria"]);
-
+       
         return $categoria;
     }
 
@@ -50,7 +50,13 @@ class DaoCategoria implements Dao {
     }
 
     public function update(Request $request){
-        $categoria = $this->create($request->all());
+        $dado =[
+            "id"          => $request->id,
+            "categoria"   => $request->categoria,
+            "data_create" => null,
+            "data_alt"    => null
+        ];
+        $categoria = $this->create($dado);
         $dados = $this->getData($categoria);
         DB::beginTransaction();
         try {
@@ -103,8 +109,9 @@ class DaoCategoria implements Dao {
     public function getData(Categoria $categoria) {
 
         $dados = [
-            "id"        => $categoria->getId(),
+            "id"           => $categoria->getId(),
             "categoria"    => $categoria->getCategoria(),
+            'data_alt'     =>Carbon::now(),
         ];
 
         return $dados;

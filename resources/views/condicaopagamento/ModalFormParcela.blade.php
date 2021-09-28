@@ -13,8 +13,7 @@
           <div class="card-body">
             <br>
               <form id="modalFormCondicaopg"  name="createformapg" class="needs-validation" novalidate action="#" method="POST">
-                  @csrf
-                  @include('condicaopagamento.fieldsParcela')                                   
+                  @csrf                                  
                   <br>
                   <div class="row">
                     <div class="col-12 text-right">

@@ -59,8 +59,8 @@ class DaoProduto implements Dao {
 
         if(isset($dados["id"])){
             $produto->setId($dados["id"]);
-            //$produto->setDataCadastro($dados["data_create"] ?? null );
-            //$produto->setDataAlteracao($dados["data_alt"] ?? null);
+            $produto->setDataCadastro($dados["data_create"] ?? null );
+            $produto->setDataAlteracao($dados["data_alt"] ?? null);
         }
         $produto->setProduto($dados["produto"]);
         $produto->setUnidade($dados["unidade"]);
@@ -70,7 +70,6 @@ class DaoProduto implements Dao {
         $produto->setCustoUltCompra((float)$dados["custoUltCompra"]);
         $produto->setDataUltCompra($dados["dataUltCompra"]);
         $produto->setDataUltVenda($dados["dataUltVenda"]);
-
         $categoria = $this->daoCategoria->findById($dados["id_categoria"], true);
         $produto->setCategoria($categoria);
         $fornecedor = $this->daoFornecedor->findById($dados["id_fornecedor"], true);
@@ -97,10 +96,28 @@ class DaoProduto implements Dao {
     }
 
     public function update(Request $request){
+        $dado = [
+            "id"             => $request->id, 
+            "produto"        => $request->produto,
+            "unidade"        => $request->unidade,
+            "id_categoria"   => $request->id_categoria, 
+            "id_fornecedor"  => $request->id_fornecedor, 
+            "qtdEstoque"     => $request->qtdEstoque, 
+            "precoCusto"     => $request->precoCusto, 
+            "precoVenda"     => $request->precoVenda, 
+            "custoUltCompra" => $request->custoUltCompra,
+            "dataUltCompra"  => $request->dataUltCompra, 
+            "dataUltVenda"   => $request->dataUltVenda,
+            "data_create"     =>null,
+             "data_alt"       =>null,
+        ];       
         try {
-            $produto = $this->create($request->all());
+            $produto = $this->create($dado);
             $dados = $this->getData($produto);
             DB::table('produtos')->where('id', $dados['id'])->update($dados);
+            // DB::select('UPDATE PRODUTOS SET produto =?',[$dados['produto']],'WHERE id =?',[$dados["id"]]);
+            // DB::select('UPDATE PRODUTOS SET unidade =?',[$dados['unidade']],'WHERE id =?',[$dados["id"]]);
+            // DB::select('UPDATE PRODUTOS SET id_categoria =?',[$dados['id_categoria']],'WHERE id =?',[$dados["id"]]);
             DB::commit();
             return true;
         } catch (\Throwable $th) {
@@ -141,9 +158,8 @@ class DaoProduto implements Dao {
             "precoVenda"     => $produto->getPrecoVenda(), 
             "custoUltCompra" => $produto->getCustoUltCompra(),
             "dataUltCompra"  => $produto->getDataUltCompra(), 
-            "dataUltVenda"   => $produto->getDataUltVenda(), 
-           // "data_create"    => $produto->getDataCadastro(),
-           // "data_alt"       => $produto->getDataAlteracao(),
+            "dataUltVenda"   => $produto->getDataUltVenda(),
+             "data_alt"       => Carbon::now(),
         ];
 
         return $dados;
