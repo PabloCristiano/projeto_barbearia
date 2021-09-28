@@ -67,7 +67,7 @@ class TObject {
      */
     public function setDataCadastro(string $data_create = null)
     {
-        $data = Carbon::parse($data_create)->toDate()->format('d/M/Y');
+        $data = Carbon::parse($data_create)->toDate()->format('d/m/Y');
         $hora = Carbon::parse($data_create)->toTimeString('minute');
 
         $this->data_create = $data . ' às ' . $hora;
@@ -91,7 +91,7 @@ class TObject {
      */
     public function setDataAlteracao(string $data_alt = null)
     {
-        $data = Carbon::parse($data_alt)->toDate()->format('d/M/Y');
+        $data = Carbon::parse($data_alt)->toDate()->format('d/m/Y');
        $hora = Carbon::parse($data_alt)->toTimeString('minute');
 
         $this->data_alt = $data . ' às ' . $hora;

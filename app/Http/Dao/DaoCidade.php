@@ -37,8 +37,8 @@ Class DaoCidade implements Dao {
 
         if (isset($dados["id"])) {
             $cidade->setId($dados["id"]);
-            $cidade->setDataCadastro($dados["data_cadastro"] ?? null);
-            $cidade->setDataAlteracao($dados["data_alteracao"] ?? null);
+            $cidade->setDataCadastro($dados["data_create"] ?? null);
+            $cidade->setDataAlteracao($dados["data_alt"] ?? null);
         }
 
         $cidade->setCidade($dados["cidade"]);

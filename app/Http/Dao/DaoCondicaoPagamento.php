@@ -46,8 +46,8 @@ class DaoCondicaoPagamento implements Dao
 
         if (isset($dados["id"])) {
             $condicaoPagamento->setId(($dados["id"]));
-            $condicaoPagamento->setDataCadastro($dados["data_cadastro"] ?? null);
-            $condicaoPagamento->setDataAlteracao($dados["data_alteracao"] ?? null);
+            $condicaoPagamento->setDataCadastro($dados["data_create"] ?? null);
+            $condicaoPagamento->setDataAlteracao($dados["data_alt"] ?? null);
         }
         $condicaoPagamento->setCondicaoPagamento($dados["condicao_pagamento"]);
         $condicaoPagamento->setJuros((float)$dados["juros"]);
@@ -65,8 +65,8 @@ class DaoCondicaoPagamento implements Dao
 
         $condicaoPagamento = new CondicaoPagamento();
         $condicaoPagamento->setId(($dados["id"]));
-        $condicaoPagamento->setDataCadastro($dados["data_cadastro"] ?? null);
-        $condicaoPagamento->setDataAlteracao($dados["data_alteracao"] ?? null);
+        $condicaoPagamento->setDataCadastro($dados["data_create"] ?? null);
+        $condicaoPagamento->setDataAlteracao($dados["data_alt"] ?? null);
         $condicaoPagamento->setCondicaoPagamento($dados["condicao_pagamento"]);
         $condicaoPagamento->setJuros((float)$dados["juros"]);
         $condicaoPagamento->setMulta((float)$dados["multa"]);
@@ -194,7 +194,7 @@ class DaoCondicaoPagamento implements Dao
             $listacondicao = $this->listarCondição(get_object_vars($item));
             array_push($listcondicoes, $listacondicao);
         }
-
+        dd($listcondicoes);
         return $listcondicoes;
     }
 

@@ -48,7 +48,6 @@ class DaoPais implements Dao {
         
         $dados = $this->getData($obj);
         DB::beginTransaction();
-
         try {
             DB::table('paises')->insert($dados);
             DB::commit();
@@ -60,13 +59,10 @@ class DaoPais implements Dao {
     }
 
     public function update(Request $request){       
-    
         DB::beginTransaction();
         try {
             $pais = $this->create($request->all());
-
             $dados = $this->getData($pais);
-
             DB::table('paises')->where('id', $dados['id'])->update($dados);
 
             DB::commit();

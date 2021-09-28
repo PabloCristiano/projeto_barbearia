@@ -72,8 +72,18 @@
                         @include('condicaopagamento.tableParcela')
                         <table id="example" class="display" width="100%"></table>
                     </div>
+                    <div class="form-row col-xl-10" >
+                        <div class="form-group col-xl-3">
+                            <small>Cadastrado em:</small>
+                            <input type="text" class="form-control form-control-sm" name="data_create" id="data_create" value="{{$condicaopagamento->getDataCadastro()}}" readonly>
+                        </div>
+                        <div class="form-group col-xl-3">
+                            <small>Alterado em:</small>
+                            <input type="text" class="form-control form-control-sm" name="data_alt" id="data_alt" value="{{$condicaopagamento->getDataAlteracao()}}" readonly>
+                        </div>
+                    </div>
 
-                    <div class="card-footer text-center mx-auto">
+                    <div class="card-footer text-right mx-auto">
                         <button id="btnEnviar" type="Button"
                             class="btn btn-dark btnEditarCondPagamento ">EDITAR</button>
                         <a type="button" class="btn btn-dark" href="/Condicaopagamento">VOLTAR</a>
