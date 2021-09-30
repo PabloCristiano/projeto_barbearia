@@ -117,18 +117,13 @@ class DaoCliente implements Dao{
     }
 
     public function findById(int $id, bool $model = false){
-
         if (!$model) {
             return DB::select('select * from clientes where id =?',[$id]);
         }
-
          $dados = DB::table('clientes')->where('id', $id)->first();
-
         if ($dados)
             return $this->create(get_object_vars($dados));
-
         return $dados;
-
     }
 
     public function getData(Cliente $cliente) {

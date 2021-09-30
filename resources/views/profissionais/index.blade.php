@@ -18,14 +18,30 @@
         </div>
 </div>
 <div class="card-body">
+    @if (session('no'))
+    <script>
+        swal("Profissional não pode ser Excluido !!");
+   </script> 
+    @endif
+    @if (session('excluido'))
+    <script>
+        swal("Profissional Excluido com sucesso !!");
+   </script> 
+    @endif
+    @if (session('alterado'))
+    <script>
+        swal("Profissional Alterado com sucesso !!");
+   </script>
+ @endif
+ @if (session('Cadastrado'))
+    <script>
+        swal("Profissional cadastrado com sucesso !!");
+   </script>
+ @endif
     @include('profissionais.table')
     @include('profissionais.scriptprofissional')
     @include('profissionais.ModalFormProfissional')
-
-    @include('cidades.showcidade')
-      
-    
-    
+    @include('cidades.showcidade')   
     @include('servicos.showservico')
     @include('servicos.ModalFormServico')
 </div>

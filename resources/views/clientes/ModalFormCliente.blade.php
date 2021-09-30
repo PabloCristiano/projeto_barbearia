@@ -39,7 +39,7 @@
                         </div>
                         <div class="row">
                             <div class="col-12 text-right">
-                                <button type="submit" class="btn btn-dark btn-sm btncliente" value="" id="btnCliente"
+                                <button type="button" class="btn btn-dark btn-sm btncliente" value="" id="btnCliente"
                                     name="btnCliente">SALVAR</button>
                                 <button class="btn btn-sm btn-dark" data-dismiss="modal">VOLTAR</button>
                             </div>
@@ -50,3 +50,10 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+$(function(){
+    $('#btnCliente').on('click',function(){
+        
+    });
+});
+</script>

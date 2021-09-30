@@ -5,6 +5,7 @@
             type="number"
             id="id"
             name="id"
+            value="" 
             class="form-control "
             readonly
         >
@@ -21,6 +22,7 @@
             style="text-transform:uppercase;"
             required
         >
+        <span  id="msgProfissional" class="text-danger"></span>
     </div>
 
     <div class="form-group col-xl-4">
@@ -94,7 +96,7 @@
 
 <div class="form-row mt-4">
     <div class="form-group col-xl-4">
-        <label>CEP *</label>
+        <label>CEP </label>
         <input
             type="text"
             id="cep"
@@ -154,7 +156,7 @@
     </div>
 
     <div class="form-group col-xl-4">
-        <label>Telefone *</label>
+        <label>Telefone</label>
         <input
             type="text"
             id="telefone"
@@ -219,7 +221,9 @@
             placeholder="___.___.___-__"
             required
         >
+        <span  id="msgCpf" class="text-danger"></span>
     </div>
+   
 
     <div class="form-group col-xl-4">
         <label>RG</label>
@@ -240,7 +244,6 @@
             id="dataNasc"
             name="dataNasc"
             class="form-control"
-            required
         >
     </div>
 </div>

@@ -26,7 +26,7 @@
                 </div>
                   <div class="row">
                     <div class="col-12 text-right">
-                    <button type="submit" class="btn btn-dark btn-sm btnprofissional">SALVAR</button>
+                    <button type="button" class="btn btn-dark btn-sm btnprofissional">SALVAR</button>
                     <button class="btn btn-sm btn-dark" data-dismiss="modal">VOLTAR</button>
                     </div>
                 </div>

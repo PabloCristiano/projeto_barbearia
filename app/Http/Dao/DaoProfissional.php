@@ -1,28 +1,31 @@
 <?php
 
 namespace App\Http\Dao;
+
 use App\Http\Dao\Dao;
 use App\Http\Models\Profissional;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Dao\DaoCidade;
-use App\Http\Dao\DaoServico; 
+use App\Http\Dao\DaoServico;
 use Carbon\Carbon;
 
 
-class DaoProfissional implements Dao {
+class DaoProfissional implements Dao
+{
     private DaoCidade $daoCidade;
     private DaoServico $daoServico;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->daoCidade = new DaoCidade();
         $this->daoServico = new DaoServico();
-        
     }
 
-    public function all(bool $model = false){
+    public function all(bool $model = false)
+    {
 
-        $itens = DB:: select(
+        $itens = DB::select(
             'select id, 
             profissional, 
             apelido, 
@@ -45,24 +48,25 @@ class DaoProfissional implements Dao {
             comissao, 
             data_create, 
             data_alt  
-            from profissionais');
+            from profissionais'
+        );
 
-            $profissionais = array();
-            foreach($itens as $item){
-                $profissional = $this->create(get_object_vars($item));
-                array_push($profissionais, $profissional);
-            }
-    
-            return $profissionais;
+        $profissionais = array();
+        foreach ($itens as $item) {
+            $profissional = $this->create(get_object_vars($item));
+            array_push($profissionais, $profissional);
+        }
 
+        return $profissionais;
     }
 
-    public function create(array $dados){
+    public function create(array $dados)
+    {
         $profissional = new Profissional();
 
-        if(isset($dados["id"])){
+        if (isset($dados["id"])) {
             $profissional->setId($dados["id"]);
-            $profissional->setDataCadastro($dados["data_create"] ?? null );
+            $profissional->setDataCadastro($dados["data_create"] ?? null);
             $profissional->setDataAlteracao($dados["data_alt"] ?? null);
         }
         $profissional->setNome((string)$dados["profissional"]);
@@ -86,15 +90,15 @@ class DaoProfissional implements Dao {
         $servico = $this->daoServico->findById($dados["id_servico"], true);
         $profissional->setServico($servico);
 
-        
-        return $profissional;
 
+        return $profissional;
     }
 
-    public function store($obj){
+    public function store($obj)
+    {
 
         $dados = $this->getData($obj);
-       // dd($dados);
+         //dd($dados);
         DB::beginTransaction();
         try {
             DB::table('profissionais')->insert($dados);
@@ -105,10 +109,9 @@ class DaoProfissional implements Dao {
             dd($e);
             return $e;
         }
-
-
     }
-    public function updateProfissional(array $dados){
+    public function updateProfissional(array $dados)
+    {
         try {
             $profissional = $this->create($dados);
             $dados = $this->getData($profissional);
@@ -120,9 +123,9 @@ class DaoProfissional implements Dao {
             dd($th->getMessage());
             return false;
         }
-
     }
-    public function update(Request $request){ 
+    public function update(Request $request)
+    {
         try {
             $profissional = $this->create($request->all());
             $dados = $this->getData($profissional);
@@ -136,7 +139,8 @@ class DaoProfissional implements Dao {
         }
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         DB::beginTransaction();
         try {
             DB::table('profissionais')->delete($id);
@@ -146,63 +150,104 @@ class DaoProfissional implements Dao {
             DB::rollBack();
             return false;
         }
-
     }
 
-    public function findById(int $id, bool $model = false){
+    public function findById(int $id, bool $model = false)
+    {
+        if (!$model)
+            return DB::table('profissionais')->get(['id', 'profissional', 'cpf'])->where('id', $id)->first();
+
+        $dados = DB::table('profissionais')->where('id', $id)->first();
+
+        if ($dados)
+            return $this->create(get_object_vars($dados));
+
+        return $dados;
+    }
+
+    public function findByIdCpf($cpf){
+        $cpf =  DB::select('select COUNT(*) as result from profissionais where cpf = ?', [$cpf]);
+        return $cpf;
         
     }
 
-    public function getData(Profissional $profissional) {
+    public function getData(Profissional $profissional)
+    {
 
         $dados = [
-          'id' =>          $profissional->getid(),
-          'profissional'=> $profissional->getNome(),
-          'apelido'=>      $profissional->getApelido(),  
-          'cpf'=>          $profissional->getCpf(),
-          'rg'=>           $profissional->getRg(),
-          'dataNasc'=>     $profissional->getDataNasc(),
-          'logradouro'=>   $profissional->getLogradouro(),
-          'numero'=>       $profissional->getNumero(),
-          'complemento'=>  $profissional->getComplemento(),
-          'bairro'=>       $profissional->getBairro(),
-          'cep'=>          $profissional->getCep(),
-          'id_cidade'=>    $profissional->getCidade()->getId(),
-          'id_servico'=>   $profissional->getServico()->getId(),
-          'whatsapp'=>     $profissional->getWhatsapp(),
-          'telefone'=>     $profissional->getTelefone(),
-          'email'=>        $profissional->getEmail(),
-          'senha'=>        $profissional->getSenha(),
-          'confSenha'=>    $profissional->getConfSenha(),
-          'tipoProf'=>     $profissional->getTipoProf(),
-          'comissao'=>     $profissional->getComissao(),
-          'data_alt'=>     Carbon::now(),           
+            'id' =>          $profissional->getid(),
+            'profissional' => $profissional->getNome(),
+            'apelido' =>      $profissional->getApelido(),
+            'cpf' =>          $profissional->getCpf(),
+            'rg' =>           $profissional->getRg(),
+            'dataNasc' =>     $profissional->getDataNasc(),
+            'logradouro' =>   $profissional->getLogradouro(),
+            'numero' =>       $profissional->getNumero(),
+            'complemento' =>  $profissional->getComplemento(),
+            'bairro' =>       $profissional->getBairro(),
+            'cep' =>          $profissional->getCep(),
+            'id_cidade' =>    $profissional->getCidade()->getId(),
+            'id_servico' =>   $profissional->getServico()->getId(),
+            'whatsapp' =>     $profissional->getWhatsapp(),
+            'telefone' =>     $profissional->getTelefone(),
+            'email' =>        $profissional->getEmail(),
+            'senha' =>        $profissional->getSenha(),
+            'confSenha' =>    $profissional->getConfSenha(),
+            'tipoProf' =>     $profissional->getTipoProf(),
+            'comissao' =>     $profissional->getComissao(),
+            'data_alt' =>     Carbon::now(),
         ];
 
         return $dados;
     }
 
-    public function showProfissional(){
+    public function showProfissional()
+    {
 
-        $itens = DB:: select(' select id, profissional from profissionais'
+        $itens = DB::select(
+            ' select id, profissional from profissionais'
         );
         $profissionais = array();
-        foreach($itens as $item){
+        foreach ($itens as $item) {
             array_push($profissionais, $item);
         }
         return $profissionais;
-
     }
-    public function searchProfissional($id){       
-        $itens = DB:: select('select * from profissionais where id = ?',[$id]);
-        $profissional = Array();
-        foreach($itens as $item){                           
+    public function searchProfissional($id)
+    {
+        $itens = DB::select('
+        select p.id, 
+        p.profissional, 
+        p.apelido, 
+        p.cpf, 
+        p.rg, 
+        p.dataNasc, 
+        p.logradouro, 
+        p.numero, 
+        p.complemento, 
+        p.bairro, 
+        p.cep, 
+        p.id_cidade, 
+        p.whatsapp, 
+        p.telefone, 
+        p.email, 
+        p.senha, 
+        p.confSenha, 
+        p.tipoProf, 
+        p.id_servico, 
+        p.comissao, 
+        p.data_create,
+		c.cidade,
+		s.servico,			  
+        p.data_alt from profissionais p 
+		join cidades c on c.id = p.id_cidade
+		join servicos s on s.id = p.id_servico
+		where p.id = ?', [$id]);
+        $profissional = array();
+        foreach ($itens as $item){
+            $profissionais = $this->create(get_object_vars($item));
             array_push($profissional, $item);
-        }    
-        return $profissional;       
+        }
+        return $profissional;
     }
-
-
-
-
 }

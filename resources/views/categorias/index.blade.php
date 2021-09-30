@@ -19,6 +19,26 @@
         </div>      
 </div>
 <div class="card-body">
+    @if (session('errorExcluido'))
+       <script>
+           swal("Registro não pode ser Excluido !!");
+      </script> 
+       @endif
+       @if (session('excluido'))
+       <script>
+           swal("Categoria Excluida com sucesso !!");
+      </script> 
+       @endif
+       @if (session('alterado'))
+       <script>
+           swal("Categoria Alterada com sucesso !!");
+      </script>
+    @endif
+    @if (session('cadastro'))
+       <script>
+           swal("Categoria Cadastrada com sucesso !!");
+      </script>
+    @endif
      @include('categorias.table')
      @include('categorias.ModalFormCategoria')
      @include('categorias.scriptCategoria')

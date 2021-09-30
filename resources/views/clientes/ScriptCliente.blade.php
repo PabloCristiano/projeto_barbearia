@@ -1,6 +1,5 @@
 <script type="text/javascript">
     $(function() {
-
         $(document).ready(function() {
             $('#tableCliente').DataTable({
                 "language": {
@@ -223,6 +222,7 @@
 
 
         $('#FormCliente').submit(function(event) {
+            console.log('cliente')
             event.preventDefault();
             $("#msgcpfin").remove();
             $("#msgcliente").remove();
@@ -261,7 +261,7 @@
                             document.getElementById("id_cidade").focus();
 
                         } else {
-                            
+
                             swal(data.message);
                             console.log(data.message);
                             $('.modalcliente').modal('hide');
@@ -273,17 +273,19 @@
 
                     },
                     error: function(data) {
-                        console.log(data.message);
 
                     },
                 });
             }
+           
 
         });
 
         $("#telefone,#whatsapp").mask("(00) 00000-0000");
         $("#cep").mask("00000-000");
         $("#cpf").mask("000.000.000-00");
+
+        
 
     });
 </script>

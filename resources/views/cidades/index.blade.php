@@ -22,9 +22,24 @@
         </div>
 </div>
 <div class="card-body">
-    @if (session('success'))
+    @if (session('cadastrado'))
         <script>
-            swal("Cidade cadastrado com sucesso !!"," ");
+            swal("Cidade cadastrada com sucesso !!");
+        </script>
+   @endif
+    @if (session('alterado'))
+        <script>
+            swal("Cidade alterada com sucesso !!");
+        </script>
+   @endif
+    @if (session('excluido'))
+        <script>
+            swal("Cidade excluída com sucesso !!");
+        </script>
+   @endif
+    @if (session('errorExcluido'))
+        <script>
+            swal("Registro não pode ser Excluído !!");
         </script>
    @endif
     @include('cidades.table')
@@ -37,8 +52,7 @@
 </div>
 
 <script type="text/javascript">
-    //função ajax modal pais
-    
+    //função ajax modal pais    
 $(function(){
     $("#formpais").validate();
     $("#ModalFormEstado").validate();

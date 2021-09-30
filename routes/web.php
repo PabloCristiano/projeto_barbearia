@@ -77,11 +77,15 @@ Route::get('/agendamento/addhora', 'ControllerAgendamento@addhora')->name('/agen
 Route::get('/showProfissionais', 'ControllerProfissional@showProfissional')->name('showProfissionais');
 Route::get('/showClientes', 'ControllerCliente@showClientes')->name('showClientes');
 Route::POST('/listCondicaoPagamento', 'ControllerCondicaoPagamento@listCondicaoPagamento')->name('listCondicaoPagamento');
-//pesquisar profissional
+//pesquisar complete 
 Route::POST('/searchProfissional', 'ControllerProfissional@searchProfissional')->name('searchProfissional');
 Route::POST('/searchServico', 'ControllerServico@findById')->name('searchServico');
 Route::POST('/searchCliente', 'ControllerCliente@findById')->name('searchCliente');
 Route::POST('/searchFormaPagamento', 'ControllerFormaPagamento@findById')->name('searchFormaPagamento');
+Route::POST('/searchCidade', 'ControllerCidade@searchCidade')->name('searchCidade');
+Route::POST('/findByIdProfissional', 'ControllerProfissional@edit')->name('findByIdProfissional');
+Route::POST('/findByIdCpf','ControllerProfissional@findByIdCpf')->name("findByIdCpf");
+
 
 Route::POST('cadastroCodicaoPagamento','ControllerCondicaoPagamento@store')->name('cadastroCodicaoPagamento');
 

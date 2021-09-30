@@ -33,15 +33,9 @@ class ControllerEstado extends Controller{
     
     public function store(Request $request){
         $estado = $this->daoEstado->create($request->all());
-        //$nomeEstado = $this->daoEstado->findById($request->id);
-        //dd($estado->getid());
-        $estadoteste = $this->daoEstado->pesquisar($request->estado);
-        
-        dd($estadoteste[0]->getUf());
-
         $store  = $this->daoEstado->store($estado);
         if($store){
-            return redirect('/estado')->with('success', 'Estado adicionado com sucesso!');
+            return redirect('/estado')->with('cadastrado','Show');
         } 
     }
 
@@ -57,26 +51,19 @@ class ControllerEstado extends Controller{
 
     
     public function update(Request $request){        
-       // dd($request->id, $request->estado, $request->uf, $request->id_pais, $request->data_create, $request->data_alt);
-      // dd($request);
         $update = $this->daoEstado->update($request);
-        if($update){
-            
-        return redirect('/estado') ->with('success',' ');
-        }
-        
-        return redirect('/estado')->with('error',' ');
-       
+        if($update){            
+        return redirect('/estado') ->with('alterado','show');
+        }        
+        return redirect('/estado')->with('errorUpdate','show');
     }
 
-    
     public function destroy($id){
         $delete = $this->daoEstado->delete($id);
         if ($delete){
-            return redirect('estado')->with('success', 'Registro removido com sucesso!');
+            return redirect('estado')->with('excluido', 'show');
         }
-
-        return redirect('estado')->with('error', 'Este registro não pode ser removido.');
+        return redirect('estado')->with('errorExcluido', 'show');
         
     }
 

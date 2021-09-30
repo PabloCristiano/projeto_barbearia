@@ -42,7 +42,7 @@ class ControllerProduto extends Controller{
         // dd($produto);
         $store = $this->daoProduto->store($produto);
         if($store){
-            return redirect('/produto')->with('success', ' ');  
+            return redirect('/produto')->with('Cadastrado', 'show');  
            }
     }
 
@@ -63,7 +63,7 @@ class ControllerProduto extends Controller{
      
       $update =  $this->daoProduto->update($request);
       if($update){            
-        return redirect('/produto') ->with('success',' ');
+        return redirect('/produto') ->with('alterado','show');
     }
         return redirect('/produto')->with('error',' ');
 
@@ -73,10 +73,10 @@ class ControllerProduto extends Controller{
     public function destroy($id){
         $delete = $this->daoProduto->delete($id);
         if ($delete){
-            return redirect('/produto')->with('success', 'Registro removido com sucesso!');
+            return redirect('/produto')->with('excluido', 'show');
         }
 
-        return redirect('/produto')->with('error', 'Este registro não pode ser removido.');
+        return redirect('/produto')->with('errorExcluido', 'show');
         
     }
 }
