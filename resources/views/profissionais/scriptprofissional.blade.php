@@ -66,6 +66,8 @@
 
             $('.alterar').on('click', function() {
                 let id = $(this).data('cod');
+                $("#msgProfissional").text("");
+                $("#msgCpf").text("");
                 $.ajax({
                     url: "{{ route('findByIdProfissional') }}",
                     type: 'POST',
@@ -115,6 +117,8 @@
             });
 
             $('.excluir').on('click', function() {
+                $("#msgProfissional").text("");
+                $("#msgCpf").text("");
                 let id = $(this).data('cod');
                 $.ajax({
                     url: "{{ route('findByIdProfissional') }}",
@@ -165,7 +169,9 @@
 
 
             });
-            $(".btn-addprofissonal").click(function() {
+            $(".btn-addprofissonal").click(function(){
+                $("#msgProfissional").text("");
+                $("#msgCpf").text("");
                 $("#FormProfissionais").validate();
                 $('#FormProfissionais').attr('method', 'POST');
                 $('#FormProfissionais').attr('action', '/profissional');
@@ -178,84 +184,87 @@
             });
 
             //mascaras formulario profissinal
-
             $("#telefone,#whatsapp").mask("(00) 00000-0000");
             $("#cpf").mask("000.000.000-00");
             $("#rg").mask("00.000.000-0");
             $("#cep").mask("00000-000");
 
-        });
-
-        $(".btnprofissional").on('click', function(event) {
-            $("#msgProfissional").text("");
-            $("#msgCpf").text("");
-            const vm = this;
-            $("#FormProfissionais").valid();
-            let campos = $("#FormProfissionais").valid();
-            $("#cpf").keyup(function() {
+            $(".btnprofissional").on('click', function() {
+                $("#msgProfissional").text("");
                 $("#msgCpf").text("");
-            })
-
-            let cpf = validarCpf($("#cpf").val());
-            if ($("#id").val() > 0 && campos === true) {
-                let cpf = validarCpf($("#cpf").val());
-                if (cpf === false) {
-                    $("#cpf").focus();
-                    $("#msgCpf").text("Favor informar um Cpf valido !");
-                    return false;
-                } else {
+                const vm = this;
+                $("#FormProfissionais").valid();
+                let campos = $("#FormProfissionais").valid();
+                $("#cpf").keyup(function() {
                     $("#msgCpf").text("");
-                }
-                $(this).attr("type", "submit");
-                return true;
-            }
+                })
 
-            if (campos === true) {
                 let cpf = validarCpf($("#cpf").val());
-                if (cpf === false) {
-                    $("#cpf").focus();
-                    $("#msgCpf").text("Favor informar um Cpf valido !");
-                    return false;
-                } else {
-                    $("#msgCpf").text("");
-                }
-                $.ajax({
-                    url: "{{ route('findByIdCpf') }}",
-                    headers: 'Accept',
-                    type: 'POST',
-                    data: $('#FormProfissionais').serialize(),
-                    dataType: 'JSON',
-                    success: function(data) {
-                        console.log(data.data[0].result);
-                        event.preventDefault();
-                        if (data.data[0].result > 0) {
-                            console.log('condicao verdadeira');
-                            swal("Profissional Já Cadastrado !");
-                            $("#profissional").focus();
-                            $("#msgCpf").text("Cpf Já Cadastrado !");
-                            $("#msgProfissional").text("Profissional já Cadastrado !");
-                            $("#cpf").keyup(function(){
-                                $("#msgCpf").text("");
-                            });
-                            $("#profissional").keyup(function(){
-                                $("#msgProfissional").text("");
-                            });
-                        }else{
-                            $('.btnprofissional').attr("type", "submit");
-                            return true;
+                if ($("#id").val() > 0 && campos === true) {
+                    let cpf = validarCpf($("#cpf").val());
+                    if (cpf === false) {
+                        $("#cpf").focus();
+                        $("#msgCpf").text("Favor informar um Cpf valido !");
+                        return false;
+                    } else {
+                        $("#msgCpf").text("");
+                    }
+                    $(this).attr("type", "submit");
+                    return true;
+                } else 
+                {
+                    if (campos === true) {
+                        let cpf = validarCpf($("#cpf").val());
+                        if (cpf === false) {
+                            $("#cpf").focus();
+                            $("#msgCpf").text("Favor informar um Cpf valido !");
+                            return false;
+                        } else {
+                            $("#msgCpf").text("");
                         }
-                       
-                    },
-                    error: function(data) {
 
-                    },
-                });
+                        $.ajax({
+                            url: "{{ route('findByIdCpf') }}",
+                            headers: 'Accept',
+                            type: 'POST',
+                            data: $('#FormProfissionais').serialize(),
+                            dataType: 'JSON',
+                            success: function(data) {
+                                console.log(data.data[0].result);
+                                if (data.data[0].result > 0) {
+                                    console.log('entrou no if cpf');
+                                    //swal("Profissional Já Cadastrado !");
+                                    $("#profissional").focus();
+                                    $("#msgCpf").text("Cpf Já Cadastrado !");
+                                    $("#msgProfissional").text(
+                                        "Profissional já Cadastrado !");
+                                    $("#cpf").keyup(function() {
+                                        $("#msgCpf").text("");
+                                        $("#msgProfissional").text("");
+                                    });
+                                    $("#profissional").keyup(function() {
+                                        $("#msgProfissional").text("");
+                                        $("#msgCpf").text("");
+                                    });
+                                    return false;
+                                }
+                                console.log('fora');
+                                $('#FormProfissionais').attr('method', 'POST');
+                                $('#FormProfissionais').attr('action', '/profissional');
+                                $("#FormProfissionais").submit();
+                                
+                            },
+                            error: function(data) {
 
-                console.log('entrou na codição01');
-
-            }
-
+                            },
+                        });                        
+                        return true
+                    }
+                }
+            });
         });
+
+
 
 
         function validarCpf(cpf) {
