@@ -103,4 +103,17 @@ class ControllerCondicaoPagamento extends Controller
 
     }
 
+    public function showCondicaoPagamento(){
+        $condicao = $this->daoCondicaoPagamento->showCondicaoPagamento();
+        return $condicao;
+    }
+
+    public function searchCondicaoPagamento(Request $request){
+        $search = $this->daoCondicaoPagamento->findById($request->search,false);
+        if($search){
+            return response()->json($search);
+        }        
+        return response()->json('error');
+    }
+
 }

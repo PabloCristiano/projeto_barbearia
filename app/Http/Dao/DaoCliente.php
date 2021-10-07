@@ -39,8 +39,8 @@ class DaoCliente implements Dao{
 
         if(isset($dados["id"])){
             $cliente->setid($dados["id"]);
-             //$cliente->setDataCadastro($dados["data_create"] ?? null );
-            //$cliente->setDataAlteracao($dados["data_alt"] ?? null);
+             $cliente->setDataCadastro($dados["data_create"] ?? null );
+            $cliente->setDataAlteracao($dados["data_alt"] ?? null);
         }
 
         $cliente->setNome($dados["cliente"]);
@@ -59,7 +59,6 @@ class DaoCliente implements Dao{
         $cliente->setSenha($dados["senha"]);
         $cliente->setConfSenha($dados["confSenha"]);
         $cliente->setTelefone($dados["telefone"]);
-        // $cliente->setObservacoes($dados["observacao"]);
         $cidade =  $this->daoCidade->findById($dados["id_cidade"], true);
         $cliente->setCidade($cidade);
         //$condicaoPagamento =  $this->daoCondicaoPagamento->findById($dados["id_condicao"], true);
@@ -118,7 +117,33 @@ class DaoCliente implements Dao{
 
     public function findById(int $id, bool $model = false){
         if (!$model) {
-            return DB::select('select * from clientes where id =?',[$id]);
+            return DB::select('select 
+            c.id, 
+            c.cliente, 
+            c.apelido, 
+            c.cpf, 
+            c.rg, 
+            c.dataNasc, 
+            c.logradouro, 
+            c.numero, 
+            c.complemento, 
+            c.bairro, 
+            c.cep, 
+            c.id_cidade,
+            c.id_condicao,
+            c.whatsapp,
+            c.telefone,
+            c.email,
+            c.senha,
+            c.confSenha,
+            c.data_create,
+            c.data_alt,
+            ci.cidade,
+            co.condicao_pagamento
+            from clientes c 
+            join cidades ci on ci.id = c.id_cidade
+            join condicao_pg co on co.id = c.id_condicao 
+             where c.id = ?',[$id]);
         }
          $dados = DB::table('clientes')->where('id', $id)->first();
         if ($dados)
@@ -147,10 +172,9 @@ class DaoCliente implements Dao{
           'senha' =>         $cliente->getSenha(),
           'confSenha' =>     $cliente->getConfSenha(),        
          // 'id_condicaopg'=>  $cliente->getCondicaoPagamento(),
-          'id_condicao'=>  '1', 
-        //   'observacao'=>     $cliente->getObservacoes(),
-          //'data_create'=>  $cliente->getComissao(),
-          //'data_alt'=>     $cliente->getComissao(),
+          'id_condicao'=>  '271', 
+        // 'observacao'=>     $cliente->getObservacoes(),
+          'data_alt'=>      Carbon::now(),
            
         ];
 
@@ -173,9 +197,19 @@ class DaoCliente implements Dao{
         foreach($itens as $item){                           
             array_push($listClientes, $item);
         }    
-        
         return $listClientes;
     }
+
+    public function findByCpfCliente($cpf){       
+        $itens = DB:: select('select * from clientes where cliente = ?',[$cpf]);
+        $dado = array();
+        foreach($itens as $item){                           
+            array_push($dado, $item);
+        }    
+        return $dado;       
+    }
+
+    
 
 
 

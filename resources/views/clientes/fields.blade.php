@@ -1,5 +1,6 @@
+<small id="msgCliente" class="text-danger"></small>
 <div class="form-row">
-    <div class="form-group col-xl-1">
+    <div class="form-group col-xl-2">
         <label>Código </label>
         <input type="number" id="id" name="id" class="form-control " value="" readonly>
 
@@ -16,7 +17,7 @@
         @enderror
     </div>
 
-    <div class="form-group col-xl-4">
+    <div class="form-group col-xl-3">
         <label>Apelido </label>
         <input type="text" id="apelido" name="apelido" class="form-control" minlength="3" maxlength="20"
             value="" style="text-transform:uppercase;">
@@ -134,18 +135,18 @@
     <div class="form-group required col-xl-2">
         <label>Código *</label>
         <input type="number" class="form-control" name="id_condicao" id="id_condicao" data-input="condicao_pagamento"
-            data-route="condicoes-pagamento" value="1" min="1" step="1" oninput="">
+            data-route="condicoes-pagamento" value="" min="1" step="1" oninput="">
     </div>
 
     <div class="form-group required col-xl-10" id="ipt-condicao-pagamento">
         <label>Condição de Pagamento *</label>
         <div class="input-group">
-            <input type="text" class="form-control" name="condicao" id="condicao" value="BOLETO" readonly
+            <input type="text" class="form-control" name="condicao" id="condicao" value="" readonly
                 style="text-transform:uppercase;" data-error="ipt-condicao-pagamento">
 
             <div class="input-group-append">
                 <button class="btn btn-dark btn-search" type="button" data-input="condicao_pagamento_id"
-                    data-route="condicoes-pagamento" data-toggle="modal" data-target="modal-condicoes-pagamento">
+                    data-route="condicoes-pagamento" data-toggle="modal" data-target=".modalShowCondicao">
                     <i class="fa fa-search"></i>
                 </button>
             </div>

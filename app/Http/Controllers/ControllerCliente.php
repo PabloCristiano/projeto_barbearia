@@ -167,6 +167,22 @@ class ControllerCliente extends Controller
         }        
         return response()->json('error');
     }
+    
+    public function findByIdCliente(Request $request){
+        $search = $this->daoCliente->findById($request->id,false);
+        if($search){
+            return response()->json($search);
+        }        
+        return response()->json('error');
+    }
+    
+    public function findByCpfCliente(Request $request){
+        $cpf = $this->daoCliente->findByCpfCliente($request->id,false);
+        if($cpf){
+            return response::json(array('success' => true, 'data' => $cpf));
+        }        
+        return response::json(array('success' => false, 'data' => 'Deu ruim '));
+    }
 
     
 }

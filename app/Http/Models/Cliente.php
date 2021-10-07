@@ -17,7 +17,7 @@ class Cliente extends Pessoa{
 
     public function __construct(){
 
-        $this->apelido = null;
+        $this->apelido = '';
         $this->senha = '';
         $this->confSenha = '';
         $this->condicaoPagamento = new CondicaoPagamento();

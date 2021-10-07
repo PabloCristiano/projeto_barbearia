@@ -157,6 +157,15 @@ class DaoCondicaoPagamento implements Dao
     }
 
     public function findById(int $id, bool $model = false){
+        if (!$model)
+            return DB::table('condicao_pg')->get()->where('id', $id)->first();
+
+        $dados = DB::table('condicao_pg')->where('id', $id)->first();
+
+        if ($dados)
+            return $this->create(get_object_vars($dados));
+
+        return $dados;
     }
 
     public function getdata(CondicaoPagamento $condicaoPagamento){
@@ -194,7 +203,7 @@ class DaoCondicaoPagamento implements Dao
             $listacondicao = $this->listarCondição(get_object_vars($item));
             array_push($listcondicoes, $listacondicao);
         }
-        dd($listcondicoes);
+       // dd($listcondicoes);
         return $listcondicoes;
     }
 
@@ -208,5 +217,14 @@ class DaoCondicaoPagamento implements Dao
             array_push($parcelas, $dadosParcela);
         }
         return $parcelas;
+    }
+
+    public function showCondicaoPagamento(){
+        $item = DB::select('select * from condicao_pg');
+        $condicao_pg = array();
+        foreach ($item as $itens) {
+            array_push($condicao_pg, $itens);
+        }
+        return $condicao_pg;       
     }
 }

@@ -47,6 +47,7 @@
     @include('clientes.ModalFormCliente')
     @include('clientes.ScriptCliente')
     @include('cidades.showcidade')
+    @include('condicaopagamento.showCondicaoPagamento')
     
 
 </div>

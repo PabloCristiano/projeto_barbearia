@@ -13,15 +13,6 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
                     <form id="FormCliente" class="needs-validation" novalidate action="/cliente" method="POST">
                         @csrf
                         @include('clientes.fields')
@@ -29,12 +20,12 @@
                             <div class="form-group col-xl-4">
                                 <small>Cadastrado em:</small>
                                 <input type="text" class="form-control form-control-sm" name="data_create"
-                                    id="alterardata_create" readonly>
+                                    id="data_create" readonly>
                             </div>
                             <div class="form-group col-xl-4">
                                 <small>Alterado em:</small>
                                 <input type="text" class="form-control form-control-sm" name="data_alt"
-                                    id="alterardata_alt" readonly>
+                                    id="data_alt" readonly>
                             </div>
                         </div>
                         <div class="row">
@@ -50,10 +41,3 @@
         </div>
     </div>
 </div>
-<script type="text/javascript">
-$(function(){
-    $('#btnCliente').on('click',function(){
-        
-    });
-});
-</script>

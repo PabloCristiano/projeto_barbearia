@@ -165,8 +165,7 @@
                 $(".modal-titleprofissional").text(" Excluir Profissional ");
                 $('#FormProfissionais').attr('method', 'get');
                 $('#FormProfissionais').attr('action', '/profissional/excluir/' + id);
-                $('.modalprofissional').modal('show'); // modal aparece
-
+                $('.modalprofissional').modal('show');
 
             });
             $(".btn-addprofissonal").click(function(){
@@ -232,7 +231,6 @@
                             success: function(data) {
                                 console.log(data.data[0].result);
                                 if (data.data[0].result > 0) {
-                                    console.log('entrou no if cpf');
                                     //swal("Profissional Já Cadastrado !");
                                     $("#profissional").focus();
                                     $("#msgCpf").text("Cpf Já Cadastrado !");
@@ -248,17 +246,15 @@
                                     });
                                     return false;
                                 }
-                                console.log('fora');
                                 $('#FormProfissionais').attr('method', 'POST');
                                 $('#FormProfissionais').attr('action', '/profissional');
                                 $("#FormProfissionais").submit();
                                 
                             },
-                            error: function(data) {
-
+                            error: function(data){
                             },
                         });                        
-                        return true
+                        return true;
                     }
                 }
             });

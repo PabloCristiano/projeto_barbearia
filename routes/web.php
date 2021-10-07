@@ -83,8 +83,10 @@ Route::POST('/searchServico', 'ControllerServico@findById')->name('searchServico
 Route::POST('/searchCliente', 'ControllerCliente@findById')->name('searchCliente');
 Route::POST('/searchFormaPagamento', 'ControllerFormaPagamento@findById')->name('searchFormaPagamento');
 Route::POST('/searchCidade', 'ControllerCidade@searchCidade')->name('searchCidade');
+Route::POST('/searchCondicaoPagamento', 'ControllerCondicaoPagamento@searchCondicaoPagamento')->name('searchCondicaoPagamento');
 Route::POST('/findByIdProfissional', 'ControllerProfissional@edit')->name('findByIdProfissional');
 Route::POST('/findByIdCpf','ControllerProfissional@findByIdCpf')->name("findByIdCpf");
+Route::POST('/findByIdCliente','ControllerCliente@findByIdCliente')->name("findByIdCliente");
 
 
 Route::POST('cadastroCodicaoPagamento','ControllerCondicaoPagamento@store')->name('cadastroCodicaoPagamento');
@@ -120,6 +122,7 @@ Route::get('showcidades', ['as' => 'showcidades.showcidades', 'uses' => 'Control
 Route::get('showservicos', ['as' => 'showservicos.showservicos', 'uses' => 'ControllerServico@showServico']);
 Route::get('showcategoria', ['as' => 'showcategoria.showcategoria', 'uses' => 'ControllerCategoria@showcategoria']);
 Route::get('showfornecedor', ['as' => 'showfornecedor.showfornecedor', 'uses' => 'ControllerFornecedor@showFornecedor']);
+Route::get('/showCondicaoPagamento', 'ControllerCondicaoPagamento@showCondicaoPagamento')->name('showCondicaoPagamento');
 
 //Teste
 Route::get('testepablo', ['as' => 'testepablo.testepablo', 'uses' => 'ControllerCidade@edit']);
