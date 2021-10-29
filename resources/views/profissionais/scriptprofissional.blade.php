@@ -64,61 +64,49 @@
 
             });
 
-
-
             $('.alterar').on('click', function() {
-                validator.destroy();
-                var cod = $(this).data('cod');
-                var profissional = $(this).data('profissional');
-                var apelido = $(this).data('apelido');
-                var cpf = $(this).data('cpf');
-                var rg = $(this).data('rg');
-                var Nascimento = $(this).data('nasci');
-                var logradouro = $(this).data('logradouro');
-                var numero = $(this).data('numero');
-                var complemento = $(this).data('complemento');
-                var bairro = $(this).data('bairro');
-                var cep = $(this).data('cep');
-                var id_cidade = $(this).data('id_cidade');
-                var nome_cidade = $(this).data('nome_cidade');
-                var id_servico = $(this).data('id_servico');
-                var nome_servico = $(this).data('nome_servico');
-                var whatsapp = $(this).data('whatsapp');
-                var telefone = $(this).data('telefone');
-                var email = $(this).data('email');
-                var senha = $(this).data('senha');
-                var confSenha = $(this).data('confSenha');
-                var tipo = $(this).data('tipo');
-                var comissao = $(this).data('comissao');
-                var DataCadastro = $(this).data('data_create');
-                var DataAlteracao = $(this).data('data_alt');
+                let id = $(this).data('cod');
+                $("#msgProfissional").text("");
+                $("#msgCpf").text("");
+                $.ajax({
+                    url: "{{ route('findByIdProfissional') }}",
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        _token: '{!! csrf_token() !!}',
+                        id: id
+                    },
+                    success: function(data) {
+                        $('#id').val(data.data[0].id);
+                        $('#profissional').val(data.data[0].profissional);
+                        $("#apelido").val(data.data[0].apelido);
+                        $("#logradouro").val(data.data[0].logradouro);
+                        $("#numero").val(data.data[0].numero);
+                        $("#complemento").val(data.data[0].complemento);
+                        $("#bairro").val(data.data[0].bairro);
+                        $("#cep").val(data.data[0].cep);
+                        $("#id_cidade").val(data.data[0].id_cidade);
+                        $("#cidade").val(data.data[0].cidade);
+                        $("#whatsapp").val(data.data[0].whatsapp);
+                        $("#telefone").val(data.data[0].telefone);
+                        $("#email").val(data.data[0].email);
+                        $("#senha").val(data.data[0].senha);
+                        $("#confSenha").val(data.data[0].senha);
+                        $("#cpf").val(data.data[0].cpf);
+                        $("#rg").val(data.data[0].rg);
+                        $("#dataNasc").val(data.data[0].dataNasc);
+                        $("#id_servico").val(data.data[0].id_servico);
+                        $("#servico").val(data.data[0].servico);
+                        $("#comissao").val(data.data[0].comissao);
+                        $("#alterardata_create").val(data.data[0].data_create);
+                        $("#alterardata_alt").val(data.data[0].data_alt);
+                    },
+                    error: function() {
+                        return false;
+                    }
+                });
                 $("#FormProfissionais").trigger("reset");
-                $("input").prop("disabled", false); //habilita os campos para digitar
-
-                $("#id").val(cod);
-                $("#profissional").val(profissional);
-                $("#apelido").val(apelido);
-                $("#logradouro").val(logradouro);
-                $("#numero").val(numero);
-                $("#complemento").val(complemento);
-                $("#bairro").val(bairro);
-                $("#cep").val(cep);
-                $("#id_cidade").val(id_cidade);
-                $("#cidade").val(nome_cidade);
-                $("#whatsapp").val(whatsapp);
-                $("#telefone").val(telefone);
-                $("#email").val(email);
-                $("#senha").val(senha);
-                $("#confSenha").val(senha);
-                $("#cpf").val(cpf);
-                $("#rg").val(rg);
-                $("#dataNasc").val(Nascimento);
-                $("#id_servico").val(id_servico);
-                $("#servico").val(nome_servico);
-                $("#comissao").val(comissao);
-                $("#alterardata_create").val(DataCadastro);
-                $("#alterardata_alt").val(DataAlteracao);
-
+                $("input").prop("disabled", false);
                 $(".modal-header").css("background-color", "#343a40");
                 $(".modal-header").css("color", "white");
                 $(".btn.btn-dark.btnprofissional").text("ALTERAR");
@@ -126,92 +114,63 @@
                 $('#FormProfissionais').attr('method', 'POST');
                 $('#FormProfissionais').attr('action', '/profissional/alterar');
                 $('.modalprofissional').modal('show'); // modal aparece
-
-                $(".btnprofissional").click(function() {
-                    $("#FormProfissionais").validate({
-                        rules: {
-                            senha: {
-                                required: true
-                            },
-                            confSenha: {
-                                required: true,
-                                equalTo: "#senha"
-                            }
-                        }
-
-                    });
-
-                });
-
-
             });
 
             $('.excluir').on('click', function() {
-                var cod = $(this).data('cod');
-                var profissional = $(this).data('profissional');
-                var apelido = $(this).data('apelido');
-                var cpf = $(this).data('cpf');
-                var rg = $(this).data('rg');
-                var Nascimento = $(this).data('nasci');
-                var logradouro = $(this).data('logradouro');
-                var numero = $(this).data('numero');
-                var complemento = $(this).data('complemento');
-                var bairro = $(this).data('bairro');
-                var cep = $(this).data('cep');
-                var id_cidade = $(this).data('id_cidade');
-                var nome_cidade = $(this).data('nome_cidade');
-                var id_servico = $(this).data('id_servico');
-                var nome_servico = $(this).data('nome_servico');
-                var whatsapp = $(this).data('whatsapp');
-                var telefone = $(this).data('telefone');
-                var email = $(this).data('email');
-                var senha = $(this).data('senha');
-                var confSenha = $(this).data('confSenha');
-                var tipo = $(this).data('tipo');
-                var comissao = $(this).data('comissao');
-                var DataCadastro = $(this).data('data_create');
-                var DataAlteracao = $(this).data('data_alt');
-
+                $("#msgProfissional").text("");
+                $("#msgCpf").text("");
+                let id = $(this).data('cod');
+                $.ajax({
+                    url: "{{ route('findByIdProfissional') }}",
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        _token: '{!! csrf_token() !!}',
+                        id: id
+                    },
+                    success: function(data) {
+                        $('#id').val(data.data[0].id);
+                        $('#profissional').val(data.data[0].profissional);
+                        $("#apelido").val(data.data[0].apelido);
+                        $("#logradouro").val(data.data[0].logradouro);
+                        $("#numero").val(data.data[0].numero);
+                        $("#complemento").val(data.data[0].complemento);
+                        $("#bairro").val(data.data[0].bairro);
+                        $("#cep").val(data.data[0].cep);
+                        $("#id_cidade").val(data.data[0].id_cidade);
+                        $("#cidade").val(data.data[0].cidade);
+                        $("#whatsapp").val(data.data[0].whatsapp);
+                        $("#telefone").val(data.data[0].telefone);
+                        $("#email").val(data.data[0].email);
+                        $("#senha").val(data.data[0].senha);
+                        $("#confSenha").val(data.data[0].senha);
+                        $("#cpf").val(data.data[0].cpf);
+                        $("#rg").val(data.data[0].rg);
+                        $("#dataNasc").val(data.data[0].dataNasc);
+                        $("#id_servico").val(data.data[0].id_servico);
+                        $("#servico").val(data.data[0].servico);
+                        $("#comissao").val(data.data[0].comissao);
+                        $("#alterardata_create").val(data.data[0].data_create);
+                        $("#alterardata_alt").val(data.data[0].data_alt);
+                    },
+                    error: function() {
+                        return false;
+                    }
+                });
                 $("input").prop("disabled", true); //habilita os campos para digitar
                 $('input[type="search"]').prop("disabled", false);
-
-                $("#id").val(cod);
-                $("#profissional").val(profissional);
-                $("#apelido").val(apelido);
-                $("#logradouro").val(logradouro);
-                $("#numero").val(numero);
-                $("#complemento").val(complemento);
-                $("#bairro").val(bairro);
-                $("#cep").val(cep);
-                $("#id_cidade").val(id_cidade);
-                $("#cidade").val(nome_cidade);
-                $("#whatsapp").val(whatsapp);
-                $("#telefone").val(telefone);
-                $("#email").val(email);
-                $("#senha").val(senha);
-                $("#confSenha").val(senha);
-                $("#cpf").val(cpf);
-                $("#rg").val(rg);
-                $("#dataNasc").val(Nascimento);
-                $("#id_servico").val(id_servico);
-                $("#servico").val(nome_servico);
-                $("#comissao").val(comissao);
-                $("#alterardata_create").val(DataCadastro);
-                $("#alterardata_alt").val(DataAlteracao)
-
                 $(".modal-header").css("background-color", "#343a40");
                 $(".modal-header").css("color", "white");
                 $(".btn.btn-dark.btnprofissional").text("EXCLUIR");
                 $(".modal-titleprofissional").text(" Excluir Profissional ");
                 $('#FormProfissionais').attr('method', 'get');
-                $('#FormProfissionais').attr('action', '/profissional/excluir/' + cod);
-                $('.modalprofissional').modal('show'); // modal aparece
-
+                $('#FormProfissionais').attr('action', '/profissional/excluir/' + id);
+                $('.modalprofissional').modal('show');
 
             });
-
-
-            $(".btn-addprofissonal").click(function() {
+            $(".btn-addprofissonal").click(function(){
+                $("#msgProfissional").text("");
+                $("#msgCpf").text("");
                 $("#FormProfissionais").validate();
                 $('#FormProfissionais').attr('method', 'POST');
                 $('#FormProfissionais').attr('action', '/profissional');
@@ -219,40 +178,166 @@
                 $(".btn.btn-dark.btnprofissional").text("SALVAR");
                 $("input").prop("disabled", false);
                 $("#FormProfissionais").trigger("reset");
+                $("#msgCpf").text("");
                 //  $("#dataNasc").attr('value', '');
             });
 
-
-
-
-
             //mascaras formulario profissinal
-
             $("#telefone,#whatsapp").mask("(00) 00000-0000");
             $("#cpf").mask("000.000.000-00");
             $("#rg").mask("00.000.000-0");
             $("#cep").mask("00000-000");
 
-            //validar formulario   
+            $(".btnprofissional").on('click', function() {
+                $("#msgProfissional").text("");
+                $("#msgCpf").text("");
+                const vm = this;
+                $("#FormProfissionais").valid();
+                let campos = $("#FormProfissionais").valid();
+                $("#cpf").keyup(function() {
+                    $("#msgCpf").text("");
+                })
 
+                let cpf = validarCpf($("#cpf").val());
+                if ($("#id").val() > 0 && campos === true) {
+                    let cpf = validarCpf($("#cpf").val());
+                    if (cpf === false) {
+                        $("#cpf").focus();
+                        $("#msgCpf").text("Favor informar um Cpf valido !");
+                        return false;
+                    } else {
+                        $("#msgCpf").text("");
+                    }
+                    $(this).attr("type", "submit");
+                    return true;
+                } else 
+                {
+                    if (campos === true) {
+                        let cpf = validarCpf($("#cpf").val());
+                        if (cpf === false) {
+                            $("#cpf").focus();
+                            $("#msgCpf").text("Favor informar um Cpf valido !");
+                            return false;
+                        } else {
+                            $("#msgCpf").text("");
+                        }
 
-
+                        $.ajax({
+                            url: "{{ route('findByIdCpf') }}",
+                            headers: 'Accept',
+                            type: 'POST',
+                            data: $('#FormProfissionais').serialize(),
+                            dataType: 'JSON',
+                            success: function(data) {
+                                if (data.data[0].result > 0) {
+                                    $("#profissional").focus();
+                                    $("#msgCpf").text("Cpf Já Cadastrado !");
+                                    $("#msgProfissional").text(
+                                        "Profissional já Cadastrado !");
+                                    $("#cpf").keyup(function() {
+                                        $("#msgCpf").text("");
+                                        $("#msgProfissional").text("");
+                                    });
+                                    $("#profissional").keyup(function() {
+                                        $("#msgProfissional").text("");
+                                        $("#msgCpf").text("");
+                                    });
+                                    return false;
+                                }
+                                $('#FormProfissionais').attr('method', 'POST');
+                                $('#FormProfissionais').attr('action', '/profissional');
+                                $("#FormProfissionais").submit();
+                                
+                            },
+                            error: function(data){
+                            },
+                        });                        
+                        return true;
+                    }
+                }
+            });
         });
 
-        $(".btnprofissional").on('click', function() {
-            var teste = true;
 
-            if (teste === true) {
-                alert('TESTE')
-            } else {
 
-                $(this).attr("type", "submit");
+
+        function validarCpf(cpf) {
+            if (typeof cpf !== "string") return false
+            cpf = cpf.replace(/[\s.-]*/igm, '')
+            if (
+                !cpf ||
+                cpf.length != 11 ||
+                cpf == "00000000000" ||
+                cpf == "11111111111" ||
+                cpf == "22222222222" ||
+                cpf == "33333333333" ||
+                cpf == "44444444444" ||
+                cpf == "55555555555" ||
+                cpf == "66666666666" ||
+                cpf == "77777777777" ||
+                cpf == "88888888888" ||
+                cpf == "99999999999"
+            ) {
+                return false
             }
+            var soma = 0
+            var resto
+            for (var i = 1; i <= 9; i++)
+                soma = soma + parseInt(cpf.substring(i - 1, i)) * (11 - i)
+            resto = (soma * 10) % 11
+            if ((resto == 10) || (resto == 11)) resto = 0
+            if (resto != parseInt(cpf.substring(9, 10))) return false
+            soma = 0
+            for (var i = 1; i <= 10; i++)
+                soma = soma + parseInt(cpf.substring(i - 1, i)) * (12 - i)
+            resto = (soma * 10) % 11
+            if ((resto == 10) || (resto == 11)) resto = 0
+            if (resto != parseInt(cpf.substring(10, 11))) return false
+            return true
 
+        }
+
+        $("#id_servico").autocomplete({
+            source: function(resquest, response) {
+                $.ajax({
+                    url: "{{ route('searchServico') }}",
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        _token: '{!! csrf_token() !!}',
+                        search: resquest.term
+                    },
+                    success: function(data) {
+                        $('#id_servico').val(data[0].id);
+                        $('#servico').val(data[0].servico);
+                    },
+                    error: function() {
+                        return false;
+                    }
+                });
+            },
         });
 
-
-
+        $("#id_cidade").autocomplete({
+            source: function(resquest, response) {
+                $.ajax({
+                    url: "{{ route('searchCidade') }}",
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        _token: '{!! csrf_token() !!}',
+                        search: resquest.term
+                    },
+                    success: function(data) {
+                        $('#id_cidade').val(data[0].id);
+                        $('#cidade').val(data[0].cidade);
+                    },
+                    error: function(data) {
+                        return false;
+                    }
+                });
+            },
+        });
 
 
 

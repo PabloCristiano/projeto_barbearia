@@ -31,7 +31,7 @@ class Pessoa extends TObject
         $this->sexo                = '';
         $this->dataNasc            ='';
         $this->logradouro          ='';
-        $this->numero              = 0;
+        $this->numero              = '';
         $this->complemento         = '';
         $this->bairro              = '';
         $this->cep                 = '';
@@ -100,7 +100,7 @@ class Pessoa extends TObject
     }
 
   
-    public function setNumero(int $numero)
+    public function setNumero(string $numero)
     {
         $this->numero = $numero;
     }

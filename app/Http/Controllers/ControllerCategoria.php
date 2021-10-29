@@ -32,7 +32,7 @@ class ControllerCategoria extends Controller{
         $categoria = $this->daocategoria->create($request->all());
         $store = $this->daocategoria->store($categoria);
         if($store){
-            return redirect('/categoria')->with('success', ' ');  
+            return redirect('/categoria')->with('cadastro','show');  
            }
     }
 
@@ -52,9 +52,9 @@ class ControllerCategoria extends Controller{
     public function update(Request $request){
         $update = $this->daocategoria->update($request);
         if($update){            
-            return redirect('/categoria') ->with('success',' ');
+            return redirect('/categoria') ->with('alterado','show');
         }
-            return redirect('/categoria')->with('error',' ');
+            return redirect('/categoria')->with('errorAlterado','show');
     }
 
     
@@ -62,10 +62,10 @@ class ControllerCategoria extends Controller{
 
         $delete = $this->daocategoria->delete($id);
         if ($delete){
-            return redirect('/categoria')->with('success', 'Registro removido com sucesso!');
+            return redirect('/categoria')->with('excluido', 'show');
         }
 
-        return redirect('/categoria')->with('error', 'Este registro não pode ser removido.');
+        return redirect('/categoria')->with('errorExcluido', 'show');
     
     }
 

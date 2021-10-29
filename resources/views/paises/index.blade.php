@@ -24,27 +24,26 @@
     .swal-button--confirm {
        background: #001100;
    }
-   
-   </style>   
+</style>   
    <div class="card-body">
-       @if (session('alert'))
+       @if (session('errorExcluido'))
        <script>
-           swal("País não pode ser Excluido !!"," ");
+           swal("Registro não pode ser Excluido !!");
       </script> 
        @endif
-       @if (session('warning'))
+       @if (session('excluido'))
        <script>
-           swal("País Excluido com sucesso !!"," ");
+           swal("País Excluido com sucesso !!");
       </script> 
        @endif
-       @if (session('info'))
+       @if (session('alterado'))
        <script>
-           swal("País Alterado com sucesso !!"," ");
+           swal("País Alterado com sucesso !!");
       </script>
     @endif
-    @if (session('success'))
+    @if (session('Cadastrado'))
        <script>
-           swal("País cadastrado com sucesso !!"," ");
+           swal("País cadastrado com sucesso !!");
       </script>
     @endif
     @include('paises.table')

@@ -25,14 +25,29 @@
 
 </style>   
 <div class="card-body">
-    @if (session('error'))
+    @if (session('errorExcluido'))
     <script>
-        swal("Estado não pode ser Excluido");
+        swal("Registro não pode ser Excluido");
    </script> 
     @endif
-    @if (session('success'))
+    @if (session('errorUpdate'))
+    <script>
+        swal("Registro não pode ser Atualizado");
+   </script> 
+    @endif
+    @if (session('excluido'))
+    <script>
+        swal("Estado excluido com sucesso");
+   </script> 
+    @endif
+    @if (session('alterado'))
     <script>
         swal("Estado Alterado com Sucesso");
+   </script>
+    @endif
+    @if (session('cadastrado'))
+    <script>
+        swal("Estado cadastrado com Sucesso");
    </script>
     @endif
     @include('estados.table')

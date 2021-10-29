@@ -39,7 +39,7 @@ class ControllerPais extends Controller{
 
        if($store){
            
-           return redirect('/pais')->with('success',' ');
+           return redirect('/pais')->with('Cadastrado','show');
        }
     }
 
@@ -54,9 +54,9 @@ class ControllerPais extends Controller{
     public function edit(Request $request){
       $update = $this->daopais->update($request);
        if ($update)
-        return redirect('/pais') ->with('info', ' ');
+        return redirect('/pais') ->with('alterado', 'show');
         
-        return redirect('/pais')->withT('error',' ');
+        return redirect('/pais')->with('no','show');
           
     }
 
@@ -68,9 +68,9 @@ class ControllerPais extends Controller{
     public function destroy($id){
         $delete = $this->daopais->delete($id);      
         if ($delete){                        
-            return redirect('/pais')->with('warning',' ');
+            return redirect('/pais')->with('exluido','show');
         }      
-        return redirect()->back()->with('alert',' ');
+        return redirect()->back()->with('errorExcluido','show');
     }
 
     //lapidar função jquery no index.estado 

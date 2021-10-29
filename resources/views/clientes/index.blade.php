@@ -22,11 +22,32 @@
         </div>
 </div>
 <div class="card-body">
+    @if (session('errorExcluido'))
+       <script>
+           swal("Registro não pode ser Excluido !!");
+      </script> 
+       @endif
+       @if (session('excluido'))
+       <script>
+           swal("Cliente Excluido com sucesso !!");
+      </script> 
+       @endif
+       @if (session('alterado'))
+       <script>
+           swal("Cliente Alterado com sucesso !!");
+      </script>
+    @endif
+    @if (session('Cadastrado'))
+       <script>
+           swal("Cliente cadastrado com sucesso !!");
+      </script>
+    @endif
     
     @include('clientes.table')
     @include('clientes.ModalFormCliente')
     @include('clientes.ScriptCliente')
     @include('cidades.showcidade')
+    @include('condicaopagamento.showCondicaoPagamento')
     
 
 </div>

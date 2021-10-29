@@ -39,41 +39,34 @@ class DaoCliente implements Dao{
 
         if(isset($dados["id"])){
             $cliente->setid($dados["id"]);
-             //$cliente->setDataCadastro($dados["data_create"] ?? null );
-            //$cliente->setDataAlteracao($dados["data_alt"] ?? null);
+             $cliente->setDataCadastro($dados["data_create"] ?? null );
+            $cliente->setDataAlteracao($dados["data_alt"] ?? null);
         }
 
-        $cliente->setNome($dados["cliente"]);
-        $cliente->setApelido($dados["apelido"]);
-        $cliente->setCpf($dados["cpf"]);
-        $cliente->setRg($dados["rg"]);
+        $cliente->setNome((string)$dados["cliente"]);
+        $cliente->setApelido((string)$dados["apelido"]);
+        $cliente->setCpf((string)$dados["cpf"]);
+        $cliente->setRg((string)$dados["rg"]);
         $cliente->setDataNasc($dados["dataNasc"]);
-        $cliente->setLogradouro($dados["logradouro"]);
-        $cliente->setNumero($dados["numero"]);
-        $cliente->setComplemento($dados["complemento"]);
-        $cliente->setBairro($dados["bairro"]);
-        $cliente->setCep($dados["cep"]);
-        $cliente->setWhatsapp($dados["whatsapp"]);
-        $cliente->setTelefone($dados["telefone"]);
-        $cliente->setEmail($dados["email"]);
-        $cliente->setSenha($dados["senha"]);
-        $cliente->setConfSenha($dados["confSenha"]);
-        $cliente->setTelefone($dados["telefone"]);
-        // $cliente->setObservacoes($dados["observacao"]);
+        $cliente->setLogradouro((string)$dados["logradouro"]);
+        $cliente->setNumero((string)$dados["numero"]);
+        $cliente->setComplemento((string)$dados["complemento"]);
+        $cliente->setBairro((string)$dados["bairro"]);
+        $cliente->setCep((string)$dados["cep"]);
+        $cliente->setWhatsapp((string)$dados["whatsapp"]);
+        $cliente->setTelefone((string)$dados["telefone"]);
+        $cliente->setEmail((string)$dados["email"]);
+        $cliente->setSenha((string)$dados["senha"]);
+        $cliente->setConfSenha((string)$dados["confSenha"]);
+        $cliente->setTelefone((string)$dados["telefone"]);
         $cidade =  $this->daoCidade->findById($dados["id_cidade"], true);
         $cliente->setCidade($cidade);
-        //$condicaoPagamento =  $this->daoCondicaoPagamento->findById($dados["id_condicao"], true);
-        //$cliente->setCondicaoPagamento($condicaoPagamento);
-
+        $condicaoPagamento =  $this->daoCondicaoPagamento->findById($dados["id_condicao"], true);
+        $cliente->setCondicaoPagamento($condicaoPagamento);
         return $cliente;
-        
-
-        
-
     }
 
-    public function store($obj){
-        
+    public function store($obj){        
         $dados = $this->getData($obj);
          DB::beginTransaction();
          try {
@@ -111,24 +104,46 @@ class DaoCliente implements Dao{
             return true;
         } catch (\Throwable $th) {
             DB::rollBack();
+            dd($th->getMessage());
             return false;
         }
 
     }
 
     public function findById(int $id, bool $model = false){
-
         if (!$model) {
-            return DB::select('select * from clientes where id =?',[$id]);
+            return DB::select('select 
+            c.id, 
+            c.cliente, 
+            c.apelido, 
+            c.cpf, 
+            c.rg, 
+            c.dataNasc, 
+            c.logradouro, 
+            c.numero, 
+            c.complemento, 
+            c.bairro, 
+            c.cep, 
+            c.id_cidade,
+            c.id_condicao,
+            c.whatsapp,
+            c.telefone,
+            c.email,
+            c.senha,
+            c.confSenha,
+            c.data_create,
+            c.data_alt,
+            ci.cidade,
+            co.condicao_pagamento
+            from clientes c 
+            join cidades ci on ci.id = c.id_cidade
+            join condicao_pg co on co.id = c.id_condicao 
+             where c.id = ?',[$id]);
         }
-
          $dados = DB::table('clientes')->where('id', $id)->first();
-
         if ($dados)
             return $this->create(get_object_vars($dados));
-
         return $dados;
-
     }
 
     public function getData(Cliente $cliente) {
@@ -151,11 +166,8 @@ class DaoCliente implements Dao{
           'email'=>          $cliente->getEmail(),
           'senha' =>         $cliente->getSenha(),
           'confSenha' =>     $cliente->getConfSenha(),        
-         // 'id_condicaopg'=>  $cliente->getCondicaoPagamento(),
-          'id_condicao'=>  '1', 
-        //   'observacao'=>     $cliente->getObservacoes(),
-          //'data_create'=>  $cliente->getComissao(),
-          //'data_alt'=>     $cliente->getComissao(),
+          'id_condicao'=>  $cliente->getCondicaoPagamento()->getId(),
+          'data_alt'=>      Carbon::now(),
            
         ];
 
@@ -178,9 +190,19 @@ class DaoCliente implements Dao{
         foreach($itens as $item){                           
             array_push($listClientes, $item);
         }    
-        
         return $listClientes;
     }
+
+    public function findByCpfCliente($cpf){       
+        $itens = DB:: select('select * from clientes where cliente = ?',[$cpf]);
+        $dado = array();
+        foreach($itens as $item){                           
+            array_push($dado, $item);
+        }    
+        return $dado;       
+    }
+
+    
 
 
 

@@ -112,14 +112,14 @@ class ControllerCliente extends Controller
         $clientes = $this->daoCliente->create($request->all());
         $store = $this->daoCliente->store($clientes);
         if ($store) {
-            return redirect('/cliente')->with('success', ' ');
+            return redirect('/cliente')->with('Cadastrado', 'show');
         }
     }
 
     public function update(Request $request){
         $update =  $this->daoCliente->update($request);
         if ($update) {
-            return redirect('/cliente')->with('success', ' ');
+            return redirect('/cliente')->with('alterado', 'show');
         }
         return redirect('/cliente')->with('error', ' ');
     }
@@ -128,10 +128,10 @@ class ControllerCliente extends Controller
     public function destroy($id){
         $delete = $this->daoCliente->delete($id);
         if ($delete) {
-            return redirect('/cliente')->with('success', 'Registro removido com sucesso!');
+            return redirect('/cliente')->with('excluido', 'show');
         }
 
-        return redirect('/cliente')->with('error', 'Este registro não pode ser removido.');
+        return redirect('/cliente')->with('errorExcluido', 'show');
     }
 
     public function validarCpf($valor)
@@ -166,6 +166,22 @@ class ControllerCliente extends Controller
             return response()->json($search);
         }        
         return response()->json('error');
+    }
+    
+    public function findByIdCliente(Request $request){
+        $search = $this->daoCliente->findById($request->id,false);
+        if($search){
+            return response()->json($search);
+        }        
+        return response()->json('error');
+    }
+    
+    public function findByCpfCliente(Request $request){
+        $cpf = $this->daoCliente->findByCpfCliente($request->id,false);
+        if($cpf){
+            return response::json(array('success' => true, 'data' => $cpf));
+        }        
+        return response::json(array('success' => false, 'data' => 'Deu ruim '));
     }
 
     

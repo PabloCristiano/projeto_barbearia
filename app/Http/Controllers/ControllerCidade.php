@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Support\Facades\Response;
 use App\Http\Dao\DaoCidade;
 use App\Http\Dao\DaoEstado;
@@ -9,7 +8,6 @@ use App\Http\Dao\DaoPais;
 use Illuminate\Http\Request;
 
 class ControllerCidade extends Controller{
-
     private $daoCidade;
     private $daoEstado;
     private $daoPais;
@@ -35,14 +33,12 @@ class ControllerCidade extends Controller{
        
        $cidade = $this->daoCidade->create($request->all());
        $store = $this->daoCidade->store($cidade);
-
        if($store){
-        return redirect('/cidade')->with('success', ' ');  
+        return redirect('/cidade')->with('cadastrado', 'show');  
        }
 
     }
 
-    
     public function show($id)
     {
         //
@@ -52,7 +48,6 @@ class ControllerCidade extends Controller{
     public function edit(Response $response)
     {
         $cidades = $this->daoCidade->showcidade();   
-        // return $cidades ;
         return response::json(array('success'=> true,'data'=>$cidades));
     }
     
@@ -61,10 +56,10 @@ class ControllerCidade extends Controller{
         $update = $this->daoCidade->update($request);
         if($update){
             
-        return redirect('/cidade') ->with('success',' ');
+        return redirect('/cidade') ->with('alterado','show');
         }
         
-        return redirect('/cidade')->with('error',' ');
+        return redirect('/cidade')->with('errorAlterado','show');
     }
 
     
@@ -73,10 +68,10 @@ class ControllerCidade extends Controller{
     
         $delete = $this->daoCidade->delete($id);
         if ($delete){
-            return redirect('/cidade')->with('success', 'Registro removido com sucesso!');
+            return redirect('/cidade')->with('excluido', 'show');
         }
 
-        return redirect('/cidade')->with('error', 'Este registro não pode ser removido.');
+        return redirect('/cidade')->with('errorExcluido', 'show');
     }
 
     public function showcidade(){
@@ -95,6 +90,13 @@ class ControllerCidade extends Controller{
         } 
         
 
+    }
+    public function searchCidade(Request $request){
+        $search = $this->daoCidade->findById($request->search,false);
+        if($search){
+            return response()->json($search);
+        }        
+        return response()->json('error');
     }
 
 }
