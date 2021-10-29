@@ -29,17 +29,17 @@
        @endif
        @if (session('excluido'))
        <script>
-           swal("País Excluido com sucesso !!");
+           swal("Cliente Excluido com sucesso !!");
       </script> 
        @endif
        @if (session('alterado'))
        <script>
-           swal("País Alterado com sucesso !!");
+           swal("Cliente Alterado com sucesso !!");
       </script>
     @endif
     @if (session('Cadastrado'))
        <script>
-           swal("País cadastrado com sucesso !!");
+           swal("Cliente cadastrado com sucesso !!");
       </script>
     @endif
     

@@ -229,9 +229,7 @@
                             data: $('#FormProfissionais').serialize(),
                             dataType: 'JSON',
                             success: function(data) {
-                                console.log(data.data[0].result);
                                 if (data.data[0].result > 0) {
-                                    //swal("Profissional Já Cadastrado !");
                                     $("#profissional").focus();
                                     $("#msgCpf").text("Cpf Já Cadastrado !");
                                     $("#msgProfissional").text(

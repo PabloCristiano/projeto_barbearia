@@ -8,7 +8,6 @@
                 <th class="text-center">Ações</th>
             </tr>
         </thead>
-        {{dd($clientes)}}
         @if(isset($clientes))
         <tbody> 
             @foreach($clientes as $cliente)   

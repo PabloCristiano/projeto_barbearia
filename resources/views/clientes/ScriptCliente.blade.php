@@ -163,7 +163,6 @@
                     id: id
                 },
                 success: function(data) {
-                    console.log(data);
                     $("#cidade,#condicao,#id,#data_create,#data_alt").prop(
                         "readonly", true);
                     $("#id").val(data[0].id);
@@ -199,10 +198,10 @@
             $(".modal-header").css("color", "white");
             $(".btn.btn-dark.btncliente").text("EXCLUIR");
             $(".modal-titleCliente").text(" Excluir Cliente ");
-            $('#FormCliente').attr('method', 'Post');
-            $('#FormCliente').attr('action', '/cliente/alterar');
+            $('#FormCliente').attr('method', 'get');
+            $('#FormCliente').attr('action', '/cliente/excluir/' + id);
             $('.modalcliente').modal('show');
-            $("#destroy").val('excluir');
+            $("#destroy").val(true);
 
 
 
@@ -235,73 +234,13 @@
 
 
 
-
-        $('#FormCliente').submit(function(event) {
-            console.log('cliente')
-            event.preventDefault();
-            $("#msgcpfin").remove();
-            $("#msgcliente").remove();
-            $("#msgcidade").remove();
-            campos = $('#FormCliente').valid();
-
-            if (campos === true) {
-                $.ajax({
-                    url: "{{ route('adicionarcliente.adicionarcliente') }}",
-                    headers: 'Accept',
-                    type: 'POST',
-                    data: $('#FormCliente').serialize(),
-                    dataType: 'JSON',
-                    success: function(data) {
-                        console.log(data.message);
-                        if (data.cpf === false) {
-                            $("#msgcpfin").remove();
-                            $('#clienteCpf').append(
-                                '<p id="msgcpfin" class="text-danger">' + data.message +
-                                '</p>');
-                            document.getElementById("cpf").focus();
-
-                        } else if (data.cliente === false) {
-                            $("#msgcliente").remove();
-                            $('#cliente_cliente').append(
-                                '<p id="msgcliente" class="text-danger">' + data
-                                .message + '</p>');
-                            document.getElementById("cliente").focus();
-
-                        } else if (data.cidade === false) {
-                            console.log(data.message);
-                            $("#msgcidade").remove();
-                            $('#cliente_cidade').append(
-                                '<p id="msgcidade" class="text-danger">' + data
-                                .message + '</p>');
-                            document.getElementById("id_cidade").focus();
-
-                        } else {
-
-                            swal(data.message);
-                            console.log(data.message);
-                            $('.modalcliente').modal('hide');
-                            setTimeout(function() {
-                                window.location.reload(true);
-                            }, 850);
-
-                        }
-
-                    },
-                    error: function(data) {
-
-                    },
-                });
-            }
-
-
-        });
-
         $("#telefone,#whatsapp").mask("(00) 00000-0000");
         $("#cep").mask("00000-000");
         $("#cpf").mask("000.000.000-00");
 
-        $('.btncliente').on('click', function() {
+        $('.btncliente').on('click', function(){
             $('#msgCliente').text('');
+            console.log($("#destroy").val());
             let campos = $("#FormCliente").valid();
             if ($('#id').val() > 0 && campos === true) {
                 let cpf = validarCpf($('#cpf').val());
@@ -311,29 +250,58 @@
                     $('#cpf').keyup(function() {
                         $('#msgCliente').text('');
                     });
+                    return false;
                 } else {
-                    $('#FormCliente').attr('method', 'POST');
-                    $('#FormCliente').attr('action', '/cliente/alterar');
-                    $("#FormCliente").submit();
+                    
+                }
+                $(this).attr("type", "submit");
+                return true;
+            } else {
+                if (campos === true) {
+                    let cpf = validarCpf($('#cpf').val());
+                    if (cpf === false) {
+                        $("#cpf").focus();
+                        $('#clienteCpf').append($('#msgCliente').text('Favor informar um CPF válido!'));
+                        $('#cpf').keyup(function() {
+                            $('#msgCliente').text('');
+                        });
+                        return false;   
+                    }else{
+                        $("#msgCpf").text('');
+                    }
+
+                    $.ajax({
+                        url: "{{ route('findByIdCpf') }}",
+                        headers: 'Accept',
+                        type: 'POST',
+                        data: $('#FormCliente').serialize(),
+                        dataType: 'JSON',
+                        success: function(data) {
+                            if (data.data[0].result > 0) {
+                                $("#cliente").focus();
+                                $("#msgCliente").text('Cliente já Cadastrado !');
+                                $("#msgCpf").text('Cpf já Cadastrado !');
+                                $("#cpf").keyup(function() {
+                                    $("#msgCliente").text('');
+                                    $("#msgCpf").text('');
+                                });
+                                $("#cliente").keyup(function() {
+                                    $("#msgCliente").text('');
+                                    $("#msgCpf").text('');
+                                });
+                                return false;
+                            }
+                            $('#FormCliente').attr('method', 'POST');
+                            $('#FormCliente').attr('action', '/cliente');
+                            $("#FormCliente").submit();
+                        },
+                        error: function(data) {
+
+                        },
+                    });
+                    return true;
                 }
             }
-
-            $('#FormCliente').attr('method', 'POST');
-            $('#FormCliente').attr('action', '/cliente');
-            $("#FormCliente").submit();
-
-            $.ajax({
-                url: "{{ route('findByIdCpf') }}",
-                headers: 'Accept',
-                type: 'POST',
-                data: $('#FormCliente').serialize(),
-                dataType: 'JSON',
-                success: function(data) {
-                    console.log(data);
-                },
-                error: function(data) {},
-            });
-
         });
 
         $("#id_cidade").autocomplete({
@@ -387,8 +355,6 @@
             $("#condicao").val(condicao);
             $('.modalShowCondicao').modal('toggle');
         });
-
-
 
     });
 </script>

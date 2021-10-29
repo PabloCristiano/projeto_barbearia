@@ -43,36 +43,30 @@ class DaoCliente implements Dao{
             $cliente->setDataAlteracao($dados["data_alt"] ?? null);
         }
 
-        $cliente->setNome($dados["cliente"]);
-        $cliente->setApelido($dados["apelido"]);
-        $cliente->setCpf($dados["cpf"]);
-        $cliente->setRg($dados["rg"]);
+        $cliente->setNome((string)$dados["cliente"]);
+        $cliente->setApelido((string)$dados["apelido"]);
+        $cliente->setCpf((string)$dados["cpf"]);
+        $cliente->setRg((string)$dados["rg"]);
         $cliente->setDataNasc($dados["dataNasc"]);
-        $cliente->setLogradouro($dados["logradouro"]);
-        $cliente->setNumero($dados["numero"]);
-        $cliente->setComplemento($dados["complemento"]);
-        $cliente->setBairro($dados["bairro"]);
-        $cliente->setCep($dados["cep"]);
-        $cliente->setWhatsapp($dados["whatsapp"]);
-        $cliente->setTelefone($dados["telefone"]);
-        $cliente->setEmail($dados["email"]);
-        $cliente->setSenha($dados["senha"]);
-        $cliente->setConfSenha($dados["confSenha"]);
-        $cliente->setTelefone($dados["telefone"]);
+        $cliente->setLogradouro((string)$dados["logradouro"]);
+        $cliente->setNumero((string)$dados["numero"]);
+        $cliente->setComplemento((string)$dados["complemento"]);
+        $cliente->setBairro((string)$dados["bairro"]);
+        $cliente->setCep((string)$dados["cep"]);
+        $cliente->setWhatsapp((string)$dados["whatsapp"]);
+        $cliente->setTelefone((string)$dados["telefone"]);
+        $cliente->setEmail((string)$dados["email"]);
+        $cliente->setSenha((string)$dados["senha"]);
+        $cliente->setConfSenha((string)$dados["confSenha"]);
+        $cliente->setTelefone((string)$dados["telefone"]);
         $cidade =  $this->daoCidade->findById($dados["id_cidade"], true);
         $cliente->setCidade($cidade);
-        //$condicaoPagamento =  $this->daoCondicaoPagamento->findById($dados["id_condicao"], true);
-        //$cliente->setCondicaoPagamento($condicaoPagamento);
-
+        $condicaoPagamento =  $this->daoCondicaoPagamento->findById($dados["id_condicao"], true);
+        $cliente->setCondicaoPagamento($condicaoPagamento);
         return $cliente;
-        
-
-        
-
     }
 
-    public function store($obj){
-        
+    public function store($obj){        
         $dados = $this->getData($obj);
          DB::beginTransaction();
          try {
@@ -110,6 +104,7 @@ class DaoCliente implements Dao{
             return true;
         } catch (\Throwable $th) {
             DB::rollBack();
+            dd($th->getMessage());
             return false;
         }
 
@@ -171,9 +166,7 @@ class DaoCliente implements Dao{
           'email'=>          $cliente->getEmail(),
           'senha' =>         $cliente->getSenha(),
           'confSenha' =>     $cliente->getConfSenha(),        
-         // 'id_condicaopg'=>  $cliente->getCondicaoPagamento(),
-          'id_condicao'=>  '271', 
-        // 'observacao'=>     $cliente->getObservacoes(),
+          'id_condicao'=>  $cliente->getCondicaoPagamento()->getId(),
           'data_alt'=>      Carbon::now(),
            
         ];

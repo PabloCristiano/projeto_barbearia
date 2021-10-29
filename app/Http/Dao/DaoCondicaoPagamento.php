@@ -55,9 +55,10 @@ class DaoCondicaoPagamento implements Dao
         $condicaoPagamento->setDesconto((float)$dados["desconto"]);
         $totalParcelas =   $dados["qtd_parcela"];
         $condicaoPagamento->setTotalParcelas($totalParcelas);
-        $parcelas = $this->gerarParcelas($dados["parcelas"], $condicaoPagamento);
-        $condicaoPagamento->setParcelas($parcelas);
-
+        if(isset($dados["parcelas"])){
+            $parcelas = $this->gerarParcelas($dados["parcelas"], $condicaoPagamento);
+            $condicaoPagamento->setParcelas($parcelas);
+        }
         return $condicaoPagamento;
     }
 

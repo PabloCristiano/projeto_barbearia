@@ -16,7 +16,6 @@ class Cliente extends Pessoa{
     protected $condicaoPagamento;
 
     public function __construct(){
-
         $this->apelido = '';
         $this->senha = '';
         $this->confSenha = '';
@@ -25,8 +24,7 @@ class Cliente extends Pessoa{
 
 
     public function getApelido(){
-        return $this->apelido;
-    
+        return $this->apelido;    
     }
 
     public function setApelido(string $apelido){
@@ -56,6 +54,4 @@ class Cliente extends Pessoa{
     public function setCondicaoPagamento(CondicaoPagamento $condicaoPagamento){
         $this->condicaoPagamento = $condicaoPagamento;
     }
-
-
 }

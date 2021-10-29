@@ -1,4 +1,3 @@
-<small id="msgCliente" class="text-danger"></small>
 <div class="form-row">
     <div class="form-group col-xl-2">
         <label>Código </label>
@@ -10,11 +9,7 @@
         <label>Cliente *</label>
         <input type="text" id="cliente" name="cliente" class="form-control" value="" minlength="3"
             maxlength="50" style="text-transform:uppercase;" required>
-        @error('cliente')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-        @enderror
+        <span  id="msgCliente" class="text-danger"></span>
     </div>
 
     <div class="form-group col-xl-3">
@@ -118,6 +113,7 @@
     <div id="clienteCpf" class="form-group required col-xl-4">
         <label>CPF *</label>
         <input type="text" id="cpf" name="cpf" class="form-control" value="" placeholder="___.___.___-__" required>
+        <span  id="msgCpf" class="text-danger"></span>
     </div>
 
     <div id="clienteRg" class="form-group col-xl-4">
@@ -132,10 +128,10 @@
 </div>
 
 <div id="cliente_id_condicao" class="form-row mt-4">
-    <div class="form-group required col-xl-2">
+    <div class="form-group col-xl-2">
         <label>Código *</label>
         <input type="number" class="form-control" name="id_condicao" id="id_condicao" data-input="condicao_pagamento"
-            data-route="condicoes-pagamento" value="" min="1" step="1" oninput="">
+            data-route="condicoes-pagamento" value="" min="1" step="1" oninput="" required >
     </div>
 
     <div class="form-group required col-xl-10" id="ipt-condicao-pagamento">
