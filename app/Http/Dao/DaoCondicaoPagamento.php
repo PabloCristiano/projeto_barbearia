@@ -150,7 +150,7 @@ class DaoCondicaoPagamento implements Dao
             return $e;
         }
     }
-
+    
     public function update(Request $request){
     }
 
@@ -204,7 +204,6 @@ class DaoCondicaoPagamento implements Dao
             $listacondicao = $this->listarCondição(get_object_vars($item));
             array_push($listcondicoes, $listacondicao);
         }
-       // dd($listcondicoes);
         return $listcondicoes;
     }
 

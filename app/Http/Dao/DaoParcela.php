@@ -31,7 +31,6 @@ class DaoParcela implements Dao {
             $parcela->setId($dados["id"]);
             $parcela->setDataCadastro($dados["data_create"]?? null);
             $parcela->setDataAlteracao($dados["data_alt"]?? null);
-
         $parcela->setParcela($dados["parcela"]);
         $parcela->setPrazo($dados["prazo"]);
         $parcela->setPorcentagem((float) $dados["porcentagem"]);
@@ -58,6 +57,31 @@ class DaoParcela implements Dao {
 
     public function update(Request $request){
 
+    }
+
+    public function updateParcela(array $par, $qtd, $id){
+        //dd($par,$qtd, $id);
+        DB::beginTransaction();
+        try {
+            for ($i = 0; $i < $qtd; $i++) {
+                $dadosParcela = [
+                    'parcela'                => $par[$i]["parcela"],
+                    'prazo'                  => $par[$i]["prazo"],
+                    'porcentagem'            => $par[$i]["porcentagem"],
+                    'idformapg'             => $par[$i]["idformapg"],
+                    'idcondpg'              => $id,
+                ];
+                DB::select('UPDATE parcelas SET idformapg =?',[$dadosParcela['idformapg']],
+                'WHERE parcelas.parcela =?',[$dadosParcela["parcela"]], 'AND parcelas.idcondpg?',$id );            
+                DB::select('UPDATE parcelas SET porcentagem =?',[$dadosParcela['porcentagem']],
+                'WHERE parcelas.parcela =?',[$dadosParcela["parcela"]], 'AND parcelas.idcondpg?',$id );            
+                
+            }
+            DB::commit();
+            return true;
+        } catch (\Throwable $th) {
+            return $th;
+        }
     }
 
     public function delete($id){
