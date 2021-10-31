@@ -1,5 +1,8 @@
 <script>
     $(document).ready(function() {
+        $('input[name="cnpj"]').mask("00.000.000/0000-00");
+        $("#telefone,#whatsapp").mask("(00) 00000-0000");
+        $("#cep").mask("00000-000");
         $(".custom-control-input").click(function() {
             let id = $(this).attr("id");
     
@@ -78,8 +81,6 @@
     
             });
             var validator = $("#FormFornecedor").validate({});
-
-
             $('.alterar').on('click', function(){
                 validator.destroy();
                 $('#FormFornecedor').validate();
@@ -105,9 +106,11 @@
                 var cpf = $(this).data('cpf');
                 var rg = $(this).data('rg');
                 var id_condicaopg = $(this).data('id_condicaopg');
-                var condicaopg = $(this).data('condicaopg');
+                var condicao = $(this).data('condicao');
                 var limitecredito = $(this).data('limitecredito');
                 var obs = $(this).data('obs');
+                var dataCadastro = $(this).data('data_create');
+                var dataAlteracao = $(this).data('data_alt');
                 
                 $("input").prop("disabled", false);
                 $("#id").val(id);
@@ -126,9 +129,11 @@
                 $("#pagSite").val(pagSite);
                 $("#contato").val(contato);
                 $("#id_condicaopg").val(id_condicaopg);
-                $("#condicaopg").val(condicaopg);
+                $("#condicao").val(condicao);
                 $("#limiteCredito").val(limitecredito);
                 $("#obs").val(obs);
+                $("#alterardata_create").val(dataCadastro);
+                $("#alterardata_alt").val(dataAlteracao);
                 
                 if ( tipo === "FISICA") {
                     $("#juridica").prop("disabled", true);
@@ -174,7 +179,6 @@
 
             });
 
-
             $('.excluir').on('click', function(){
                 validator.destroy();
                 var cod = $(this).data('cod');
@@ -199,7 +203,7 @@
                 var cpf = $(this).data('cpf');
                 var rg = $(this).data('rg');
                 var id_condicaopg = $(this).data('id_condicaopg');
-                var condicaopg = $(this).data('condicaopg');
+                var condicao = $(this).data('condicao');
                 var limitecredito = $(this).data('limitecredito');
                 var obs = $(this).data('obs');               
             
@@ -221,11 +225,11 @@
                 $("#pagSite").val(pagSite);
                 $("#contato").val(contato);
                 $("#id_condicaopg").val(id_condicaopg);
-                $("#condicaopg").val(condicaopg);
+                $("#condicao").val(condicao);
                 $("#limiteCredito").val(limitecredito);
                 $("#obs").val(obs);
                 
-                if ( tipo === "fisica") {
+                if ( tipo === "FISICA") {
                     $("#nome_fantasia").prev().text("Apelido");    
                     $("#cpf_cnpj").prev().text("CPF *");
                     $("#cpf_cnpj").addClass("cpf");
@@ -238,7 +242,7 @@
                     $("#rg_inscricao_estadual").val(rg);
                     $('input[value="fisica"]').prop("checked", true);                
 
-                } else if ( tipo === "juridica") {
+                } else if ( tipo === "JURIDICA") {
                     $("#nome_fantasia").prev().text("Nome Fantasia");    
                     $("#cpf_cnpj").prev().text("CNPJ *");
                     $("#cpf_cnpj").addClass("cnpj");
@@ -270,9 +274,6 @@
                 
             });
 
-    
-
-
             $(".btn-addfornecedor").click(function(){
                 validator.destroy();
                 $('#FormFornecedor').validate();              
@@ -284,6 +285,59 @@
                 $("#FormFornecedor").trigger("reset");    
                 
             });
+
+            $("#id_cidade").autocomplete({
+                source: function(resquest, response) {
+                    $.ajax({
+                        url: "{{ route('searchCidade') }}",
+                        type: 'POST',
+                        dataType: "json",
+                        data: {
+                            _token: '{!! csrf_token() !!}',
+                            search: resquest.term
+                        },
+                        success: function(data) {
+                            $('#id_cidade').val(data[0].id);
+                            $('#cidade').val(data[0].cidade);
+                        },
+                        error: function(data) {
+                            return false;
+                        }
+                    });
+                },
+            });
+    
+            $("#id_condicaopg").autocomplete({
+                source: function(resquest, response) {
+                    $.ajax({
+                        url: "{{ route('searchCondicaoPagamento') }}",
+                        type: 'POST',
+                        dataType: "json",
+                        data: {
+                            _token: '{!! csrf_token() !!}',
+                            search: resquest.term
+                        },
+                        success: function(data) {
+                            console.log(data);
+                            $('#id_condicaopg').val(data.id);
+                            $('#condicao').val(data.condicao_pagamento);
+                        },
+                        error: function(data) {
+                            return false;
+                        }
+                    });
+                },
+            });
+    
+            $(document).on("click", "#showCondicaoPagamento tbody tr", function() {
+                fila = $(this).closest("tr");
+                id = parseInt(fila.find('td:eq(0)').text()); //capturo el ID		            
+                condicao = fila.find('td:eq(1)').text();
+                $("#id_condicaopg").val(id);
+                $("#condicao").val(condicao);
+                $('.modalShowCondicao').modal('toggle');
+            });
+
 
            
 });

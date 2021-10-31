@@ -295,8 +295,8 @@
             <input
                 type="text"
                 class="form-control"
-                name="condicaopg"
-                id="condicaopg"
+                name="condicao"
+                id="condicao"
                 value=""
                 readonly
                 style="text-transform:uppercase;"
@@ -310,28 +310,13 @@
                     data-input="#condicao_pagamento_id"
                     data-route="condicoes-pagamento"
                     data-toggle="modal"
-                    data-target="#modal-condicoes-pagamento"
+                    data-target=".modalShowCondicao"
                 >
                     <i class="fa fa-search"></i>
                 </button>
             </div>
         </div>
     </div>
-
-    <div id="modal-condicoes-pagamento" class="modal fade" data-field="condicao_pagamento" role="dialog">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
-            <div class="modal-content">
-                <div class="modal-header align-items-center py-2 bg-dark">
-                    <h3 class="modal-title">Buscar Condição de Pagamento</h3>
-                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                   
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="form-group col-xl-3">
         <label>Limite Crédito</label>
 
@@ -364,7 +349,7 @@
     </textarea>
 </div>
 <script>
- $(function(){
+ {{--  $(function(){
          $(".custom-control-input").click(function() {
             let id = $(this).attr("id");
     
@@ -409,11 +394,6 @@
         $('input[name="ie"]').mask("0000.000-00");
         $('input[name="cpf"]').mask("000.000.000-00");
         $('input[name="rg"]').mask("0000.000-0");
-
-
-
-
-
-});
+});  --}}
 </script>
 

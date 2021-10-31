@@ -25,9 +25,7 @@
             minlength="4"
             style="text-transform:uppercase;"
             required
-        >
-
-       
+        >     
     </div>
 
     <div class="form-group required col-xl-2">
