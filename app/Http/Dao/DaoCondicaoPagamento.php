@@ -21,7 +21,8 @@ class DaoCondicaoPagamento implements Dao
         $this->daoParcela = new DaoParcela();
     }
 
-    public function all(bool $model = false){
+    public function all(bool $model = false)
+    {
         if (!$model) {
             $itens = DB::select('select * from condicao_pg');
             $listacondicao = array();
@@ -41,7 +42,8 @@ class DaoCondicaoPagamento implements Dao
     }
 
     //criar condição parcela
-    public function create(array $dados){
+    public function create(array $dados)
+    {
         $condicaoPagamento = new CondicaoPagamento();
 
         if (isset($dados["id"])) {
@@ -55,14 +57,15 @@ class DaoCondicaoPagamento implements Dao
         $condicaoPagamento->setDesconto((float)$dados["desconto"]);
         $totalParcelas =   $dados["qtd_parcela"];
         $condicaoPagamento->setTotalParcelas($totalParcelas);
-        if(isset($dados["parcelas"])){
+        if (isset($dados["parcelas"])) {
             $parcelas = $this->gerarParcelas($dados["parcelas"], $condicaoPagamento);
             $condicaoPagamento->setParcelas($parcelas);
         }
         return $condicaoPagamento;
     }
 
-    function listarCondição(array $dados){
+    function listarCondição(array $dados)
+    {
 
         $condicaoPagamento = new CondicaoPagamento();
         $condicaoPagamento->setId(($dados["id"]));
@@ -80,7 +83,8 @@ class DaoCondicaoPagamento implements Dao
         return $condicaoPagamento;
     }
 
-    public function gerarParcelas($dadosParcelas, $condicaoPagamento){
+    public function gerarParcelas($dadosParcelas, $condicaoPagamento)
+    {
         $par = array();
         $qtd = $condicaoPagamento->getTotalParcelas();
         for ($i = 0; $i < $qtd; $i++) {
@@ -95,7 +99,8 @@ class DaoCondicaoPagamento implements Dao
         return $par;
     }
 
-    public function salvarParcelas(array $parcelas, $idCondicaoPagamento){
+    public function salvarParcelas(array $parcelas, $idCondicaoPagamento)
+    {
         $qtd = count($parcelas);
         DB::beginTransaction();
         try {
@@ -116,12 +121,11 @@ class DaoCondicaoPagamento implements Dao
         }
     }
 
-    public function buscarParcelas($idCondicaoPagamento){
-
+    public function buscarParcelas($idCondicaoPagamento)
+    {
         $dados = DB::select('select parcela, prazo, porcentagem,idformapg, data_create, data_alt from 
                              parcelas where idcondpg = ?', [$idCondicaoPagamento]);
         $parcelas = array();
-
         foreach ($dados as $dadosParcela) {
             $parcela = $this->daoParcela->create(get_object_vars($dadosParcela));
             array_push($parcelas, $parcela);
@@ -129,7 +133,8 @@ class DaoCondicaoPagamento implements Dao
         return $parcelas;
     }
 
-    public function store($condicaoPagamento){
+    public function store($condicaoPagamento)
+    {
         DB::beginTransaction();
         try {
             $dados = $this->getData($condicaoPagamento);
@@ -150,14 +155,56 @@ class DaoCondicaoPagamento implements Dao
             return $e;
         }
     }
-    
-    public function update(Request $request){
+
+    public function update(Request $request)
+    { 
+        $itens = json_decode($request->parcelas_array[0], true);
+        $dadosParcelas = array();
+        foreach ($itens as $item) {
+            array_push($dadosParcelas, $item);
+        }
+        $par = array();
+        $qtd = $request->total_parcelas;
+        $id_condicao = $request->id;
+        for ($i = 0; $i < $qtd; $i++) {
+            $dadosParcela = [
+                "parcela"            => $dadosParcelas[$i]["parcela"],
+                "prazo"              => $dadosParcelas[$i]["prazo"],
+                "porcentagem"        => $dadosParcelas[$i]["porcentagem"],
+                "idformapg"          => $dadosParcelas[$i]["idformapg"],
+            ];
+            array_push($par, $dadosParcela);
+        }
+        $dadosCondicao = [
+            'id' => $request->id,
+            'condicao_pagamento' => $request->condicao_pagamento,
+            'juros' => $request->juros,
+            'multa' => $request->multa,
+            'desconto' => $request->desconto,
+            'data_alt'           => Carbon::now(),
+            'qtd_parcela' => $request->total_parcelas,
+        ];
+        DB::beginTransaction();
+        try {
+            $parcela = $this->daoParcela->updateParcela($par, $qtd, $id_condicao);
+            DB::table('condicao_pg')->where('id',$id_condicao)->update($dadosCondicao);
+            DB::commit();
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th->getMessage());
+            return false;
+        }
+
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
+        
     }
 
-    public function findById(int $id, bool $model = false){
+    public function findById(int $id, bool $model = false)
+    {
         if (!$model)
             return DB::table('condicao_pg')->get()->where('id', $id)->first();
 
@@ -169,7 +216,8 @@ class DaoCondicaoPagamento implements Dao
         return $dados;
     }
 
-    public function getdata(CondicaoPagamento $condicaoPagamento){
+    public function getdata(CondicaoPagamento $condicaoPagamento)
+    {
         $dados = [
             "id"                 => $condicaoPagamento->getid(),
             "condicao_pagamento" => $condicaoPagamento->getCondicaoPagamento(),
@@ -180,11 +228,12 @@ class DaoCondicaoPagamento implements Dao
             'data_create'        =>  $condicaoPagamento->getDataAlteracao(),
             'data_alt'           => Carbon::now(),
         ];
-        
+
         return $dados;
     }
 
-    public function buscar(bool $model = false){
+    public function buscar(bool $model = false)
+    {
         $itens = DB::select(
             'SELECT * FROM condicao_pg ORDER BY id DESC LIMIT 1'
         );
@@ -197,7 +246,8 @@ class DaoCondicaoPagamento implements Dao
         return $condicaopagamentos;
     }
 
-    public function listCondicaoPagamento($id){
+    public function listCondicaoPagamento($id)
+    {
         $dados = DB::select('select * from condicao_pg where id = ?', [$id]);
         $listcondicoes = array();
         foreach ($dados as $item) {
@@ -207,7 +257,8 @@ class DaoCondicaoPagamento implements Dao
         return $listcondicoes;
     }
 
-    public function listaParcela($id){
+    public function listaParcela($id)
+    {
         $dados = DB::select('select p.parcela, p.prazo, p.porcentagem, p.idformapg, f.forma_pg, p.data_create, p.data_alt 
         from parcelas p
         join forma_pg f on f.id = p.idformapg
@@ -219,12 +270,13 @@ class DaoCondicaoPagamento implements Dao
         return $parcelas;
     }
 
-    public function showCondicaoPagamento(){
+    public function showCondicaoPagamento()
+    {
         $item = DB::select('select * from condicao_pg');
         $condicao_pg = array();
         foreach ($item as $itens) {
             array_push($condicao_pg, $itens);
         }
-        return $condicao_pg;       
+        return $condicao_pg;
     }
 }
