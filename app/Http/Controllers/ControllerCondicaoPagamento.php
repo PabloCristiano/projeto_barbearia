@@ -73,6 +73,7 @@ class ControllerCondicaoPagamento extends Controller
         }         
       $par = array();
       $qtd = $request->total_parcelas;
+      $id_condicao = $request->id;
       for ($i = 0; $i < $qtd; $i++) {
           $dadosParcela = [
               "parcela"            => $dadosParcelas[$i]["parcela"],
@@ -94,7 +95,9 @@ class ControllerCondicaoPagamento extends Controller
           'qtd_parcela' => $request->total_parcelas,
           'parcelas' => $par,
       ];
-      dd($dados);    
+      //dd($dados, $par);
+      $teste = $this->daoparcela->updateParcela($par,$qtd,$id_condicao);
+        dd($teste);  
      
     }
 
