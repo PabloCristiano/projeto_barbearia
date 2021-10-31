@@ -55,25 +55,19 @@ class DaoFornecedor implements Dao {
                 $fornecedor = $this->create(get_object_vars($item));
                 array_push($fornecedores, $fornecedor);
             }
-    
             return $fornecedores;
-
-
     }
 
     public function create(array $dados){
-
         $fornecedor = new Fornecedor();
-
         if(isset($dados["id"])){
             $fornecedor->setId($dados["id"]);
-            //$fornecedor->setDataCadastro($dados["data_create"] ?? null );
-            //$fornecedor->setDataAlteracao($dados["data_alt"] ?? null);
+            $fornecedor->setDataCadastro($dados["data_create"] ?? null );
+            $fornecedor->setDataAlteracao($dados["data_alt"] ?? null);
         }
         $fornecedor->setTipoPessoa((string)$dados["tipo_pessoa"]);
         $fornecedor->setRazaoSocial((string)$dados["razaoSocial"]);
         $fornecedor->setNomeFantasia((string)$dados["nomefantasia"]);
-        //$fornecedor->setNome((string)$dados["apelido"]);
         $fornecedor->setLogradouro((string)$dados["logradouro"]);
         $fornecedor->setNumero((string)$dados["numero"]);
         $fornecedor->setComplemento((string)$dados["complemento"]);
@@ -91,14 +85,14 @@ class DaoFornecedor implements Dao {
         $fornecedor->setLimiteCredito((float) $dados["limiteCredito"]);
         $fornecedor->setObservacoes((string) $dados["obs"]);
         $cidade = $this->daoCidade->findById($dados["id_cidade"], true);
-        $fornecedor->setCidade($cidade);        
+        $fornecedor->setCidade($cidade);
+        $condicaoPagamento =  $this->daoCondicaoPagamento->findById($dados["id_condicaopg"], true); 
+        $fornecedor->setCondicaoPagamento($condicaoPagamento);
         return $fornecedor;
     }
 
     public function store($obj){
-
         $dados = $this->getData($obj);
-       // dd($dados);
         DB::beginTransaction();
         try {
             DB::table('fornecedores')->insert($dados);
@@ -113,8 +107,35 @@ class DaoFornecedor implements Dao {
     }
 
     public function update(Request $request){
+        $dado = [
+          'id' =>            $request->id,
+          'tipo_pessoa'=>    $request->tipo_pessoa,
+          'razaoSocial'=>    $request->razaoSocial,  
+          'nomefantasia'=>   $request->nomefantasia,
+          'apelido'=>        $request->nomeFantasia,
+          'logradouro'=>     $request->logradouro,
+          'numero'=>         $request->numero,
+          'complemento'=>    $request->complemento,
+          'bairro'=>         $request->bairro,
+          'cep'=>            $request->cep,
+          'id_cidade'=>      $request->id_cidade,
+          'whatsapp'=>       $request->whatsapp,
+          'telefone'=>       $request->telefone,
+          'email'=>          $request->email,
+          'pagSite'=>        $request->pagSite,
+          'contato'=>        $request->contato,
+          'cnpj'=>           $request->cnpj,
+          'ie'=>             $request->ie,
+          'cpf'=>            $request->cpf,
+          'rg'=>             $request->rg,
+          'id_condicaopg'=>  $request->id_condicaopg, 
+          'limiteCredito'=>  $request->limiteCredito,
+          'obs'=>            $request->obs,
+          'data_alt'=>       Carbon::now(),
+           
+        ];
         try {
-            $fornecedores = $this->create($request->all());
+            $fornecedores = $this->create($dado);
             $dados = $this->getData($fornecedores);
             DB::table('fornecedores')->where('id', $dados['id'])->update($dados);
             DB::commit();
@@ -183,15 +204,12 @@ class DaoFornecedor implements Dao {
           'ie'=>             $Fornecedor->getInscricaoEstadual(),
           'cpf'=>            $Fornecedor->getCpf(),
           'rg'=>             $Fornecedor->getRg(),
-         // 'id_condicaopg'=>  $Fornecedor->getCondicaoPagamento(),
-          'id_condicaopg'=>  '1', 
+          'id_condicaopg'=>  $Fornecedor->getCondicaoPagamento()->getid(), 
           'limiteCredito'=>  $Fornecedor->getLimiteCredito(),
           'obs'=>            $Fornecedor->getObservacoes(),
-          //'data_create'=>  $Fornecedor->getComissao(),
-          //'data_alt'=>     $Fornecedor->getComissao(),
+          'data_alt'=>       Carbon::now(),
            
         ];
-
         return $dados;
     }
 
@@ -228,9 +246,7 @@ class DaoFornecedor implements Dao {
             foreach($itens as $item){                
                 array_push($fornecedores, $item);                
             }
-            
             return $fornecedores;
-            
     }
 
     public function registroFornecedor(Request $request){
@@ -254,7 +270,7 @@ class DaoFornecedor implements Dao {
         'ie'=> $request->ie,
         'cpf' => $request->cpf,
         'rg' => $request->rg,
-        'id_condicaopg' => $request->id_condicaopg,
+        'id_condicaopg' => $request->id_condicao,
         'limitecredito' => $request->limitecredito,
         'obs' => $request->obs
       ];
@@ -267,8 +283,6 @@ class DaoFornecedor implements Dao {
             DB::rollBack();
             return false;
         }
-
-
     }
 
 

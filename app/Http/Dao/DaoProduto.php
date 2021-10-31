@@ -74,13 +74,10 @@ class DaoProduto implements Dao {
         $produto->setCategoria($categoria);
         $fornecedor = $this->daoFornecedor->findById($dados["id_fornecedor"], true);
         $produto->setFornecedor($fornecedor);
-        //dd($produto);
         return $produto;
-
     }
 
     public function store($obj){               
-       // dd($obj);
         $dados = $this->getData($obj);
         DB::beginTransaction();
         try {
@@ -92,7 +89,6 @@ class DaoProduto implements Dao {
             dd($e);
             return false;
         }
-
     }
 
     public function update(Request $request){
@@ -108,8 +104,6 @@ class DaoProduto implements Dao {
             "custoUltCompra" => $request->custoUltCompra,
             "dataUltCompra"  => $request->dataUltCompra, 
             "dataUltVenda"   => $request->dataUltVenda,
-            "data_create"     =>null,
-             "data_alt"       =>null,
         ];       
         try {
             $produto = $this->create($dado);
@@ -146,7 +140,6 @@ class DaoProduto implements Dao {
     }
 
     public function getData(Produto $produto) {
-
         $dados = [
             "id"             => $produto->getid(), 
             "produto"        => $produto->getProduto(),
@@ -161,11 +154,6 @@ class DaoProduto implements Dao {
             "dataUltVenda"   => $produto->getDataUltVenda(),
              "data_alt"       => Carbon::now(),
         ];
-
         return $dados;
     }
-
-
-
-
 }

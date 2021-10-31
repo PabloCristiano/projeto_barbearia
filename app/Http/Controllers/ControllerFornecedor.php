@@ -19,22 +19,17 @@ class ControllerFornecedor extends Controller{
         $fonecedores = $this->daoFornecedor->all(true);
        return view('fornecedores.index', compact('fonecedores'));
     }
-
     
     public function create(){
         
     }
-
    
     public function store(Request $request){
-        //dd($request);
         $fonecedores = $this->daoFornecedor->create($request->all());
         $store = $this->daoFornecedor->store($fonecedores);
-       //dd($store);
        if($store){
-        return redirect('/fornecedor')->with('success', ' ');  
+        return redirect('/fornecedor')->with('cadastrado', 'show');  
        }
-
     }
 
    
@@ -51,11 +46,10 @@ class ControllerFornecedor extends Controller{
 
     
     public function update(Request $request){
-       // dd($request);
         $update = $this->daoFornecedor->update($request);
         //dd($update);
         if($update){            
-           return redirect('/fornecedor') ->with('success',' ');
+           return redirect('/fornecedor') ->with('alterado','show');
         }
         
         return redirect('/fornecedor')->with('error',' ');
@@ -68,10 +62,10 @@ class ControllerFornecedor extends Controller{
         $delete = $this->daoFornecedor->delete($id);
         //dd($delete);
         if ($delete){
-            return redirect('/fornecedor')->with('success', 'Registro removido com sucesso!');
+            return redirect('/fornecedor')->with('excluido', 'show');
         }
 
-        return redirect('/fornecedor')->with('error', 'Este registro não pode ser removido.');
+        return redirect('/fornecedor')->with('errorExcluido', 'show');
       
     }
    
@@ -81,15 +75,11 @@ class ControllerFornecedor extends Controller{
         return $fornecedor ;
     }
 
-    public function RegistroFornecedor( Request $request){ 
-        //$dados = $request->all();       
-       
+    public function RegistroFornecedor( Request $request){       
        $store = $this->daoFornecedor->registroFornecedor($request);
         if($store){  
             return response::json(array('success'=> true,'data'=>$store));
         } 
-        
-
     }
 
 

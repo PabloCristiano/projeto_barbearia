@@ -46,9 +46,12 @@
                                 data-cpf="{{$Fornecedor->getCpf()}}"
                                 data-rg="{{$Fornecedor->getRg()}}"
                                 data-id_condicaopg="{{$Fornecedor->getCondicaoPagamento()->getId()}}"
-                                data-condicaopg="{{$Fornecedor->getCondicaoPagamento()->getCondicaoPagamento()}}"
+                                data-condicao="{{$Fornecedor->getCondicaoPagamento()->getCondicaoPagamento()}}"
                                 data-limitecredito="{{$Fornecedor->getLimiteCredito()}}"
                                 data-obs="{{$Fornecedor->getObservacoes()}}"
+                                data-data_create="{{$Fornecedor->getDataCadastro()}}"
+                                data-data_alt="{{$Fornecedor->getDataAlteracao()}}"
+                                
                                  
                             class="btn btn-dark alterar"><i class="fa fa-edit"></i>
                         </button> 
@@ -75,8 +78,11 @@
                                 data-cpf="{{$Fornecedor->getCpf()}}"
                                 data-rg="{{$Fornecedor->getRg()}}"
                                 data-id_condicaopg="{{$Fornecedor->getCondicaoPagamento()->getId()}}"
+                                data-condicao="{{$Fornecedor->getCondicaoPagamento()->getCondicaoPagamento()}}"
                                 data-limitecredito="{{$Fornecedor->getLimiteCredito()}}"
                                 data-obs="{{$Fornecedor->getObservacoes()}}"
+                                data-data_create="{{$Fornecedor->getDataCadastro()}}"
+                                data-data_alt="{{$Fornecedor->getDataAlteracao()}}"
                            class="btn btn-dark excluir"><i class="fa fa-trash-alt"></i>
                         </button>
                     </div>
