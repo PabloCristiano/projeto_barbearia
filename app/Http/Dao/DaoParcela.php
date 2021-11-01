@@ -60,7 +60,6 @@ class DaoParcela implements Dao {
     }
 
     public function updateParcela(array $par, $qtd, $id){
-        //dd($par,$qtd, $id);
         DB::beginTransaction();
         try {
             for ($i = 0; $i < $qtd; $i++) {
@@ -71,15 +70,13 @@ class DaoParcela implements Dao {
                     'idformapg'             => $par[$i]["idformapg"],
                     'idcondpg'              => $id,
                 ];
-                DB::select('UPDATE parcelas SET idformapg =?',[$dadosParcela['idformapg']],
-                'WHERE parcelas.parcela =?',[$dadosParcela["parcela"]], 'AND parcelas.idcondpg?',$id );            
-                DB::select('UPDATE parcelas SET porcentagem =?',[$dadosParcela['porcentagem']],
-                'WHERE parcelas.parcela =?',[$dadosParcela["parcela"]], 'AND parcelas.idcondpg?',$id );            
-                
+                DB::table('parcelas')->where('parcelas.idcondpg',$id)
+                   ->where('parcelas.parcela',[$dadosParcela["parcela"]])->update($dadosParcela);           
             }
             DB::commit();
             return true;
         } catch (\Throwable $th) {
+            DB::rollBack();
             return $th;
         }
     }
@@ -87,6 +84,31 @@ class DaoParcela implements Dao {
     public function delete($id){
 
     }
+
+    public function deleteParcela(array $par, $qtd, $id){
+        DB::beginTransaction();
+        try {
+            for ($i = 0; $i < $qtd; $i++) {
+                $dadosParcela = [
+                    'parcela'                => $par[$i]["parcela"],
+                    'prazo'                  => $par[$i]["prazo"],
+                    'porcentagem'            => $par[$i]["porcentagem"],
+                    'idformapg'             => $par[$i]["idformapg"],
+                    'idcondpg'              => $id,
+                ];
+                DB::table('parcelas')->where('parcelas.idcondpg',$id)
+                   ->where('parcelas.parcela',[$dadosParcela["parcela"]])->delete();           
+            }
+            DB::commit();
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return $th;
+        }
+
+    }
+
+
 
     public function findById(int $id, bool $model = false){
                

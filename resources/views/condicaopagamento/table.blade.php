@@ -22,7 +22,7 @@
                     <td class="text-center">
                         <div class="btn-group-xs">
                             <a title="EDITAR" href="/editarCondicaoPagamento/{{$condicaopg->getid()}}" class="btn btn-dark"><i class="fa fa-edit" ></i></a>
-                            <a title="EXCLUIR" href="/editarCondicaoPagamento/{{$condicaopg->getid()}}" class="btn btn-dark"><i class="fa fa-trash-alt"></i></a>
+                            <a title="EXCLUIR" href="/deleteCondicaoPagamento/{{$condicaopg->getid()}}" class="btn btn-dark"><i class="fa fa-trash-alt"></i></a>
                         </div>
                     </td>
                 </tr>

@@ -14,10 +14,8 @@
             </div>
         </div>
     </div>
-   <div class="card-body">
-    
-    @include('condicaopagamento.formEditarCondicao')
-
+   <div class="card-body">    
+    @include('condicaopagamento.formDeleteCondicao')
    </div>
 </div>
 @endsection

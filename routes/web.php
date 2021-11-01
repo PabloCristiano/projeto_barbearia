@@ -33,6 +33,7 @@ Route::get('/Condicaopagamento', 'controllerCondicaoPagamento@index');
 Route::get('/agendamento', 'ControllerAgendamento@index');
 Route::get('/compras', 'ControllerCompra@index');
 Route::get('/editarCondicaoPagamento/{id}', 'ControllerCondicaoPagamento@edit');
+Route::get('/deleteCondicaoPagamento/{id}', 'ControllerCondicaoPagamento@destroy');
 
 
 //Rotas formularios
@@ -54,6 +55,7 @@ Route::POST('/fornecedor','ControllerFornecedor@store');
 Route::POST('/produto','ControllerProduto@store');
 Route::POST('/cliente','ControllerCliente@store');
 Route::POST('/condicaoPagamentoEdit','ControllerCondicaoPagamento@update')->name("condicaoPagamentoEdit");
+Route::POST('/condicaoPagamentoDelete','ControllerCondicaoPagamento@deleteCondicao')->name("condicaoPagamentoDelete");
 
 
 
