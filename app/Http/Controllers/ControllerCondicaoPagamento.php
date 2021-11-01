@@ -73,6 +73,17 @@ class ControllerCondicaoPagamento extends Controller
 
 
     public function destroy($id){
+        $listacondicao = $this->daoCondicaoPagamento->listCondicaoPagamento($id);
+        return view('condicaopagamento.deleteCondicao', compact('listacondicao'));
+    }
+
+    public function deleteCondicao(Request $request){
+        // dd($request);
+        $delete =  $this->daoCondicaoPagamento->deleteCondicao($request);
+        if($delete){            
+          return redirect('/Condicaopagamento') ->with('excluido','show');
+      }
+          return redirect('/Condicaopagamento')->with('error',' ');
 
     }
 

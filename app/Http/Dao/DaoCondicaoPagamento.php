@@ -197,9 +197,51 @@ class DaoCondicaoPagamento implements Dao
         }
 
     }
+    public function delete($id){
 
-    public function delete($id)
+    }
+
+    public function deleteCondicao(Request $request)
     {
+        $itens = json_decode($request->parcelas_array[0], true);
+        $dadosParcelas = array();
+        foreach ($itens as $item) {
+            array_push($dadosParcelas, $item);
+        }
+        $par = array();
+        $qtd = $request->total_parcelas;
+        $id_condicao = $request->id;
+        for ($i = 0; $i < $qtd; $i++) {
+            $dadosParcela = [
+                "parcela"            => $dadosParcelas[$i]["parcela"],
+                "prazo"              => $dadosParcelas[$i]["prazo"],
+                "porcentagem"        => $dadosParcelas[$i]["porcentagem"],
+                "idformapg"          => $dadosParcelas[$i]["idformapg"],
+            ];
+            array_push($par, $dadosParcela);
+        }
+        $dadosCondicao = [
+            'id' => $request->id,
+            'condicao_pagamento' => $request->condicao_pagamento,
+            'juros' => $request->juros,
+            'multa' => $request->multa,
+            'desconto' => $request->desconto,
+            'data_alt'           => Carbon::now(),
+            'qtd_parcela' => $request->total_parcelas,
+        ];
+    
+        // dd($dadosCondicao,$par,$id_condicao);
+        DB::beginTransaction();
+        try {
+            $parcela = $this->daoParcela->deleteParcela($par, $qtd, $id_condicao);
+            DB::table('condicao_pg')->delete($id_condicao);
+            DB::commit();
+            return true;
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th->getMessage());
+            return false;
+        }        
         
     }
 
