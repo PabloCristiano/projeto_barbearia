@@ -43,7 +43,7 @@
                             style="text-transform:uppercase;" readonly>
 
                         <div class="input-group-append">
-                            <button class="btn btn-dark btn-search" type="button" data-toggle="modal" data-target="#">
+                            <button class="btn btn-dark btn-search" type="button" data-toggle="modal" data-target=".modalbuscafornecedores">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
@@ -192,16 +192,16 @@
             <div class="form-row">
                 <div class="form-group col-xl-2">
                     <label>Código *</label>
-                    <input type="number" id="id_condicaopg" name="id_condicaopg" class="form-control ">
+                    <input type="number" id="id_condicao" name="id_condicao" class="form-control ">
                 </div>
                 <div class="form-group  col-xl-10" id="ipt-cidade" required>
                     <label>Condição Pagamento *</label>
                     <div class="input-group">
-                        <input class="form-control" name="condicaopg" id="condicaopg" value=""
+                        <input class="form-control" name="condicao" id="condicao" value=""
                             style="text-transform:uppercase;" readonly>
 
                         <div class="input-group-append">
-                            <button class="btn btn-dark btn-search" type="button" data-toggle="modal" data-target="#">
+                            <button class="btn btn-dark btn-search" type="button" data-toggle="modal" data-target=".modalShowCondicao">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
@@ -261,3 +261,6 @@
         </div>
     </div>
 </div>
+@include('fornecedores.ShowFornecedores')
+@include('condicaopagamento.showCondicaoPagamento')
+

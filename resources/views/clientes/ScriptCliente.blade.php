@@ -325,7 +325,7 @@
             },
         });
 
-        $("#id_condicao").autocomplete({
+        {{--  $("#id_condicao").autocomplete({
             source: function(resquest, response) {
                 $.ajax({
                     url: "{{ route('searchCondicaoPagamento') }}",
@@ -345,16 +345,16 @@
                     }
                 });
             },
-        });
+        });  --}}
 
-        $(document).on("click", "#showCondicaoPagamento tbody tr", function() {
+        {{--  $(document).on("click", "#showCondicaoPagamento tbody tr", function() {
             fila = $(this).closest("tr");
             id = parseInt(fila.find('td:eq(0)').text()); //capturo el ID		            
             condicao = fila.find('td:eq(1)').text();
             $("#id_condicao").val(id);
             $("#condicao").val(condicao);
             $('.modalShowCondicao').modal('toggle');
-        });
+        });  --}}
 
     });
 </script>

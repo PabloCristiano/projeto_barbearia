@@ -21,7 +21,6 @@
     <div class="card-body">
         @include('compras.table')
         @include('compras.scriptCompras')
-
     </div>
 
 @endsection

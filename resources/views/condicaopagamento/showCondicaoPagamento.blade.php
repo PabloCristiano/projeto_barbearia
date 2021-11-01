@@ -113,5 +113,35 @@
             ]
 
         });
+        $(document).on("click", "#showCondicaoPagamento tbody tr", function() {
+            fila = $(this).closest("tr");
+            id = parseInt(fila.find('td:eq(0)').text()); //capturo el ID		            
+            condicao = fila.find('td:eq(1)').text();
+            $("#id_condicao").val(id);
+            $("#condicao").val(condicao);
+            $('.modalShowCondicao').modal('toggle');
+        });
+
+        $("#id_condicao").autocomplete({
+            source: function(resquest, response) {
+                $.ajax({
+                    url: "{{ route('searchCondicaoPagamento') }}",
+                    type: 'POST',
+                    dataType: "json",
+                    data: {
+                        _token: '{!! csrf_token() !!}',
+                        search: resquest.term
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        $('#id_condicao').val(data.id);
+                        $('#condicao').val(data.condicao_pagamento);
+                    },
+                    error: function(data) {
+                        return false;
+                    }
+                });
+            },
+        });
     });
 </script>
