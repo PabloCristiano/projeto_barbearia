@@ -41,8 +41,26 @@ $(function(){
             }
 
         });
-
     });
+    $("#id_fornecedor").blur(function(){
+        if($("#num_nota").val() > 0 & $("#id_fornecedor").val() > 0 ){
+          $("#btnSearchProduto").prop("disabled", false);  
+        }else{
+            $("#btnSearchProduto").prop("disabled", true); 
+        }
+    });
+    $("#num_nota").blur(function(){
+        if($("#num_nota").val() > 0 & $("#id_fornecedor").val() > 0 ){
+          $("#btnSearchProduto").prop("disabled", false);  
+        }else{
+            $("#btnSearchProduto").prop("disabled", true); 
+        }
+    });
+    $("#id_fornecedor").keyup(function(){
+        $("#fornecedor").val('');
+    });
+
+    
 
 });
 </script>

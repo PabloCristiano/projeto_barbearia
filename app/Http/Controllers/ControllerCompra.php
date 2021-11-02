@@ -3,9 +3,16 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Dao\DaoProduto;
 
 class ControllerCompra extends Controller{
-   
+    
+    private $daoProduto;
+
+    public function __construct(){
+        $this->daoProduto = new DaoProduto;
+    }
+
     public function index(){
         return view('compras.index');
     }

@@ -43,7 +43,7 @@
                             style="text-transform:uppercase;" readonly>
 
                         <div class="input-group-append">
-                            <button class="btn btn-dark btn-search" type="button" data-toggle="modal" data-target=".modalbuscafornecedores">
+                            <button  class="btn btn-dark btn-search" type="button" data-toggle="modal" data-target=".modalbuscafornecedores">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
@@ -75,7 +75,7 @@
                             style="text-transform:uppercase;" readonly>
 
                         <div class="input-group-append">
-                            <button class="btn btn-dark btn-search" type="button" data-toggle="modal" data-target="#">
+                            <button id="btnSearchProduto" class="btn btn-dark btn-search" type="button" data-toggle="modal" data-target="#" disabled>
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>

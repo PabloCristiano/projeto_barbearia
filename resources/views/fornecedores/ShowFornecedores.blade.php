@@ -208,9 +208,11 @@
             id = parseInt(fila.find('td:eq(0)').text()); //capturo el ID		            
             categoria = fila.find('td:eq(1)').text();
             // ddd = fila.find('td:eq(2)').text();
+            
             $("#id_fornecedor").val(id);
             $("#fornecedor").val(categoria);
             $('.modalbuscafornecedores').modal('toggle');
+            $("#id_fornecedor").focus();
         });
 
     });
