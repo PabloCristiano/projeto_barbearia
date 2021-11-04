@@ -43,7 +43,8 @@
                             style="text-transform:uppercase;" readonly>
 
                         <div class="input-group-append">
-                            <button  class="btn btn-dark btn-search" type="button" data-toggle="modal" data-target=".modalbuscafornecedores">
+                            <button class="btn btn-dark btn-search" type="button" data-toggle="modal"
+                                data-target=".modalbuscafornecedores">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
@@ -75,7 +76,8 @@
                             style="text-transform:uppercase;" readonly>
 
                         <div class="input-group-append">
-                            <button id="btnSearchProduto" class="btn btn-dark btn-search" type="button" data-toggle="modal" data-target="#" disabled>
+                            <button id="btnSearchProduto" class="btn btn-dark btn-search" type="button"
+                                data-toggle="modal" data-target=".modalBuscaProdutos" disabled>
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
@@ -84,10 +86,11 @@
             </div>
 
             <div class="form-row">
-                <div class="form-group col-xl-2">
+                {{-- <div class="form-group col-xl-2">
                     <label>Unidade</label>
                     <input type="text" id="unidade" name="unidade" value="" class="form-control ">
-                </div>
+                </div> --}}
+                <input type="hidden" id="qtd_Produto" name="qtd_Produto" value="0">
                 <div class="form-group col-xl-2">
                     <label>Quantidade</label>
                     <input type="number" id="quantidade" name="quantidade" value="" max="999999" class="form-control ">
@@ -99,7 +102,7 @@
                             <span class="input-group-text">R$</span>
                         </div>
                         <input type="number" id="valor_uni" name="valor_uni" class="form-control" value=""
-                            placeholder="0,00" required>
+                            placeholder="0,00" required readonly>
                     </div>
                 </div>
                 <div class="form-group required col-xl-3">
@@ -108,7 +111,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">%</span>
                         </div>
-                        <input type="number" id="desconto" name="desconto" class="form-control" value=""
+                        <input type="number" id="desconto" name="desconto" class="form-control" value="0"
                             placeholder="%" required>
                     </div>
                 </div>
@@ -123,7 +126,7 @@
 
                 </style> --}}
                 <div class="form-group col-xl-2 d-flex align-items-end">
-                    <button type="submit" class="btn btn-dark">Adicionar</button>
+                    <button id="btnAddProduto" type="button" class="btn btn-dark" disabled>Adicionar</button>
                 </div>
             </div>
             <br>
@@ -132,18 +135,18 @@
                     <table id="tableProduto" class="table table-hover table-striped shadow-xs rounded">
                         <thead>
                             <tr>
-                                <th>Cód</th>
-                                <th>Produto</th>
-                                <th>Unidade</th>
-                                <th>Quantidade</th>
-                                <th>Valor Unitário</th>
-                                <th>Desconto</th>
-                                <th>Valor ToTal</th>
+                                <th class="text-center">Cód</th>
+                                <th class="text-center">Produto</th>
+                                <th class="text-center">Uni</th>
+                                <th class="text-center">Qtd</th>
+                                <th class="text-center">Valor Un</th>
+                                <th class="text-center">Desc</th>
+                                <th class="text-center">SubToTal</th>
                                 <th class="text-center">Ações</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            {{-- <tr>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -160,7 +163,7 @@
 
                                         </div>
                                 </td>
-                            </tr>
+                            </tr> --}}
                         </tbody>
                         <tfoot>
                             <tr>
@@ -175,6 +178,26 @@
                             </tr>
                         </tfoot>
                     </table>
+                </div>
+            </div>
+            <div class="card-footer text-right">
+                <div class="row">
+                    <div class="col-md-9 text-right">
+                        <strong class="text-success text-lg">
+                            <span class="text-dark">TOTAL DA COMPRA:</span>
+                        </strong>
+                    </div>
+                    <div class="col-md-3 text-right">
+                        <div class="d-flex justify-content-between">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">R$</span>
+                                </div>
+                                <input type="number" id="totalCompra" name="totalCompra" class="form-control " value=""
+                                    placeholder="0,00" style="font-weight: bold;color:rgb(10, 156, 59);" readonly>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <br>
@@ -201,7 +224,8 @@
                             style="text-transform:uppercase;" readonly>
 
                         <div class="input-group-append">
-                            <button class="btn btn-dark btn-search" type="button" data-toggle="modal" data-target=".modalShowCondicao">
+                            <button class="btn btn-dark btn-search" type="button" data-toggle="modal"
+                                data-target=".modalShowCondicao">
                                 <i class="fa fa-search"></i>
                             </button>
                         </div>
@@ -263,4 +287,4 @@
 </div>
 @include('fornecedores.ShowFornecedores')
 @include('condicaopagamento.showCondicaoPagamento')
-
+@include('produtos.showProduto')

@@ -146,7 +146,7 @@ class DaoProduto implements Dao {
             "unidade"        => $produto->getUnidade(),
             "id_categoria"   => $produto->getCategoria()->getid(), 
             "id_fornecedor"  => $produto->getFornecedor()->getid(), 
-            "qtdEstoque"     => $produto->getUnidade(), 
+            "qtdEstoque"     => $produto->getQtdEstoque(), 
             "precoCusto"     => $produto->getPrecoCusto(), 
             "precoVenda"     => $produto->getPrecoVenda(), 
             "custoUltCompra" => $produto->getCustoUltCompra(),
@@ -155,5 +155,16 @@ class DaoProduto implements Dao {
              "data_alt"       => Carbon::now(),
         ];
         return $dados;
+    }
+
+    public function showProduto(){
+        $itens = DB:: select('select p.id,p.produto, p.unidade,p.id_fornecedor, f.razaoSocial, p.id_categoria, c.categoria, p.qtdEstoque, p.precoVenda,  p.precoCusto from produtos as p
+        join categorias c on c.id = p.id_categoria
+        join fornecedores f on f.id = p.id_fornecedor ');
+        $listProdutos = array();
+        foreach($itens as $item){                           
+            array_push($listProdutos, $item);
+        }    
+        return $listProdutos;
     }
 }

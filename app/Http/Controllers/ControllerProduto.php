@@ -37,9 +37,7 @@ class ControllerProduto extends Controller{
 
    
     public function store(Request $request){
-       // dd($request);
         $produto = $this->daoProduto->create($request->all());
-        // dd($produto);
         $store = $this->daoProduto->store($produto);
         if($store){
             return redirect('/produto')->with('Cadastrado', 'show');  
@@ -78,5 +76,10 @@ class ControllerProduto extends Controller{
 
         return redirect('/produto')->with('errorExcluido', 'show');
         
+    }
+
+    public function showProduto(){
+        $listProdutos = $this->daoProduto->showProduto();
+        return $listProdutos;
     }
 }
