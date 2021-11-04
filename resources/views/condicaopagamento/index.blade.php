@@ -35,6 +35,11 @@
                     swal("Condição de Pagamento Alterado com sucesso !!");
                 </script>
             @endif
+            @if (session('error'))
+                <script>
+                    swal("Registro não pode ser Alterado !!");
+                </script>
+            @endif
             @include('condicaopagamento.ModalFormCondicaoPagamento')
             @include('condicaopagamento.table')
             @include('condicaopagamento.scriptCondicaoPagamento')

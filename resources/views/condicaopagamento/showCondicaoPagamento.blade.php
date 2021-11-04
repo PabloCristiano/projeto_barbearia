@@ -120,6 +120,7 @@
             $("#id_condicao").val(id);
             $("#condicao").val(condicao);
             $('.modalShowCondicao').modal('toggle');
+            $("#id_condicao").focus();
         });
 
         $("#id_condicao").autocomplete({

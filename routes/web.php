@@ -89,11 +89,11 @@ Route::POST('/searchCondicaoPagamento', 'ControllerCondicaoPagamento@searchCondi
 Route::POST('/findByIdProfissional', 'ControllerProfissional@edit')->name('findByIdProfissional');
 Route::POST('/findByIdCpf','ControllerProfissional@findByIdCpf')->name("findByIdCpf");
 Route::POST('/findByIdCliente','ControllerCliente@findByIdCliente')->name("findByIdCliente");
-
-
 Route::POST('cadastroCodicaoPagamento','ControllerCondicaoPagamento@store')->name('cadastroCodicaoPagamento');
 
-
+////
+Route::POST('/CondicaoPagamentoProduto', 'ControllerCondicaoPagamento@CondicaoPagamentoProduto')->name('CondicaoPagamentoProduto');
+////
 
 //Rotas para Editar
 Route::post('/pais/editar/','ControllerPais@edit');

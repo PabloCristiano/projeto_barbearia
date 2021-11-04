@@ -111,7 +111,7 @@
                         <div class="input-group-prepend">
                             <span class="input-group-text">%</span>
                         </div>
-                        <input type="number" id="desconto" name="desconto" class="form-control" value="0"
+                        <input type="number" id="desconto" name="desconto" class="form-control" value=""
                             placeholder="%" required>
                     </div>
                 </div>
@@ -236,26 +236,21 @@
                 <table id="tableCondicao" class="table table-hover table-striped shadow-xs rounded">
                     <thead>
                         <tr>
-                            <th>Parcela</th>
-                            <th>Forma de Pagamento</th>
-                            <th>Vencimento</th>
-                            <th>Valor da Parcela</th>
+                            <th class="text-center">Parcela</th>
+                            <th class="text-center">Forma de Pagamento</th>
+                            <th class="text-center">Vencimento</th>
+                            <th class="text-center">Valor da Parcela</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
+                        
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th class="text-center"></th>
+                            <th class="text-center"></th>
+                            <th class="text-center"></th>
+                            <th class="text-center"></th>
                         </tr>
                     </tfoot>
                 </table>

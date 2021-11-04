@@ -99,5 +99,13 @@ class ControllerCondicaoPagamento extends Controller
         }        
         return response()->json('error');
     }
+    
+    public function CondicaoPagamentoProduto(Request $request){
+        $search = $this->daoCondicaoPagamento->CondicaoPagamentoProduto($request->id);
+        if($search){
+            return response()->json($search);
+        }        
+        return response()->json('error');
+    }
 
 }

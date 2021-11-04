@@ -206,25 +206,83 @@ const row =
         return subTotal; 
     }
 
-    $("#id_condicao").autocomplete({
-        source: function(resquest, response) {
-            $.ajax({
-                url: "{{ route('searchCondicaoPagamento') }}",
-                type: 'POST',
-                dataType: "json",
-                data: {
-                    _token: '{!! csrf_token() !!}',
-                    search: resquest.term
-                },
-                success: function(data) {
-                    console.log(data);
-                    
-                },
-                error: function(data) {
-                    return false;
-                }
-            });
-        },
+   const rowTablecondicao =
+    `<tr id='tbCondicao'>
+        <td class="text-center" id="tb_condicao_parcela">
+            <input
+                type="hidden"
+                class="form-control idProduto"
+                name="id_produto"
+                id="id_produto"                    
+            >
+            
+        </td>
+        <td class="text-center" id="tb_condicao_formapg">
+            <input
+                type="hidden"
+                class="form-control produto"
+                name="id_produto"
+                id="id_produto"                    
+            >
+            
+        </td>
+        <td class="text-center" id="tb_condicao_vencimento">
+            <input
+                type="hidden"
+                class="form-control unidade"
+                name="id_produto"
+                id="id_produto"                    
+            >
+            
+        </td>
+        <td class="text-center" id="tb_condicao_ValorParcela">
+            <input
+                type="hidden"
+                class="form-control quandidade"
+                name="id_produto"
+                id="id_produto"                    
+            >
+        </td>
+    </tr>`
+    $("#id_condicao").blur(function(){
+        let id = $("#id_condicao").val();
+        $.ajax({
+            url: "{{ route('CondicaoPagamentoProduto') }}",
+            type: 'POST',
+            dataType: "json",
+            data: {
+                _token: '{!! csrf_token() !!}',
+                id: id
+            },
+            success: function(data) {
+                console.log(data);
+                data.forEach(function(data,i){
+                    let parcela = data.parcela;
+                    let prazo   = data.prazo;
+                    let porcentagem = data.porcentagem;
+                    let forma_pg = data.forma_pg;
+                    let newRowTablecondicap = $(rowTablecondicao).clone();
+                    $("#tableCondicao tbody").append(newRowTablecondicap);
+                    newRowTablecondicap.find("#tb_condicao_parcela").attr("id", `tb_condicao_parcela${i}`);
+                    newRowTablecondicap.find("#tb_condicao_formapg").attr("id", `tb_condicao_formapg${i}`);
+                    newRowTablecondicap.find("#tb_condicao_vencimento").attr("id", `tb_condicao_vencimento${i}`);
+                    newRowTablecondicap.find("#tb_condicao_ValorParcela").attr("id", `tb_condicao_ValorParcela${i}`);
+                    porcentagem = porcentagem/100;
+                    valorParcela = qtd_totalProduto*porcentagem;
+                    $(`#tb_condicao_parcela${i}`).text(parcela);
+                    $(`#tb_condicao_formapg${i}`).text(forma_pg);
+                    var day = new Date();
+                    var vencimento = new Date();
+                    vencimento.setDate(day.getDate() + prazo);
+                    $(`#tb_condicao_vencimento${i}`).text(vencimento.toLocaleDateString());
+                    $(`#tb_condicao_ValorParcela${i}`).text('R$'+ valorParcela.toFixed(2));                    
+                });
+                
+            },
+            error: function(data) {
+                return false;
+            }
+        });
     });
 
     

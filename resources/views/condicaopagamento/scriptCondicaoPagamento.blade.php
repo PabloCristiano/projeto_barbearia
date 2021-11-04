@@ -92,8 +92,7 @@
                         type="number"
                         class="form-control prazo"
                         name="prazo"
-                        min="1"
-                        step="1"
+                        min="0"
                         id="prazo"
                         placeholder="Prazo"
                         

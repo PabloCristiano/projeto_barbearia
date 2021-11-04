@@ -99,6 +99,8 @@
         function validador() {
             alert('Deubom');
         }
+        $("#add-newEditar").prop("disabled",true);
+        $('.delete').attr("disabled","disabled");
 
         $(".btnEditarCondPagamento").on('click', function() {
             var teste = false;
@@ -281,7 +283,7 @@
                     $(this).parents('.input-group').find('.btn-search').prop('disabled', true);
                 });
                 $(this).hide();
-                $(".add-new").removeAttr("disabled");
+                //$(".add-new").removeAttr("disabled");
                 $(".btnformapg").removeAttr("disabled");
                 $(".btnEditarCondPagamento").removeAttr("disabled");
 
@@ -291,7 +293,7 @@
 
         // Edit row on edit button click
         $(document).on("click", ".edit", function() {
-            console.log('show Edit')
+            console.log('show Edit');
             window.index = parseInt($(this).parents("tr").find(".numero-parcela").prop("value")) - 1;
             $(this).parents("tr").find(".btn-search, .form-control").not(".numero-parcela").each(
                 function() {
@@ -299,7 +301,7 @@
                     $(this).prop("disabled", false);
                 });
             $(this).parents("tr").find(".add, .edit").toggle();
-            $(".add-new").prop("disabled", "disabled");
+            //$(".add-new").prop("disabled", "disabled");
             $(".btnformapg").prop("disabled", "disabled");
             $(".btnEditarCondPagamento").prop("disabled", "disabled");
         });
@@ -312,7 +314,7 @@
             $("#parcelas-table tr").each(function() {
                 $(this).find('.numero-parcela').val($(this).index() + 1);
             })
-            $(".add-new").removeAttr("disabled");
+            //$(".add-new").removeAttr("disabled");
             $(".btnformapg").removeAttr("disabled");
         });
 
@@ -334,6 +336,7 @@
                 });
             }
             var parcelas = JSON.stringify(arr)
+            $("#total_parcelas").val(qtdparcela);
             return parcelas;
         }
        

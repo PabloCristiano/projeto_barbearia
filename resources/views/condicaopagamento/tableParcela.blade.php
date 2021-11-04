@@ -18,7 +18,7 @@
                                 <input type="number" class="form-control numero-parcela" name="parcela[]" value="{{$getParcela->getParcela()}}" id="parcela" readonly>
                             </td>
                             <td class="col-2">
-                                <input type="number" class="form-control prazo" name="prazo[]" min="1" step="1" id="prazo" placeholder="Prazo" value="{{$getParcela->getPrazo()}}" disabled>
+                                <input type="number" class="form-control prazo" name="prazo[]" min="0"  id="prazo" placeholder="Prazo" value="{{$getParcela->getPrazo()}}" disabled>
                             </td>
                             <td class="col-1">
                                 <input type="number" class="form-control porcentagem" name="porcentagem[]" value="{{$getParcela->getPorcentagem()}}" min="1" max="100" step=".01" id="porcentagem" placeholder="%" disabled>

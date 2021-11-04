@@ -132,6 +132,17 @@ class DaoCondicaoPagamento implements Dao
         }
         return $parcelas;
     }
+    //parcelas condição de Pagamento Produto
+    public function CondicaoPagamentoProduto($idCondicaoPagamento)
+    {
+        $dados = DB::select('select p.parcela, p.prazo, p.porcentagem,p.idformapg, p.data_create, p.data_alt, f.forma_pg from 
+        parcelas as p join forma_pg as f on p.idformapg = f.id where idcondpg = ?', [$idCondicaoPagamento]);
+        $CondicaoPagamentoParcela = array();
+        foreach ($dados as $dadosParcela){            
+            array_push($CondicaoPagamentoParcela, $dadosParcela);
+        }
+        return $CondicaoPagamentoParcela;
+    }
 
     public function store($condicaoPagamento)
     {
@@ -158,6 +169,7 @@ class DaoCondicaoPagamento implements Dao
 
     public function update(Request $request)
     { 
+       
         $itens = json_decode($request->parcelas_array[0], true);
         $dadosParcelas = array();
         foreach ($itens as $item) {
@@ -253,8 +265,8 @@ class DaoCondicaoPagamento implements Dao
         $dados = DB::table('condicao_pg')->where('id', $id)->first();
 
         if ($dados)
-            return $this->create(get_object_vars($dados));
-
+            $dados= $this->create(get_object_vars($dados));
+            
         return $dados;
     }
 
