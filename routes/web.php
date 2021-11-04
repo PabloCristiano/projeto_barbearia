@@ -125,7 +125,7 @@ Route::get('showservicos', ['as' => 'showservicos.showservicos', 'uses' => 'Cont
 Route::get('showcategoria', ['as' => 'showcategoria.showcategoria', 'uses' => 'ControllerCategoria@showcategoria']);
 Route::get('showfornecedor', ['as' => 'showfornecedor.showfornecedor', 'uses' => 'ControllerFornecedor@showFornecedor']);
 Route::get('/showCondicaoPagamento', 'ControllerCondicaoPagamento@showCondicaoPagamento')->name('showCondicaoPagamento');
-
+Route::get('/showProduto', 'ControllerProduto@showProduto')->name('showProduto');
 //Teste
 Route::get('testepablo', ['as' => 'testepablo.testepablo', 'uses' => 'ControllerCidade@edit']);
 

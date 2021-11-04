@@ -11,7 +11,6 @@
             </tr>
         </thead>
         <tbody> 
-           
             @if(isset($produtos))
              @foreach($produtos as $produto)             
             <tr>

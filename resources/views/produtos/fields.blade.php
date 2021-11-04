@@ -136,14 +136,13 @@
 
 <div class="form-row">
     <div class="form-group col-xl-2">
-        <label>Estoque</label>
+        <label>Qtd Estoque</label>
         <input
             type="number"
             id="qtdEstoque"
             name="qtdEstoque"
             class="form-control "
             value=""
-            readonly
         >
 
         
