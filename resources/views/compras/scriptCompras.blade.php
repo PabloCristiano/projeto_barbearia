@@ -157,6 +157,9 @@ const row =
                 </td>
                 <td class="text-center col-2">
                     <div class="btn-group-sm">
+                        <button type="button" class="btn btn-warning edit" title="Editar" data-toggle="modal" data-target="#exampleModalCenter">
+                            <i class="fa fa-edit text-white"></i>
+                        </button>
                         <button type="button" class="btn btn-danger delete" title="Remover">
                             <i class="fa fa-trash-alt"></i>
                         </button>
@@ -198,6 +201,25 @@ const row =
         $("#totalCompra").val(qtd_totalProduto.toFixed(2));
 
     });
+
+    
+    $(document).on("click", "#tableProduto tbody tr td", function() {
+        {{-- fila = $(this).closest("tr");
+        id = parseInt(fila.find('td:eq(0)').text()); //capturo el ID		            
+        formapg = fila.find('td:eq(1)').text(); --}}
+        {{-- $(`#id_forma_pagamento_${index}`).val(id);
+        $(`#forma_pagamento_${index}`).val(formapg);
+        $('.modalShowFormapg').modal('toggle'); --}}
+
+        //alert($(this).text());
+        {{-- var conteudoOriginal = $(this).text();
+        var novoElemento = $('<input/>',{type:'text',value:conteudoOriginal});
+        $(this).html(novoElemento.blur(function(){
+            var conteudoNovo = $(this).val();
+            $(this).parent().html(conteudoNovo);
+        })); --}}
+
+    });
     
     function CalcDesconto(qtd,valor, desc){
         let desconto = (desc/100)
@@ -205,6 +227,7 @@ const row =
         let subTotal = (qtd * valor) - conta;
         return subTotal; 
     }
+
 
    const rowTablecondicao =
     `<tr id='tbCondicao'>
