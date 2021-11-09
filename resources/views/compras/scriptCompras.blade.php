@@ -92,72 +92,34 @@
     });
 
 const row = 
-           `<tr id="tbProduto">
-                <td class="text-center" id="tb_id_produto">
-                    <input
-                        type="hidden"
-                        class="form-control idProduto"
-                        name="id_produto"
-                        id="id_produto"                    
-                    >
+           `<tr id="tablebProduto">
+                <td class="text-center" id="tb_id_produto"  data-id="">
+                    
                     
                 </td>
-                <td class="text-center" id="tb_produto">
-                    <input
-                        type="hidden"
-                        class="form-control produto"
-                        name="id_produto"
-                        id="id_produto"                    
-                    >
+                <td class="text-center produto" id="tb_produto">
+                    
                     
                 </td>
                 <td class="text-center" id="tb_unidade">
-                    <input
-                        type="hidden"
-                        class="form-control unidade"
-                        name="id_produto"
-                        id="id_produto"                    
-                    >
+                    
                     
                 </td>
                 <td class="text-center" id="tb_quantidade">
-                    <input
-                        type="hidden"
-                        class="form-control quandidade"
-                        name="id_produto"
-                        id="id_produto"                    
-                    >
+                    
                 </td>
                 <td class="text-center" id="tb_valorUni">
-                    <input
-                        type="hidden"
-                        class="form-control valorUni"
-                        name="id_produto"
-                        id="id_produto"                    
-                    >
-            
+                    
                 </td>
-                <td class="text-center" id="tb_desconto">
-                    <input
-                        type="hidden"
-                        class="form-control desconto"
-                        name="id_produto"
-                        id="id_produto"                    
-                    >
+                <td class="text-center" id="tb_desconto">                   
 
                 </td>
                 <td class="text-center" id="tb_SubTotal">
-                    <input
-                    type="hidden"
-                    class="form-control subTotal"
-                    name="id_produto"
-                    id="id_produto"                    
-                >
-
+                   
                 </td>
                 <td class="text-center col-2">
                     <div class="btn-group-sm">
-                        <button type="button" class="btn btn-warning edit" title="Editar" data-toggle="modal" data-target="#exampleModalCenter">
+                        <button type="button" class="btn btn-warning edit" title="Editar">
                             <i class="fa fa-edit text-white"></i>
                         </button>
                         <button type="button" class="btn btn-danger delete" title="Remover">
@@ -174,7 +136,7 @@ const row =
         $("#tableProduto tbody").append(newRow);
         const prevRow = newRow.prev();
         window.index = prevRow.index() + 1;
-        newRow.find("#tb_id_produto").attr("id", `tb_id_produto_${index}`);
+        newRow.find("#tb_id_produto").attr("id", `tb_id_produto_${index}`);                
         newRow.find("#tb_produto").attr("id", `tb_produto_${index}`);
         newRow.find("#tb_unidade").attr("id", `tb_unidade_${index}`);
         newRow.find("#tb_quantidade").attr("id", `tb_quantidade_${index}`);
@@ -182,6 +144,9 @@ const row =
         newRow.find("#tb_desconto").attr("id", `tb_desconto_${index}`);
         newRow.find("#tb_SubTotal").attr("id", `tb_SubTotal_${index}`);
 
+       
+
+        $("#tbProduto").attr("id", `tbProduto${index}`);
         $(`#tb_id_produto_${index}`).text($("#id_produto").val());
         $(`#tb_produto_${index}`).text($("#produto").val());
         $(`#tb_unidade_${index}`).text("UNI");
@@ -190,12 +155,12 @@ const row =
         $(`#tb_desconto_${index}`).text($("#desconto").val()+ '%');
         let subTotal = CalcDesconto($("#quantidade").val(),$("#valor_uni").val(),$("#desconto").val());
         $(`#tb_SubTotal_${index}`).text('R$'+ subTotal.toFixed(2) );
-        console.log(subTotal);
+
         $("#id_produto").val('');
         $("#produto").val('');
         $("#quantidade").val('');
         $("#valor_uni").val('');
-        $("#desconto").val('0');
+        $("#desconto").val('');
         $("#btnAddProduto").prop("disabled", true);
         qtd_totalProduto = qtd_totalProduto + subTotal;
         $("#totalCompra").val(qtd_totalProduto.toFixed(2));
@@ -203,21 +168,65 @@ const row =
     });
 
     
-    $(document).on("click", "#tableProduto tbody tr td", function() {
-        {{-- fila = $(this).closest("tr");
-        id = parseInt(fila.find('td:eq(0)').text()); //capturo el ID		            
-        formapg = fila.find('td:eq(1)').text(); --}}
-        {{-- $(`#id_forma_pagamento_${index}`).val(id);
-        $(`#forma_pagamento_${index}`).val(formapg);
-        $('.modalShowFormapg').modal('toggle'); --}}
+    $(document).on("click", ".edit", function(){
+        fila = $(this).closest("tr");
+        id = parseInt(fila.find('td:eq(0)').text());
+        produto = fila.find('td:eq(1)').text();
+        unidade = fila.find('td:eq(2)').text();
+        quantidade = fila.find('td:eq(3)').text();
+        valorUni = fila.find('td:eq(4)').text();
+        desconto = fila.find('td:eq(5)').text();
+        subTotal = fila.find('td:eq(6)').text();
+        valorUni = valorUni.replace("R$","");
+        desconto = desconto.replace("%","");
+        subTotal = subTotal.replace("R$","");
+        
+        $("#codProdutoCompra").val(id);
+        $("#produtoCompra").val(produto);
+        $("#unidadeProduto").val(unidade);
+        $("#quantidadeProduto").val(quantidade);
+        $("#precoCustoProduto").val(valorUni);
+        $("#descontoProduto").val(desconto);
+        $("#subTotalProduto").val(subTotal);
+        $('#exampleModalCenter').modal('show');
 
-        //alert($(this).text());
-        {{-- var conteudoOriginal = $(this).text();
-        var novoElemento = $('<input/>',{type:'text',value:conteudoOriginal});
-        $(this).html(novoElemento.blur(function(){
-            var conteudoNovo = $(this).val();
-            $(this).parent().html(conteudoNovo);
-        })); --}}
+        $("#quantidadeProduto").keyup(function(){
+            qtd = $("#quantidadeProduto").val();
+            valorUni = $("#precoCustoProduto").val();
+            desconto = $("#descontoProduto").val();
+            subTotal = CalcDesconto(qtd,valorUni,desconto);
+            subTotal = subTotal.toFixed(2);
+            $("#subTotalProduto").val(subTotal);
+        });
+        $("#descontoProduto").keyup(function(){
+            qtd = $("#quantidadeProduto").val();
+            valorUni = $("#precoCustoProduto").val();
+            desconto = $("#descontoProduto").val();
+            subTotal = CalcDesconto(qtd,valorUni,desconto);
+            subTotal = subTotal.toFixed(2);
+            $("#subTotalProduto").val(subTotal);
+        });
+        $("#btnEditDetalheProduto").on('click',function(){
+            quantidade = $("#quantidadeProduto").val()
+            desconto =   $("#descontoProduto").val()
+            fila.find('td:eq(3)').text(quantidade);
+            fila.find('td:eq(5)').text(desconto +'%');
+            subTotal = $("#subTotalProduto").val()
+            fila.find('td:eq(6)').text(subTotal);
+            $('#exampleModalCenter').modal('hide');
+            itens = setItensProdutos();
+            itens.forEach(function(data,i){
+              soma = parseInt(data.subTotal);
+              console.log(soma);
+              qtd_totalProduto = ++soma;
+               
+              
+            })
+            console.log(qtd_totalProduto); 
+           
+        })
+        
+        //$("#totalCompra").val();
 
     });
     
@@ -227,7 +236,33 @@ const row =
         let subTotal = (qtd * valor) - conta;
         return subTotal; 
     }
-
+    
+    function setItensProdutos(){
+        const tr = document.querySelectorAll('#tablebProduto');
+        const qtdparcela = tr.length;
+        const arr = [];
+        for (let j = 0; j < qtdparcela; j++){          
+            var id_produto =    tr[j].querySelector(`#tb_id_produto_${j}`).textContent;                
+            var tb_produto =    tr[j].querySelector(`#tb_produto_${j}`).textContent;
+            var tb_unidade =    tr[j].querySelector(`#tb_unidade_${j}`).textContent;
+            var tb_quantidade = tr[j].querySelector(`#tb_quantidade_${j}`).textContent;
+            var tb_valorUni =   tr[j].querySelector(`#tb_valorUni_${j}`).textContent;
+            var tb_desconto =   tr[j].querySelector(`#tb_desconto_${j}`).textContent;
+            var subTotal =      tr[j].querySelector(`#tb_SubTotal_${j}`).textContent; 
+            var id = j;
+            arr.push({
+                id,
+                id_produto,
+                tb_produto,
+                tb_unidade,
+                tb_quantidade,
+                tb_valorUni,
+                tb_desconto,
+                subTotal,
+            });
+        }
+        return arr;
+    }
 
    const rowTablecondicao =
     `<tr id='tbCondicao'>

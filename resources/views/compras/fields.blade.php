@@ -243,7 +243,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                     </tbody>
                     <tfoot>
                         <tr>
@@ -282,24 +282,73 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">DETALHES PRODUTOS</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modalPesonalizado" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">DETALHES PRODUTOS</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-group col-xl-2">
+                        <label>Cód</label>
+                        <input type="number" id="codProdutoCompra" name="codProdutoCompra" class="form-control " value="" readonly>
+                    </div>
+                    <div class="form-group col-xl-8">
+                        <label>Produto</label>
+                        <input type="text" id="produtoCompra" name="produtoCompra" class="form-control" value="" readonly>
+                    </div>
+                    <div class="form-group col-xl-2">
+                        <label>Unidade</label>                        
+                        <input type="text" id="unidadeProduto" name="unidadeProduto" class="form-control" value="" readonly>
+                    </div>
+                </div>                
+                <div class="form-row">
+                    <div class="form-group col-xl-3">
+                        <label>Quantidade</label>
+                        <input type="number" id="quantidadeProduto" name="quantidadeProduto" class="form-control " value="">
+                    </div>
+                    <div class="form-group col-xl-3">
+                        <label>Preço de Custo</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">R$</span>
+                            </div>
+                            <input type="number" id="precoCustoProduto" name="precoCustoProduto" class="form-control" value=""
+                                placeholder="0,00" readonly>
+                        </div>
+                    </div>
+                    <div class="form-group required col-xl-3">
+                        <label>Desconto</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">%</span>
+                            </div>
+                            <input type="number" id="descontoProduto" name="descontoProduto" class="form-control" value=""
+                            placeholder="%" max="100">
+                        </div>
+                    </div>
+                    <div class="form-group col-xl-3">
+                        <label>Sub Total</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">R$</span>
+                            </div>
+                            <input type="number" id="subTotalProduto" name="precoCustoProduto" class="form-control" value=""
+                                placeholder="0,00" readonly>
+                        </div>
+                    </div>
+                </div>               
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark"  id="btnEditDetalheProduto">EDITAR</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 @include('fornecedores.ShowFornecedores')
 @include('condicaopagamento.showCondicaoPagamento')

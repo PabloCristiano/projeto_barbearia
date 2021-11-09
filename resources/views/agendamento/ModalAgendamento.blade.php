@@ -1,5 +1,5 @@
 <div class="modal fade modalagendamento" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modalPesonalizado">
+    <div class="modal-dialog modalPesonalizadoProdutos">
         <div class="modal-content">
           <div class="card-header">
             <div class="d-flex align-items-center justify-content-between">

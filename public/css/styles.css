@@ -5399,6 +5399,10 @@ a.close.disabled {
   min-width: 45%; 
   margin-left: 70;
 }
+.modalPesonalizadoProdutos{
+  min-width: 45%; 
+  margin-left: 70;
+}
 
 .modal.fade .modal-dialog {
   transition: transform 0.3s ease-out;
